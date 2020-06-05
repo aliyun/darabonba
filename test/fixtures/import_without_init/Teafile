@@ -1,0 +1,6 @@
+{
+    "libraries": {
+        "oss": "path/to/oss",
+        "OSS": "./oss.spec"
+    }
+}

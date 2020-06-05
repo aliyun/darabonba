@@ -1,0 +1,6 @@
+
+init();
+
+function putObject(): void {
+
+}
