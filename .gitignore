@@ -3,7 +3,5 @@ node_modules
 .nyc_output/
 coverage/
 *.tgz
-.libraries.json
-libraries/
 dist/
 .DS_Store
