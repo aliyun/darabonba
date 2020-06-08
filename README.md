@@ -4,8 +4,24 @@
 
 ## 组件
 
-- 解析器
-- 生成器
+- 解析器（当前模块）
+- 生成器（陆续开源中）
+    - Java
+    - C#
+    - TypeScript
+    - PHP
+    - Golang
+    - Python
+    - Swift
+    - Dart
+    - Ruby
+    - Lua
+    - Kotlin
+    - C++
+
+## 概念
+
+![](./fixtures/concept.svg)
 
 ## 安装
 
