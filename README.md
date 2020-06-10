@@ -35,10 +35,22 @@
     - Lua
     - Kotlin
     - C++
+- VS Code 插件：提供语法高亮、代码提示、代码格式化、语法检查
+- CLI：命令行工具
+
+## 文档
+
+- 数据类型
+    - 基本类型
+    - 复杂类型
+    - Model
+- 模块包
+- API & Function
+- 语言规范
 
 ## 概念
 
-![](./fixtures/concept.svg)
+![Darabonba 概念图](./fixtures/concept.svg)
 
 ## 安装
 
