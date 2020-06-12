@@ -2738,6 +2738,108 @@ describe('semantic', function () {
     }).to.not.throwError();
   });
 
+  it('construct model expectedType should be ok', function () {
+    
+    let ast = parse(`
+      model M {
+        key: [ string ],
+        fieldLong: long,
+      };
+
+      static function hello(): void {
+        new M{
+          key = [ 'string' ],
+          fieldLong = 3600,
+        };
+      }`, '__filename');
+    let expectedType = ast.moduleBody.nodes[1].functionBody.stmts.stmts[0].object.fields[0].expectedType;
+    expect(expectedType).to.be.eql({
+      'type': 'array',
+      'itemType': {
+        'type': 'basic',
+        'name': 'string'
+      }
+    });
+
+    ast = parse(`
+        model N {}
+        model M {
+          n: [N]
+        };
+
+        static function hello(): void {
+          new M{
+            n = [ new N ]
+          };
+        }`, '__filename');
+    expectedType = ast.moduleBody.nodes[2].functionBody.stmts.stmts[0].object.fields[0].expectedType;
+    expect(expectedType).to.be.eql({
+      'type': 'array',
+      'itemType': {
+        'moduleName': undefined,
+        'type': 'model',
+        'name': 'N'
+      }
+    });
+
+    ast = parse(`
+        model N {}
+        model M {
+          n: N
+        };
+
+        static function hello(): void {
+          new M{
+            n = new N
+          };
+        }`, '__filename');
+    expectedType = ast.moduleBody.nodes[2].functionBody.stmts.stmts[0].object.fields[0].expectedType;
+    expect(expectedType).to.be.eql({
+      'moduleName': undefined,
+      'type': 'model',
+      'name': 'N'
+    });
+
+    ast = parse(`
+        model M {
+          n: map[string] any
+        };
+
+        static function hello(): void {
+          new M{
+            n = {key = 'string'}
+          };
+        }`, '__filename');
+    expectedType = ast.moduleBody.nodes[1].functionBody.stmts.stmts[0].object.fields[0].expectedType;
+    expect(expectedType).to.be.eql({
+      'type': 'map',
+      'keyType': {
+        'type': 'basic',
+        'name': 'string'
+      },
+      'valueType': {
+        'type': 'basic',
+        'name': 'any'
+      }
+    });
+    ast = parse(`
+        model M {
+          n: {}
+        };
+
+        static function hello(): void {
+          new M{
+            n = new M.n
+          };
+        }`, '__filename');
+    expectedType = ast.moduleBody.nodes[1].functionBody.stmts.stmts[0].object.fields[0].expectedType;
+    expect(expectedType).to.be.eql({
+      'moduleName': undefined,
+      'type': 'model',
+      'name': 'M.n'
+    });
+  });
+
   it('vid should be ok', function () {
     expect(function () {
       parse(`

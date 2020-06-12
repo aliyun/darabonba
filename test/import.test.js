@@ -270,7 +270,6 @@ function callOSS(): string {
   it('use module model as model field should ok', function () {
     const ast = readAndParse('fixtures/import_module_model/module_model_as_model_field.spec');
     const [ field ] = ast.models.M.modelBody.nodes;
-    console.log(field);
     expect(field.fieldName.lexeme).to.be('config');
     expect(field.fieldValue.fieldType.type).to.be('moduleModel');
     const [moduleId] = field.fieldValue.fieldType.path;
