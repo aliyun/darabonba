@@ -35,7 +35,7 @@
     - Lua
     - Kotlin
     - C++
-- VS Code 插件：提供语法高亮、代码提示、代码格式化、语法检查
+- [VS Code 插件](https://github.com/aliyun/darabonba-vscode)：提供语法高亮、代码提示、代码格式化、语法检查
 - CLI：命令行工具
 
 ## 文档
