@@ -40,8 +40,9 @@
 
 ## 文档
 
+- [5 分钟上手 Darabonba](./doc/getting_started.md)
 - 数据类型
-    - 基本类型
+    - [基本类型](./doc/types/basic_types.md)
     - 复合类型
     - 模型（Model）
 - 模块包
