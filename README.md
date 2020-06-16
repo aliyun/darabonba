@@ -23,12 +23,12 @@
 
 - 解析器（当前模块）
 - 生成器（陆续开源中）
-    - Java
-    - C#
-    - TypeScript
-    - PHP
-    - Golang
-    - Python
+    - [Java](https://github.com/aliyun/darabonba-java-generator)
+    - [C#](https://github.com/aliyun/darabonba-csharp-generator)
+    - [TypeScript](https://github.com/aliyun/darabonba-typescript-generator)
+    - [PHP](https://github.com/aliyun/darabonba-php-generator)
+    - [Golang](https://github.com/aliyun/darabonba-go-generator)
+    - [Python](https://github.com/aliyun/darabonba-python-generator)
     - Swift
     - Dart
     - Ruby
@@ -36,14 +36,14 @@
     - Kotlin
     - C++
 - [VS Code 插件](https://github.com/aliyun/darabonba-vscode)：提供语法高亮、代码提示、代码格式化、语法检查
-- CLI：命令行工具
+- [CLI](https://github.com/aliyun/darabonba-cli)：命令行工具
 
 ## 文档
 
 - 数据类型
     - 基本类型
-    - 复杂类型
-    - Model
+    - 复合类型
+    - 模型（Model）
 - 模块包
 - API & Function
 - 语言规范
