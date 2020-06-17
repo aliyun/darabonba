@@ -131,6 +131,6 @@ Teafile         hello.tea
 ```
 
 ## 许可证
-Apache-2.0
+[Apache-2.0](/LICENSE)
 
 Copyright (c) 2009-present, Alibaba Cloud All rights reserved.
