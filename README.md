@@ -78,14 +78,14 @@ $ dara init
 package scope: mycompany
 package name: hello
 package version: 1.0.0
-main entry: ./hello.tea
+main entry: ./hello.dara
 ```
 
 完成初始化后，会初始化 2 个文件，即包描述文件和入口文件。
 
 ```sh
 $ ls
-Teafile         hello.tea
+Darafile         hello.dara
 ```
 
 ## 许可证
