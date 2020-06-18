@@ -19,6 +19,10 @@
 
 一种 OpenAPI 应用的领域特定语言。可以利用它为任意风格的接口生成多语言的 SDK、代码示例、测试用例、接口编排等
 
+## 概念
+
+![Darabonba 概念图](./fixtures/concept.svg)
+
 ## 组件
 
 - 解析器（当前模块）
@@ -49,9 +53,6 @@
 - API & Function
 - 语言规范
 
-## 概念
-
-![Darabonba 概念图](./fixtures/concept.svg)
 
 ## 安装
 
@@ -59,50 +60,7 @@
 $ npm install @darabonba/cli -g
 ```
 
-该命令执行后会具有一个 `dara` 命令。
-
-使用方法：
-
-```sh
-$ dara
-
-The CLI for Darabonba 1.0.0
-
-Usage:
-
-    dara <command> [<args>]
-
-Available commands:
-
-start a Darabonba project
-    init          initialization package information
-
-working on the Darabonba project
-    check         syntax check for tea file
-    serve         start local server for browsing & debugging
-    codegen       generate codes
-    test          run tests
-    exec          execute the static main method of module
-    install       install the dependencies from repository
-    info          get the info of a tea scope or pakcage
-    clean         clean the libraries folder
-    build         build ast file for tea file
-    format        format the tea source file
-    config        view or update configuration
-
-working with Tea Repository(as maintainer)
-    pack          pack the project as a *.tgz file
-    login         add user or login to repository
-    publish       publish the tea package to repository
-    unpublish     unpublish the publish module
-    maintainer    manage the maintainer of a scope or a tea package
-    scope         add a scope
-    score         get tea package score
-
-help commands
-    help          print the help information
-
-```
+该命令执行后会具有一个 `dara` 命令，关于 `dara` 命令的详情可参考 [CLI](https://github.com/aliyun/darabonba-cli)。
 
 ## 快速上手
 
