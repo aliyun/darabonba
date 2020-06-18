@@ -1,5 +1,5 @@
 {
     "libraries": {
-        "oss": "./oss.spec"
+        "oss": "./oss.dara"
     }
 }

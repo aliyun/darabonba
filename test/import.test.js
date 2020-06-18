@@ -27,16 +27,16 @@ describe('import', function () {
 
   it('no package.json should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_no_package_json/main.spec');
+      readAndParse('fixtures/import_no_package_json/main.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
-      expect(e.message).to.be(`the Teafile not exists`);
+      expect(e.message).to.be(`the Darafile not exists`);
     });
   });
 
   it('import module duplicate should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_duplicate/main.spec');
+      readAndParse('fixtures/import_duplicate/main.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the module id "oss" has been imported`);
@@ -45,10 +45,10 @@ describe('import', function () {
 
   it('import undefined module should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_undefined/main.spec');
+      readAndParse('fixtures/import_undefined/main.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
-      expect(e.message).to.be(`the import "oss" not defined in Teafile`);
+      expect(e.message).to.be(`the import "oss" not defined in Darafile`);
     });
   });
 
@@ -68,11 +68,11 @@ function callOSS(): string {
 
   it('module call should be ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_ok/main.spec');
+      readAndParse('fixtures/import_ok/main.dara');
     }).to.not.throwException();
 
     expect(function () {
-      readAndParse('fixtures/import_ok/variable_undefined.spec');
+      readAndParse('fixtures/import_ok/variable_undefined.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`variable "test" undefined`);
@@ -81,7 +81,7 @@ function callOSS(): string {
 
   it('no init should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_without_init/main.spec');
+      readAndParse('fixtures/import_without_init/main.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the module "OSS" don't has init`);
@@ -90,7 +90,7 @@ function callOSS(): string {
 
   it('parameter mismatch(for init call) should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_init_params/main.spec');
+      readAndParse('fixtures/import_init_params/main.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the parameter types are mismatched. expected new OSS(string), but new OSS(boolean)`);
@@ -99,7 +99,7 @@ function callOSS(): string {
 
   it('undefined api/function should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_method_undefined/main.spec');
+      readAndParse('fixtures/import_method_undefined/main.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the instance function/api "putObject" is undefined in OSS`);
@@ -108,7 +108,7 @@ function callOSS(): string {
 
   it('parameter mismatch(for static call) should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_call/main.spec');
+      readAndParse('fixtures/import_module_call/main.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the parameter types are mismatched. expected OSS.putObject(boolean), but OSS.putObject(string)`);
@@ -117,13 +117,13 @@ function callOSS(): string {
 
   it('parameter matched should ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_call/parameter_matched.spec');
+      readAndParse('fixtures/import_module_call/parameter_matched.dara');
     }).to.not.throwException();
   });
 
   it('mismatch(extern model) should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_call/mismatch_extern_model.spec');
+      readAndParse('fixtures/import_module_call/mismatch_extern_model.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the parameter types are mismatched. expected OSS.put(OSS#MyModel), but OSS.put()`);
@@ -132,7 +132,7 @@ function callOSS(): string {
 
   it('call static via instance call should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_call/call_static_method.spec');
+      readAndParse('fixtures/import_module_call/call_static_method.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the instance function/api "staticPutObject" is undefined in OSS`);
@@ -141,7 +141,7 @@ function callOSS(): string {
 
   it('mismatch(module instance) should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_call/mismatch_module_instance.spec');
+      readAndParse('fixtures/import_module_call/mismatch_module_instance.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the parameter types are mismatched. expected test(string), but test(OSS)`);
@@ -150,19 +150,19 @@ function callOSS(): string {
 
   it('return module should ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_call/return_module.spec');
+      readAndParse('fixtures/import_module_call/return_module.dara');
     }).to.not.throwException();
   });
 
   it('return module model should ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_call/return_module_model.spec');
+      readAndParse('fixtures/import_module_call/return_module_model.dara');
     }).to.not.throwException();
   });
 
   it('return inexist module model should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_call/return_inexist_module_model.spec');
+      readAndParse('fixtures/import_module_call/return_inexist_module_model.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the model InExistModel is inexist in OSS`);
@@ -171,7 +171,7 @@ function callOSS(): string {
 
   it('use inexist static method should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_call_static/inexist.spec');
+      readAndParse('fixtures/import_module_call_static/inexist.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the static function "inexist" is undefined in Assert`);
@@ -180,7 +180,7 @@ function callOSS(): string {
 
   it('use static method with non-static function should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_call_static/non_static.spec');
+      readAndParse('fixtures/import_module_call_static/non_static.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the "equal" is not static function`);
@@ -189,7 +189,7 @@ function callOSS(): string {
 
   it('mismatch types in static call should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_call_static/mismatch.spec');
+      readAndParse('fixtures/import_module_call_static/mismatch.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the parameter types are mismatched. expected Assert.staticEqual(any, any, string), but Assert.staticEqual(string)`);
@@ -198,13 +198,13 @@ function callOSS(): string {
 
   it('static call should ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_call_static/ok.spec');
+      readAndParse('fixtures/import_module_call_static/ok.dara');
     }).to.not.throwException();
   });
 
   it('use not installed remote module should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_remote/main.spec');
+      readAndParse('fixtures/import_remote/main.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the module id "OSS" has not installed, use \`tea install\` first`);
@@ -213,7 +213,7 @@ function callOSS(): string {
 
   it('use not installed remote module(with lock file) should ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_not_installed_remote/main.spec');
+      readAndParse('fixtures/import_not_installed_remote/main.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the module id "OSS" has not installed, use \`tea install\` first`);
@@ -222,13 +222,19 @@ function callOSS(): string {
 
   it('use installed remote module should ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_installed_remote/main.spec');
+      readAndParse('fixtures/import_installed_remote/main.dara');
+    }).to.not.throwException();
+  });
+
+  it('use module by old way should ok', function () {
+    expect(function () {
+      readAndParse('fixtures/import_by_tea/main.tea');
     }).to.not.throwException();
   });
 
   it('use undefined aliasId in construct module model should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_model/undefined_aliasid.spec');
+      readAndParse('fixtures/import_module_model/undefined_aliasid.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`expected "OSSX" is module or model`);
@@ -237,14 +243,14 @@ function callOSS(): string {
 
   it('use undefined model in construct module model should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_model/undefined_model.spec');
+      readAndParse('fixtures/import_module_model/undefined_model.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the model "ConfigX" is undefined in module "OSS"`);
     });
 
     expect(function () {
-      readAndParse('fixtures/import_module_model/undefined_sub_model.spec');
+      readAndParse('fixtures/import_module_model/undefined_sub_model.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the model "M.N.X" is undefined`);
@@ -253,7 +259,7 @@ function callOSS(): string {
 
   it('use undefined model in construct module model should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_model/module_call.spec');
+      readAndParse('fixtures/import_module_model/module_call.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the return type is not expected, expect: void, actual: string`);
@@ -261,14 +267,14 @@ function callOSS(): string {
   });
 
   it('use module as model field should ok', function () {
-    const ast = readAndParse('fixtures/import_module_model/module_as_model_field.spec');
+    const ast = readAndParse('fixtures/import_module_model/module_as_model_field.dara');
     const [ field ] = ast.models.M.modelBody.nodes;
     expect(field.fieldName.lexeme).to.be('oss');
     expect(field.fieldValue.fieldType.idType).to.be('module');
   });
 
   it('use module model as model field should ok', function () {
-    const ast = readAndParse('fixtures/import_module_model/module_model_as_model_field.spec');
+    const ast = readAndParse('fixtures/import_module_model/module_model_as_model_field.dara');
     const [ field ] = ast.models.M.modelBody.nodes;
     expect(field.fieldName.lexeme).to.be('config');
     expect(field.fieldValue.fieldType.type).to.be('moduleModel');
@@ -278,13 +284,13 @@ function callOSS(): string {
 
   it('construct module model should ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_model/module_call_ok.spec');
+      readAndParse('fixtures/import_module_model/module_call_ok.dara');
     }).to.not.throwException();
   });
 
   it('set undefined field in construct module model should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_model/model_no_field.spec');
+      readAndParse('fixtures/import_module_model/model_no_field.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the property "accessKeySecret" is undefined in model "OSS.Config"`);
@@ -293,7 +299,7 @@ function callOSS(): string {
 
   it('set mismatched type to field in construct module model should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/import_module_model/model_invalid_type.spec');
+      readAndParse('fixtures/import_module_model/model_invalid_type.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the field type are mismatched. expected string, but number`);
@@ -302,7 +308,7 @@ function callOSS(): string {
 
   it('extends unimported module should not ok', function () {
     expect(function () {
-      readAndParse('fixtures/extends/extends_unimported.spec');
+      readAndParse('fixtures/extends/extends_unimported.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the extends "OSS" wasn't imported`);
@@ -311,17 +317,17 @@ function callOSS(): string {
 
   it('extends imported module should ok', function () {
     expect(function () {
-      readAndParse('fixtures/extends/main.spec');
+      readAndParse('fixtures/extends/main.dara');
     }).to.not.throwException();
   });
 
   it('super call should ok', function () {
     expect(function () {
-      readAndParse('fixtures/extends/super.spec');
+      readAndParse('fixtures/extends/super.dara');
     }).to.not.throwException();
 
     expect(function () {
-      readAndParse('fixtures/extends/super_types_mismatched.spec');
+      readAndParse('fixtures/extends/super_types_mismatched.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the parameter types are mismatched. expected OSS(string), but OSS(number)`);
@@ -329,7 +335,7 @@ function callOSS(): string {
   });
 
   it('id type(module, model, variable) should ok', function () {
-    const ast = readAndParse('fixtures/variables/main.spec');
+    const ast = readAndParse('fixtures/variables/main.dara');
     const [, f1] = ast.moduleBody.nodes;
     const [, p1, p2, p3] = f1.functionBody.stmts.stmts;
     expect(p1.id.type).to.be('variable');
@@ -338,7 +344,7 @@ function callOSS(): string {
   });
 
   it('module instance should ok', function () {
-    const ast = readAndParse('fixtures/module_instance/main.spec');
+    const ast = readAndParse('fixtures/module_instance/main.dara');
     const [f1] = ast.moduleBody.nodes;
     const [s1] = f1.functionBody.stmts.stmts;
     expect(s1).to.be.eql({

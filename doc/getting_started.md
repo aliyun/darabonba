@@ -49,16 +49,16 @@ help commands
 
 ## 构建你的第一个 Darabonba 模块
 
-在编辑器，将下面的代码输入到 `Teafile` 文件里：
+在编辑器，将下面的代码输入到 `Darafile` 文件里：
 ```json
 {
   "scope": "darabonba",
   "name": "sample",
   "version": "1.0.0",
-  "main": "/main.tea"
+  "main": "./main.dara"
 }
 ```
-在编辑器，将下面的代码输入到 `main.tea` 文件里：
+在编辑器，将下面的代码输入到 `main.dara` 文件里：
 ```dara
 type @organization = string
 

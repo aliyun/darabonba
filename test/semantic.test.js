@@ -1052,7 +1052,7 @@ describe('semantic', function () {
 
   it('declare with moduleModel should ok', function () {
     expect(function () {
-      readAndParse('fixtures/declare_module_model/main.spec');
+      readAndParse('fixtures/declare_module_model/main.dara');
     }).to.not.throwException();
   });
 
@@ -2928,7 +2928,7 @@ describe('semantic', function () {
     }).to.not.throwError();
 
     expect(function () {
-      readAndParse('fixtures/module_assign/main.spec');
+      readAndParse('fixtures/module_assign/main.dara');
     }).to.not.throwError();
   });
 
