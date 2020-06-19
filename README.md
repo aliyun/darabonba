@@ -47,7 +47,7 @@
 - [5 分钟上手 Darabonba](./doc/getting_started.md)
 - 数据类型
     - [基本类型](./doc/types/basic_types.md)
-    - 复合类型
+    - [复合类型](./doc/types/complex_types.md)
     - 模型（Model）
 - 模块包
 - API & Function
