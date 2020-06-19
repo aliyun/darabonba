@@ -49,16 +49,30 @@ help commands
 
 ## 构建你的第一个 Darabonba 模块
 
-在编辑器，将下面的代码输入到 `Darafile` 文件里：
-```json
-{
-  "scope": "darabonba",
-  "name": "sample",
-  "version": "1.0.0",
-  "main": "./main.dara"
-}
+我们假设要创建一个模块为 hello。首先创建一个目录：
+
+```sh
+$ mkdir hello
+$ cd hello
 ```
-在编辑器，将下面的代码输入到 `main.dara` 文件里：
+使用 `dara` 命令初始化模块：
+
+```sh
+$ dara init
+package scope: mycompany
+package name: hello
+package version: 1.0.0
+main entry: ./hello.dara
+```
+
+完成初始化后，会初始化 2 个文件，即包描述文件和入口文件。
+
+```sh
+$ ls
+Darafile         hello.dara
+```
+
+在编辑器中，将下面的代码输入到 `hello.dara` 文件里：
 ```dara
 type @organization = string
 
@@ -91,7 +105,7 @@ static function getUser(username: string, age: number): string {
 ```
 
 ## 生成代码
-Darabonba 主要的作用是利用它为任意风格的接口生成多语言的 SDK 、代码示例、测试用例、接口编排等，比如我们生成 TypeScript 的代码就可以直接利用下面的命令编译 `main.tea` 并将生成的代码输出到同目录下的 tmp 文件夹中：
+Darabonba 主要的作用是利用它为任意风格的接口生成多语言的 SDK 、代码示例、测试用例、接口编排等，比如我们生成 TypeScript 的代码就可以直接利用下面的命令编译 `hello.tea` 并将生成的代码输出到同目录下的 tmp 文件夹中：
 ```sh
 $ dara codegen ts ./tmp
 ```
