@@ -62,31 +62,6 @@ $ npm install @darabonba/cli -g
 
 该命令执行后会具有一个 `dara` 命令，关于 `dara` 命令的详情可参考 [CLI](https://github.com/aliyun/darabonba-cli)。
 
-## 快速上手
-
-创建一个模块。假设该模块为 hello。创建一个目录：
-
-```sh
-$ mkdir hello
-$ cd hello
-```
-
-初始化模块：
-
-```sh
-$ dara init
-package scope: mycompany
-package name: hello
-package version: 1.0.0
-main entry: ./hello.dara
-```
-
-完成初始化后，会初始化 2 个文件，即包描述文件和入口文件。
-
-```sh
-$ ls
-Darafile         hello.dara
-```
 
 ## 许可证
 [Apache-2.0](/LICENSE)
