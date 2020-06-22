@@ -4,7 +4,7 @@
 
 ## Darabonba
 
-![Darabonba 流程图](../fixtures/dara_flow.png)
+![Darabonba 流程图](../fixtures/dara_flow.svg)
 
 ## 安装 Darabonba CLI
 
