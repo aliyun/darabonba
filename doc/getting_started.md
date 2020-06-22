@@ -33,10 +33,7 @@ start a Darabonba project
 
 working on the Darabonba project
     check         syntax check for tea file
-    serve         start local server for browsing & debugging
     codegen       generate codes
-    exec          execute the static main method of module
-    info          get the info of a tea scope or pakcage
     clean         clean the libraries folder
     build         build ast file for tea file
     format        format the tea source file
