@@ -48,7 +48,7 @@
 - 数据类型
     - [基本类型](./doc/types/basic_types.md)
     - [复合类型](./doc/types/complex_types.md)
-    - 模型（Model）
+    - [模型（Model）](./doc/types/model.md)
 - 模块包
 - API & Function
 - 语言规范
