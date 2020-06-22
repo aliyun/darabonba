@@ -55,6 +55,7 @@ help commands
 $ mkdir hello
 $ cd hello
 ```
+
 使用 `dara` 命令初始化模块：
 
 ```sh
@@ -73,6 +74,7 @@ Darafile         hello.dara
 ```
 
 在编辑器中，将下面的代码输入到 `hello.dara` 文件里：
+
 ```dara
 type @organization = string
 
@@ -106,7 +108,9 @@ static function getUser(username: string, age: number): string {
 
 ## 生成代码
 Darabonba 主要的作用是利用它为任意风格的接口生成多语言的 SDK 、代码示例、测试用例、接口编排等，比如我们生成 TypeScript 的代码就可以直接利用下面的命令编译 `hello.tea` 并将生成的代码输出到同目录下的 tmp 文件夹中：
+
 ```sh
 $ dara codegen ts ./tmp
 ```
+
 其他语言输入对应的将 ts 替换为对应的 java、csharp、python、go、php 即可。

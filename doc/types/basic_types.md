@@ -70,6 +70,7 @@ var sentence: string = "Hello, my name is " + name + ".\n\n" +
 ## 字节序列
 
 Darabonba 提供了字节序列，目前只支持赋值 null 给 bytes 类型的变量。
+
 ```dara
 var data: bytes = null;
 ```
@@ -77,6 +78,7 @@ var data: bytes = null;
 ## readable
 
 Darabonba 定义了 readable 类型来为流式数据的传输提供了支持，可以将字符串赋值给 readable 类型的变量。
+
 ```dara
 var readStream: readable = null;
 ```
@@ -84,6 +86,7 @@ var readStream: readable = null;
 ## writable
 
 Darabonba 定义了 writable 类型来为流式数据的传输提供了支持，目前只支持赋值 null 给 writable 类型的变量 。
+
 ```dara
 var data: writable = null;
 ```
