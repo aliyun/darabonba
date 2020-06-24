@@ -50,7 +50,7 @@
     - [复合类型](./doc/types/complex_types.md)
     - [模型（Model）](./doc/types/model.md)
 - [模块包](./doc/module.md)
-- API & Function
+- [API & Function](./doc/function_and_api.md)
 - 语言规范
 
 
