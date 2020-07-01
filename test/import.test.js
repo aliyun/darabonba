@@ -302,7 +302,7 @@ function callOSS(): string {
       readAndParse('fixtures/import_module_model/model_invalid_type.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
-      expect(e.message).to.be(`the field type are mismatched. expected string, but number`);
+      expect(e.message).to.be(`the field type are mismatched. expected string, but integer`);
     });
   });
 
@@ -330,7 +330,7 @@ function callOSS(): string {
       readAndParse('fixtures/extends/super_types_mismatched.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
-      expect(e.message).to.be(`the parameter types are mismatched. expected OSS(string), but OSS(number)`);
+      expect(e.message).to.be(`the parameter types are mismatched. expected OSS(string), but OSS(integer)`);
     });
   });
 

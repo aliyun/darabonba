@@ -213,7 +213,7 @@ describe('semantic', function () {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the parameter ` +
         `types are mismatched. expected xcall(string, string, string), ` +
-        `but xcall(string, number, boolean)`);
+        `but xcall(string, integer, boolean)`);
     });
 
     expect(() => {
@@ -1690,7 +1690,7 @@ describe('semantic', function () {
         m.body = 1234;}`, '__filename');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
-      expect(e.message).to.be(`can't assign number to readable`);
+      expect(e.message).to.be(`can't assign integer to readable`);
     });
   });
 
@@ -2181,7 +2181,7 @@ describe('semantic', function () {
         }`, '__filename');
     }).to.throwException((ex) => {
       expect(ex).to.be.a(SyntaxError);
-      expect(ex.message).to.be('the return type is not expected, expect: map[string]string, actual: map[string]number');
+      expect(ex.message).to.be('the return type is not expected, expect: map[string]string, actual: map[string]integer');
     });
 
     expect(function () {
@@ -3117,5 +3117,683 @@ describe('semantic', function () {
       }
     `, '__filename');
     expect(ast.usedTypes.has('readable')).to.be(true);
+  });
+
+  it('number type check in assign expr should ok', function () {
+    expect(function () {
+      parse(`
+      init() {
+        var num: number = 123;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var num: number = 1.23;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var num: number = 1.23d;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var num: number = 123L;
+      }`, '__filename');
+    }).to.not.throwError();
+
+
+    expect(function () {
+      parse(`
+      init() {
+        var intNum: integer = 123;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var int8Num: int8 = 123;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var uint8Num: uint8 = 123;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var int16Num: int16 = 123;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var uint16Num: uint16 = 123;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var int32Num: int32 = 123;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var uint32Num: uint32 = 123;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var int64Num: int64 = 123;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var uint64Num: uint64 = 123;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var longNum: long = 123L;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var ulongNum: ulong = 123L;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var longNum: long = 123;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var ulongNum: ulong = 123;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var floatNum: float = 1.23;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var doubleNum: double = 1.23d;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var intNum: integer = 1.23;
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('declared variable with mismatched type, expected: integer, actual: float');
+    });
+
+    expect(function () {
+      parse(`
+      init() {
+        var intNum: integer = 1.23d;
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('declared variable with mismatched type, expected: integer, actual: double');
+    });
+
+    expect(function () {
+      parse(`
+      init() {
+        var intNum: integer = 123L;
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('declared variable with mismatched type, expected: integer, actual: long');
+    });
+
+    expect(function () {
+      parse(`
+      init() {
+        var floatNum: float = 123;
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('declared variable with mismatched type, expected: float, actual: integer');
+    });
+
+    expect(function () {
+      parse(`
+      init() {
+        var floatNum: float = 1.23d;
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('declared variable with mismatched type, expected: float, actual: double');
+    });
+
+    expect(function () {
+      parse(`
+      init() {
+        var floatNum: float = 123L;
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('declared variable with mismatched type, expected: float, actual: long');
+    });
+
+    expect(function () {
+      parse(`
+      init() {
+        var doubleNum: double = 1.23;
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('declared variable with mismatched type, expected: double, actual: float');
+    });
+
+    expect(function () {
+      parse(`
+      init() {
+        var doubleNum: double = 123;
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('declared variable with mismatched type, expected: double, actual: integer');
+    });
+
+    expect(function () {
+      parse(`
+      init() {
+        var doubleNum: double = 123L;
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('declared variable with mismatched type, expected: double, actual: long');
+    });
+
+    expect(function () {
+      parse(`
+      init() {
+        var longNum: long = 1.23;
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('declared variable with mismatched type, expected: long, actual: float');
+    });
+
+    expect(function () {
+      parse(`
+      init() {
+        var longNum: long = 1.23d;
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('declared variable with mismatched type, expected: long, actual: double');
+    });
+  });
+
+  it('number type check in modle construct should ok', function () {
+    expect(function () {
+      parse(`
+      model M {
+        intNum: integer,
+        int8Num: int8,
+        uint8Num: uint8,
+        int16Num: int16,
+        uint16Num: uint16,
+        int32Num: int32,
+        uint32Num: uint32,
+        int64Num: int64,
+        uint64Num: uint64,
+        longNum: long,
+        ulongNum: ulong,
+        floatNum: float,
+        doubleNum: double
+      }
+
+      init() {
+        var m = new M{
+          intNum = 123,
+          int8Num = 123,
+          uint8Num = 123,
+          int16Num = 123,
+          uint16Num = 123,
+          int32Num = 123,
+          uint32Num = 123,
+          int64Num = 123,
+          uint64Num = 123,
+          longNum = 123L,
+          ulongNum = 123L,
+          floatNum = 1.23,
+          doubleNum = 1.23d
+        };
+      }`, '__filename');
+    }).to.not.throwError();
+    
+
+    expect(function () {
+      parse(`
+      model M {
+        intNum: integer
+      }
+      init() {
+        var m = new M{
+          intNum = 1.23
+        };
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the field type are mismatched. expected integer, but float');
+    });
+
+    expect(function () {
+      parse(`
+      model M {
+        intNum: integer
+      }
+      init() {
+        var m = new M{
+          intNum = 1.23d
+        };
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the field type are mismatched. expected integer, but double');
+    });
+
+    expect(function () {
+      parse(`
+      model M {
+        intNum: integer
+      }
+      init() {
+        var m = new M{
+          intNum = 123L
+        };
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the field type are mismatched. expected integer, but long');
+    });
+
+    expect(function () {
+      parse(`
+      model M {
+        longNum: long
+      }
+      init() {
+        var m = new M{
+          longNum = 1.23
+        };
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the field type are mismatched. expected long, but float');
+    });
+
+    expect(function () {
+      parse(`
+      model M {
+        longNum: long
+      }
+      init() {
+        var m = new M{
+          longNum = 1.23d
+        };
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the field type are mismatched. expected long, but double');
+    });
+
+    expect(function () {
+      parse(`
+      model M {
+        floatNum: float
+      }
+      init() {
+        var m = new M{
+          floatNum = 123L
+        };
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the field type are mismatched. expected float, but long');
+    });
+
+    expect(function () {
+      parse(`
+      model M {
+        floatNum: float
+      }
+      init() {
+        var m = new M{
+          floatNum = 1.23d
+        };
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the field type are mismatched. expected float, but double');
+    });
+
+    expect(function () {
+      parse(`
+      model M {
+        floatNum: float
+      }
+      init() {
+        var m = new M{
+          floatNum = 123
+        };
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the field type are mismatched. expected float, but integer');
+    });
+
+    expect(function () {
+      parse(`
+      model M {
+        doubleNum: double
+      }
+      init() {
+        var m = new M{
+          doubleNum = 123L
+        };
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the field type are mismatched. expected double, but long');
+    });
+
+    expect(function () {
+      parse(`
+      model M {
+        doubleNum: double
+      }
+      init() {
+        var m = new M{
+          doubleNum = 1.23
+        };
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the field type are mismatched. expected double, but float');
+    });
+
+    expect(function () {
+      parse(`
+      model M {
+        doubleNum: double
+      }
+      init() {
+        var m = new M{
+          doubleNum = 123
+        };
+      }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the field type are mismatched. expected double, but integer');
+    });
+  });
+
+  it('parameters number type check in method call should ok', function () {
+    expect(() => {
+      parse(`
+        api get(intNum: number, floatNum: number, longNum: long): string {
+          __request.method = 'GET';
+          __request.pathname = '/';
+        }
+
+        async function getObject(): string {
+          return get(123, 1.23, 123L);
+        }
+
+        init() {}`, '__filename');
+    }).to.not.throwError();
+
+    expect(() => {
+      parse(`
+        api get(num: integer): string {
+          __request.method = 'GET';
+          __request.pathname = '/';
+        }
+
+        async function getObject(): string {
+          return get(123);
+        }
+        
+        init() {}`, '__filename');
+    }).to.not.throwError();
+
+    expect(() => {
+      parse(`
+          api get(
+            int8Num: int8,
+            uint8Num: uint8,
+            int16Num: int16,
+            uint16Num: uint16,
+            int32Num: int32,
+            uint32Num: uint32,
+            int64Num: int64,
+            uint64Num: uint64
+          ): string {
+            __request.method = 'GET';
+            __request.pathname = '/';
+          }
+
+          async function getObject(): string {
+            get(
+              8, 8,
+              16, 16,
+              32, 32,
+              64, 64
+            );
+          }
+          
+          init() {}`, '__filename');
+    }).to.not.throwError();
+
+    expect(() => {
+      parse(`
+          api get(longNum: long, ulongNum: ulong): string {
+            __request.method = 'GET';
+            __request.pathname = '/';
+          }
+
+          async function getObject(): string {
+            return get(123L, 123L);
+          }
+
+          async function getOtherObject(): string {
+            return get(123, 123);
+          }
+
+          init() {}`, '__filename');
+    }).to.not.throwError();
+
+    expect(() => {
+      parse(`
+          api get(floatNum: float, doubleNum: double): string {
+            __request.method = 'GET';
+            __request.pathname = '/';
+          }
+
+          async function getObject(): string {
+            return get(1.23, 1.23d);
+          }
+          
+          init() {}`, '__filename');
+    }).to.not.throwError();
+
+    expect(() => {
+      parse(`
+          api get(num: integer): string {
+            __request.method = 'GET';
+            __request.pathname = '/';
+          }
+
+          async function getObject(): string {
+            return get(1.23);
+          }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the parameter types are mismatched. expected get(integer), but get(float)');
+    });
+
+    expect(() => {
+      parse(`
+          api get(num: integer): string {
+            __request.method = 'GET';
+            __request.pathname = '/';
+          }
+
+          async function getObject(): string {
+            return get(1.23d);
+          }
+          
+          init() {}`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the parameter types are mismatched. expected get(integer), but get(double)');
+    });
+
+    expect(() => {
+      parse(`
+          api get(num: integer): string {
+            __request.method = 'GET';
+            __request.pathname = '/';
+          }
+
+          async function getObject(): string {
+            return get(123L);
+          }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the parameter types are mismatched. expected get(integer), but get(long)');
+    });
+
+    expect(() => {
+      parse(`
+          api get(num: float): string {
+            __request.method = 'GET';
+            __request.pathname = '/';
+          }
+
+          async function getObject(): string {
+            return get(123);
+          }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the parameter types are mismatched. expected get(float), but get(integer)');
+    });
+
+    expect(() => {
+      parse(`
+          api get(num: float): string {
+            __request.method = 'GET';
+            __request.pathname = '/';
+          }
+
+          async function getObject(): string {
+            return get(1.23d);
+          }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the parameter types are mismatched. expected get(float), but get(double)');
+    });
+
+    expect(() => {
+      parse(`
+          api get(num: float): string {
+            __request.method = 'GET';
+            __request.pathname = '/';
+          }
+
+          async function getObject(): string {
+            return get(123L);
+          }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the parameter types are mismatched. expected get(float), but get(long)');
+    });
+
+    expect(() => {
+      parse(`
+          api get(num: double): string {
+            __request.method = 'GET';
+            __request.pathname = '/';
+          }
+
+          async function getObject(): string {
+            return get(123);
+          }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the parameter types are mismatched. expected get(double), but get(integer)');
+    });
+
+    expect(() => {
+      parse(`
+          api get(num: double): string {
+            __request.method = 'GET';
+            __request.pathname = '/';
+          }
+
+          async function getObject(): string {
+            return get(1.23);
+          }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the parameter types are mismatched. expected get(double), but get(float)');
+    });
+
+    expect(() => {
+      parse(`
+          api get(num: double): string {
+            __request.method = 'GET';
+            __request.pathname = '/';
+          }
+
+          async function getObject(): string {
+            return get(123L);
+          }`, '__filename');
+    }).to.throwError((ex) => {
+      expect(ex).to.be.an(SyntaxError);
+      expect(ex.message).to.be('the parameter types are mismatched. expected get(double), but get(long)');
+    });
   });
 });
