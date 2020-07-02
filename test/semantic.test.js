@@ -2927,6 +2927,31 @@ describe('semantic', function () {
         `, '__filename');
     }).to.not.throwError();
 
+
+    expect(function () {
+      parse(`
+        model M {
+          key: {
+            key2: [{
+              key3: string
+            }]
+          }
+        };
+
+        static function main(): void {
+          var key3 = new M.key.key2{
+            key3 = 'key3'
+          }; 
+          var key = new M.key{
+            key2 = [key3]
+          };
+          var m = new M{
+            key = key
+          };
+        }
+        `, '__filename');
+    }).to.not.throwError();
+
     expect(function () {
       readAndParse('fixtures/module_assign/main.dara');
     }).to.not.throwError();

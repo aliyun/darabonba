@@ -13,5 +13,13 @@ model FileInfo = {
 
 model File = {
   filename: string,
-  info: FileInfo
+  info: FileInfo,
+  meta: {
+    size: number,
+    author: [{
+      name: string,
+      age: number
+    }]
+  },
+
 };
