@@ -1,3 +1,5 @@
+![Darabonba Logo](./fixtures/dara_logo.svg)
+
 # Darabonba(原名 TeaDSL)
 
 [![NPM version][npm-image]][npm-url]
@@ -17,7 +19,7 @@
 [download-image]: https://img.shields.io/npm/dm/@darabonba/parser.svg?style=flat-square
 [download-url]: https://npmjs.org/package/@darabonba/parser
 
-一种 OpenAPI 应用的领域特定语言。可以利用它为任意风格的接口生成多语言的 SDK、代码示例、测试用例、接口编排等
+一种 OpenAPI 应用的领域特定语言。可以利用它为任意风格的接口生成多语言的 SDK、代码示例、测试用例、接口编排等。
 
 ## 概念
 
