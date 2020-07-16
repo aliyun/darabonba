@@ -3821,4 +3821,18 @@ describe('semantic', function () {
       expect(ex.message).to.be('the parameter types are mismatched. expected get(double), but get(long)');
     });
   });
+
+  it('conflict models should ok', function () { 
+    let ast = readAndParse('fixtures/module_model_conflict/module_model_in_function.dara');
+    expect(ast.conflictModels.has('OSS:Config')).to.be(true);
+    ast = readAndParse('fixtures/module_model_conflict/module_model_in_model.dara');
+    expect(ast.conflictModels.has('OSS:Config')).to.be(true);
+    ast = readAndParse('fixtures/module_model_conflict/module_model_in_params.dara');
+    expect(ast.conflictModels.has('OSS:Config')).to.be(true);
+    ast = readAndParse('fixtures/module_model_conflict/module_model_conflict_other.dara');
+    expect(ast.conflictModels.has('OSS:Config')).to.be(false);
+    expect(ast.conflictModels.has('Source:Config')).to.be(true);
+    ast = readAndParse('fixtures/module_model_conflict/module_model_unuse.dara');
+    expect(ast.conflictModels.has('OSS:Config')).to.be(false);
+  });
 });

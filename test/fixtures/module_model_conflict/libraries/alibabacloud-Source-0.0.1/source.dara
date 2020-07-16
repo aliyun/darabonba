@@ -1,0 +1,5 @@
+model Config {
+    SourceId: string
+};
+
+init(config: Config);

@@ -1,0 +1,4 @@
+import OSS
+import Source
+
+init(config1: Source.Config, config2: OSS.Config) { }
