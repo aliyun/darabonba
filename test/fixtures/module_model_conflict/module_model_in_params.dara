@@ -1,0 +1,7 @@
+import OSS
+
+model Config {
+    name: string
+};
+
+init(config: Config, moduleConfig: OSS.Config) { }

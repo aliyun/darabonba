@@ -1,0 +1,14 @@
+import OSS
+
+model Config {
+    name: string
+};
+
+static function main() : void {
+    var moduleConfig = new OSS.Config{};
+    var client = new OSS(moduleConfig);
+    var config = new Config{
+      name = 'test'
+    };
+    return;
+}

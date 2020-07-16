@@ -1,0 +1,14 @@
+import OSS
+
+model Config {
+    subConfig: OSS.Config
+};
+
+static function main() : void {
+    var moduleConfig = new OSS.Config{};
+    var config = new Config{
+      subConfig = moduleConfig
+    };
+    var client = new OSS(config.subConfig);
+    return;
+}
