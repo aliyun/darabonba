@@ -3835,4 +3835,181 @@ describe('semantic', function () {
     ast = readAndParse('fixtures/module_model_conflict/module_model_unuse.dara');
     expect(ast.conflictModels.has('OSS:Config')).to.be(false);
   });
+
+  it('multi-dimentional array assign check should be ok', function () {
+    expect(function () {
+      parse(`
+        static function main(): void {
+          var mulArr: [[ string ]] = [ ['string'],['string'] ];
+        }
+        `, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+        static function main(): void {
+          var mulArr: [[[ string ]]] = [ [ ['string'] ],[ ['string'] ] ];
+        }
+        `, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+        model M {
+          key: string
+        }
+        static function main(): void {
+          var m = new M{ 
+            key = 'string'
+          };
+          var mulArr: [[ M ]] = [ [ m ] ];
+        }
+        `, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+        model M {
+          sub: {
+            key: string
+          }
+        }
+        static function main(): void {
+          var sub = new M.sub{ 
+            key = 'string'
+          };
+          var mulArr: [[ M.sub ]] = [ [ sub ] ];
+        }
+        `, '__filename');
+    }).to.not.throwError();
+       
+
+    expect(function () {
+      parse(`
+        type @test = [[ string ]]
+        init() {
+          @test = [ ['string'],['string'] ];
+        }
+        `, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+        model M {
+          key: [[ string ]]
+        };
+
+        static function main(): void {
+          var m = new M{
+            key = [[ 'string' ]]
+          };
+        }
+        `, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+        model M {
+          key: [[{
+            key2: string
+          }]]
+        };
+
+        static function main(): void {
+          var key = new M.key{
+            key2 = 'key2'
+          };
+          var m = new M{
+            key = [[ key ]]
+          };
+        }
+        `, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+        model M {
+          key: [[[{
+            key2: string
+          }]]]
+        };
+
+        static function main(): void {
+          var key = new M.key{
+            key2 = 'key2'
+          };
+          var m = new M{
+            key = [[[ key ]]]
+          };
+        }
+        `, '__filename');
+    }).to.not.throwError();
+
+
+    expect(function () {
+      parse(`
+        model M {
+          key: {
+            key2: [[{
+              key3: string
+            }]]
+          }
+        };
+
+        static function main(): void {
+          var key3 = new M.key.key2{
+            key3 = 'key3'
+          }; 
+          var key = new M.key{
+            key2 = [[key3]]
+          };
+          var m = new M{
+            key = key
+          };
+        }
+        `, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+        model N {
+          key: string
+        }
+
+        model M {
+          n: [[ N ]]
+        };
+
+        static function main(): void {
+          var n = new N{
+            key = 'string'
+          }; 
+          var m = new M{
+            n = [[ n ]]
+          };
+        }
+        `, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+        model N {
+          key: string
+        }
+
+        model M {
+          n: [[[ N ]]]
+        };
+
+        static function main(): void {
+          var n = new N{
+            key = 'string'
+          }; 
+          var m = new M{
+            n = [[[ n ]]]
+          };
+        }
+        `, '__filename');
+    }).to.not.throwError();
+  });
 });

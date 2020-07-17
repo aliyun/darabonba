@@ -6453,4 +6453,320 @@ describe('parser', function () {
     `, '__filename');
     }).not.to.throwError();
   });
+
+  it('multi-dimentional array in model field should be ok', function () {
+    function modelField(value) {
+      var ast = parse(`
+        model id = {
+          ${value}
+        }
+      `, '__filename');
+      return ast.moduleBody.nodes[0].modelBody;
+    }
+
+    expect(modelField(`name?: [[{}]]`)).to.be.eql({
+      'type': 'modelBody',
+      'nodes': [
+        {
+          'type': 'modelField',
+          'fieldName': {
+            'tag': 2,
+            'loc': {
+              'start': {
+                'line': 3,
+                'column': 11
+              },
+              'end': {
+                'line': 3,
+                'column': 15
+              }
+            },
+            'lexeme': 'name',
+            'index': 5
+          },
+          'required': false,
+          'fieldValue': {
+            'type': 'fieldType',
+            'fieldType': 'array',
+            'fieldItemType': {
+              'type': 'fieldType',
+              'fieldType': 'array',
+              'fieldItemType': {
+                'type': 'modelBody',
+                'nodes': [],
+                'tokenRange': [
+                  10,
+                  11
+                ]
+              }
+            }
+          },
+          'attrs': [],
+          'tokenRange': [
+            5,
+            14
+          ]
+        }
+      ],
+      'tokenRange': [
+        4,
+        14
+      ]
+    });
+
+    
+
+    expect(modelField(`name?: [[{
+      age: number
+    }]]`)).to.be.eql({
+      'type': 'modelBody',
+      'nodes': [
+        {
+          'type': 'modelField',
+          'fieldName': {
+            'tag': 2,
+            'loc': {
+              'start': {
+                'line': 3,
+                'column': 11
+              },
+              'end': {
+                'line': 3,
+                'column': 15
+              }
+            },
+            'lexeme': 'name',
+            'index': 5
+          },
+          'required': false,
+          'fieldValue': {
+            'type': 'fieldType',
+            'fieldType': 'array',
+            'fieldItemType': {
+              'type': 'fieldType',
+              'fieldType': 'array',
+              'fieldItemType': {
+                'type': 'modelBody',
+                'nodes': [
+                  {
+                    'type': 'modelField',
+                    'fieldName': {
+                      'tag': 2,
+                      'loc': {
+                        'start': {
+                          'line': 4,
+                          'column': 7
+                        },
+                        'end': {
+                          'line': 4,
+                          'column': 10
+                        }
+                      },
+                      'lexeme': 'age',
+                      'index': 11
+                    },
+                    'required': true,
+                    'fieldValue': {
+                      'type': 'fieldType',
+                      'fieldType': 'number'
+                    },
+                    'attrs': [],
+                    'tokenRange': [
+                      11,
+                      14
+                    ]
+                  }
+                ],
+                'tokenRange': [
+                  10,
+                  14
+                ]
+              }
+            }
+          },
+          'attrs': [],
+          'tokenRange': [
+            5,
+            17
+          ]
+        }
+      ],
+      'tokenRange': [
+        4,
+        17
+      ]
+    });
+
+    expect(modelField(`name?: [[[{}]]]`)).to.be.eql({
+      'type': 'modelBody',
+      'nodes': [
+        {
+          'type': 'modelField',
+          'fieldName': {
+            'tag': 2,
+            'loc': {
+              'start': {
+                'line': 3,
+                'column': 11
+              },
+              'end': {
+                'line': 3,
+                'column': 15
+              }
+            },
+            'lexeme': 'name',
+            'index': 5
+          },
+          'required': false,
+          'fieldValue': {
+            'type': 'fieldType',
+            'fieldType': 'array',
+            'fieldItemType': {
+              'type': 'fieldType',
+              'fieldType': 'array',
+              'fieldItemType': {
+                'type': 'fieldType',
+                'fieldType': 'array',
+                'fieldItemType': {
+                  'type': 'modelBody',
+                  'nodes': [],
+                  'tokenRange': [
+                    11,
+                    12
+                  ]
+                }
+              }
+            }
+          },
+          'attrs': [],
+          'tokenRange': [
+            5,
+            16
+          ]
+        }
+      ],
+      'tokenRange': [
+        4,
+        16
+      ]
+    });
+
+    expect(modelField(`name?: [[ string ]]`)).to.be.eql({
+      'type': 'modelBody',
+      'nodes': [
+        {
+          'type': 'modelField',
+          'fieldName': {
+            'tag': 2,
+            'loc': {
+              'start': {
+                'line': 3,
+                'column': 11
+              },
+              'end': {
+                'line': 3,
+                'column': 15
+              }
+            },
+            'lexeme': 'name',
+            'index': 5
+          },
+          'required': false,
+          'fieldValue': {
+            'type': 'fieldType',
+            'fieldType': 'array',
+            'fieldItemType': {
+              'type': 'fieldType',
+              'fieldType': 'array',
+              'fieldItemType': {
+                'tag': 8,
+                'loc': {
+                  'start': {
+                    'line': 3,
+                    'column': 21
+                  },
+                  'end': {
+                    'line': 3,
+                    'column': 27
+                  }
+                },
+                'lexeme': 'string',
+                'index': 10
+              }
+            }
+          },
+          'attrs': [],
+          'tokenRange': [
+            5,
+            13
+          ]
+        }
+      ],
+      'tokenRange': [
+        4,
+        13
+      ]
+    });
+
+    expect(modelField(`name?: [[[ string ]]]`)).to.be.eql({
+      'type': 'modelBody',
+      'nodes': [
+        {
+          'type': 'modelField',
+          'fieldName': {
+            'tag': 2,
+            'loc': {
+              'start': {
+                'line': 3,
+                'column': 11
+              },
+              'end': {
+                'line': 3,
+                'column': 15
+              }
+            },
+            'lexeme': 'name',
+            'index': 5
+          },
+          'required': false,
+          'fieldValue': {
+            'type': 'fieldType',
+            'fieldType': 'array',
+            'fieldItemType': {
+              'type': 'fieldType',
+              'fieldType': 'array',
+              'fieldItemType': {
+                'type': 'fieldType',
+                'fieldType': 'array',
+                'fieldItemType': {
+                  'tag': 8,
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 22
+                    },
+                    'end': {
+                      'line': 3,
+                      'column': 28
+                    }
+                  },
+                  'lexeme': 'string',
+                  'index': 11
+                }
+              }
+            }
+          },
+          'attrs': [],
+          'tokenRange': [
+            5,
+            15
+          ]
+        }
+      ],
+      'tokenRange': [
+        4,
+        15
+      ]
+    });
+  });
 });
