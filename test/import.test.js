@@ -207,7 +207,7 @@ function callOSS(): string {
       readAndParse('fixtures/import_remote/main.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
-      expect(e.message).to.be(`the module id "OSS" has not installed, use \`tea install\` first`);
+      expect(e.message).to.be(`the module id "OSS" has not installed, use \`dara install\` first`);
     });
   });
 
@@ -216,7 +216,7 @@ function callOSS(): string {
       readAndParse('fixtures/import_not_installed_remote/main.dara');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
-      expect(e.message).to.be(`the module id "OSS" has not installed, use \`tea install\` first`);
+      expect(e.message).to.be(`the module id "OSS" has not installed, use \`dara install\` first`);
     });
   });
 
