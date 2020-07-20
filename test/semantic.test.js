@@ -3173,6 +3173,70 @@ describe('semantic', function () {
       }`, '__filename');
     }).to.not.throwError();
 
+    expect(function () {
+      parse(`
+      init() {
+        var num: [ number ] = [ 123 ];
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var num: [ number ] = [ 1.23 ];
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var num: [ number ] = [ 1.23d ];
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var num: [ number ] = [ 123L ];
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var num: map[ string ] number = {
+          val = 123
+        };
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var num: map[ string ] number = {
+          val = 1.23
+        };
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var num: map[ string ] number = {
+          val = 1.23d
+        };
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var num: map[ string ] number = {
+          val = 123L
+        };
+      }`, '__filename');
+    }).to.not.throwError();
+
 
     expect(function () {
       parse(`
@@ -3184,7 +3248,39 @@ describe('semantic', function () {
     expect(function () {
       parse(`
       init() {
+        var intArr: [ integer ] = [ 123 ];
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var intMap: map[string] integer = {
+          val = 123
+        };
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
         var int8Num: int8 = 123;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var int8Arr: [ int8 ] = [ 123 ];
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var int8Map: map[string] int8 = {
+          val = 123
+        };
       }`, '__filename');
     }).to.not.throwError();
 
@@ -3247,6 +3343,22 @@ describe('semantic', function () {
     expect(function () {
       parse(`
       init() {
+        var longArr: [ long ] = [ 123L ];
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var longMap: map[string] long = {
+          val = 123L
+        };
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
         var ulongNum: ulong = 123L;
       }`, '__filename');
     }).to.not.throwError();
@@ -3269,6 +3381,22 @@ describe('semantic', function () {
       parse(`
       init() {
         var floatNum: float = 1.23;
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var floatArr: [ float ] = [ 1.23 ];
+      }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+      init() {
+        var floatMap: map[string] float = {
+          val = 1.23
+        };
       }`, '__filename');
     }).to.not.throwError();
 
@@ -3406,7 +3534,15 @@ describe('semantic', function () {
         longNum: long,
         ulongNum: ulong,
         floatNum: float,
-        doubleNum: double
+        doubleNum: double,
+        intArr: [ integer ],
+        int8Arr: [ int8 ],
+        longArr: [ long ],
+        floatArr: [ float ],
+        intMap: map[string] integer,
+        int8Map: map[string] int8,
+        longMap: map[string] long,
+        floatMap: map[string] float,
       }
 
       init() {
@@ -3423,7 +3559,23 @@ describe('semantic', function () {
           longNum = 123L,
           ulongNum = 123L,
           floatNum = 1.23,
-          doubleNum = 1.23d
+          doubleNum = 1.23d,
+          intArr = [ 123 ],
+          int8Arr = [ 123 ],
+          longArr = [ 123L ],
+          floatArr = [ 1.23 ],
+          intMap = {
+            val = 123
+          },
+          int8Map = {
+            val = 123
+          },
+          longMap = {
+            val = 123L
+          },
+          floatMap = {
+            val = 1.23
+          },
         };
       }`, '__filename');
     }).to.not.throwError();
