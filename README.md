@@ -67,6 +67,9 @@ $ npm install @darabonba/cli -g
 ## 钉钉群
 ![Darabonba钉钉群](./fixtures/qrcode.svg)
 
+## 案例
+- [阿里云多语言 SDK](https://github.com/aliyun/alibabacloud-sdk)
+- [支付宝开放平台多语言 SDK](https://github.com/alipay/alipay-easysdk)
 
 ## 许可证
 [Apache-2.0](/LICENSE)
