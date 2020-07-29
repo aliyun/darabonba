@@ -1026,6 +1026,40 @@ describe('semantic', function () {
           var id: string = null;
         }`, '__filename');
     }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+        static function callOSS(): void {
+          var mapVal: map[string] string = null;
+        }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+        static function callOSS(): void {
+          var arrVal: [ string ] = null;
+        }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+        static function callOSS(): void {
+          var arrVal = [
+            'string'
+          ];
+          arrVal = null;
+        }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+        static function callOSS(): void {
+          var mapVal = {
+            key = 'string'
+          };
+          mapVal = null;
+        }`, '__filename');
+    }).to.not.throwException();
   });
 
   it('declare null with model should ok', function () {
@@ -4054,6 +4088,20 @@ describe('semantic', function () {
         static function main(): void {
           var m = new M{
             key = [[ 'string' ]]
+          };
+        }
+        `, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+        model M {
+          key: [[ number ]]
+        };
+
+        static function main(): void {
+          var m = new M{
+            key = [[ 2 ]]
           };
         }
         `, '__filename');
