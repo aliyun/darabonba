@@ -6,7 +6,7 @@
 
 ## Array
 
-Darabonba 像其他语言一样可以操作数组元素，它携带一个叫做元素类型的描述。可以通过 `[ itemType ]` 的方式来定义数组，其中的 `itemType` 可以是基础类型、复合类型以及 [`Model`](./model.md)。
+`Darabonba` 像其他语言一样可以操作数组元素，它携带一个叫做元素类型的描述。可以通过 `[ itemType ]` 的方式来定义数组，其中的 `itemType` 可以是基础类型、复合类型以及 [`Model`](./model.md)。
 
 ```js
 var numArr: [ number ] = [1, 2, 3];
@@ -38,9 +38,9 @@ var anyMap: map[string]any = {
 
 ## object
 
-Darabonba 提供了 `object` 类型，等价于 `map[string]any`。
+`Darabonba` 提供了 `object` 类型，等价于 `map[string]any`。
 
-```dara
+```js
 var obj: object = {
   str = 'string',
   num = 1,

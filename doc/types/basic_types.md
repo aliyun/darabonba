@@ -6,7 +6,7 @@
 
 ## Boolean
 
-最基本的数据类型就是简单的 true/false 值，在 `Darabonba` 里叫做 `boolean` 。
+最基本的数据类型就是简单的 `true`/`false` 值，在 `Darabonba` 里叫做 `boolean` 。
 
 ```js
 var bool: boolean = true;
@@ -53,7 +53,7 @@ var doubleNum: double = null;
 
 ## String
 
-像其它语言里一样，我们使用 `string` 表示文本数据类型。 和 JavaScript 一样，可以使用双引号（"）或单引号（'）表示字符串。
+像其它语言里一样，`Darabonba` 使用 `string` 表示文本数据类型。 和 JavaScript 一样，可以使用双引号（"）或单引号（'）表示字符串。
 
 ```js
 var name: string = "jackson";

@@ -52,7 +52,7 @@
 - [自定义类型 `Model`](./doc/types/model.md)
 - [Function](./doc/function_and_api.md)
 - [API](./doc/function_and_api.md)
-- [模块化](./doc/module.md)
+- [模块系统](./doc/module.md)
 - 语言规范
 
 ## 安装
