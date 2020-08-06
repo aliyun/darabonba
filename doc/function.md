@@ -30,7 +30,7 @@ static function test(str: string): string {
 
 ## async function
 
-在 `Darabonba` 中还提供了 async function 关键字定义异步方法，通过 `async function` 关键字定义的异步方法可以让 ` TypeScript、``C# ` 这样有异步方法语言的生成器根据该关键字生成对应的异步操作，例如在生成的 `TypeScript` 代码中的方法会带上 `async` 关键字，同时在调用对应的异步方法时也会同时加上 `await` 关键字，`api` 方法默认为异步方法。
+在 `Darabonba` 中还提供了 async function 关键字定义异步方法，通过 `async function` 关键字定义的异步方法可以让 `TypeScript`、`C#` 这样有异步方法语言的生成器根据该关键字生成对应的异步操作，例如在生成的 `TypeScript` 代码中的方法会带上 `async` 关键字，同时在调用对应的异步方法时也会同时加上 `await` 关键字，`api` 方法默认为异步方法。
 
 ```js
 static async function staticAsyncTest(str: string): string {
@@ -42,9 +42,9 @@ async function asyncTest(str: string): string {
 }
 ```
 
-## 方法类型定义
+## 方法声明
 
-在 `Darabonba` 中也提供了方法的类型声明，跟 `function` 类似只是不提供方法体，因为 `Darabonba` 作为描述性语言，无法实现一些复杂逻辑，所以需要通过定义方法类型、在各语言中生成 `unimplement` 的方法，开发者可以自行实现各语言逻辑从而提供更完善的功能，例如在 `api` 示例中的 `Util` 模块就是一个含有大量方法类型声明的模块，从而为 `api` 中的复杂逻辑实现提供可能。
+在 `Darabonba` 中也提供了方法声明，跟 `function` 类似，只是方法声明不提供方法体。 `Darabonba` 作为描述性语言，无法实现一些复杂逻辑，所以需要通过方法声明、在各语言中生成 `unimplement` 的方法，开发者可以自行实现各语言逻辑从而提供更完善的功能，例如在 `api` 示例中的 `Util` 模块就是一个含有大量方法声明的模块，从而为 `api` 中的复杂逻辑实现提供可能。
 
 ```js
 /**
