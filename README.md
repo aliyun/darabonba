@@ -29,32 +29,31 @@
 
 - 解析器（当前模块）
 - 生成器（陆续开源中）
-    - [Java](https://github.com/aliyun/darabonba-java-generator)
-    - [C#](https://github.com/aliyun/darabonba-csharp-generator)
-    - [TypeScript](https://github.com/aliyun/darabonba-typescript-generator)
-    - [PHP](https://github.com/aliyun/darabonba-php-generator)
-    - [Golang](https://github.com/aliyun/darabonba-go-generator)
-    - [Python](https://github.com/aliyun/darabonba-python-generator)
-    - Swift
-    - Dart
-    - Ruby
-    - Lua
-    - Kotlin
-    - C++
+  - [Java](https://github.com/aliyun/darabonba-java-generator)
+  - [C#](https://github.com/aliyun/darabonba-csharp-generator)
+  - [TypeScript](https://github.com/aliyun/darabonba-typescript-generator)
+  - [PHP](https://github.com/aliyun/darabonba-php-generator)
+  - [Golang](https://github.com/aliyun/darabonba-go-generator)
+  - [Python](https://github.com/aliyun/darabonba-python-generator)
+  - Swift
+  - Dart
+  - Ruby
+  - Lua
+  - Kotlin
+  - C++
 - [VS Code 插件](https://github.com/aliyun/darabonba-vscode)：提供语法高亮、代码提示、代码格式化、语法检查
 - [CLI](https://github.com/aliyun/darabonba-cli)：命令行工具
 
 ## 文档
 
 - [5 分钟上手 Darabonba](./doc/getting_started.md)
-- 数据类型
-    - [基本类型](./doc/types/basic_types.md)
-    - [复合类型](./doc/types/complex_types.md)
-    - [模型（Model）](./doc/types/model.md)
-- [模块包](./doc/module.md)
-- [API & Function](./doc/function_and_api.md)
+- [基本类型](./doc/types/basic_types.md)
+- [复合类型](./doc/types/complex_types.md)
+- [自定义类型 `Model`](./doc/types/model.md)
+- [Function](./doc/function_and_api.md)
+- [API](./doc/function_and_api.md)
+- [模块化](./doc/module.md)
 - 语言规范
-
 
 ## 安装
 
@@ -65,13 +64,16 @@ $ npm install @darabonba/cli -g
 该命令执行后会具有一个 `dara` 命令，关于 `dara` 命令的详情可参考 [CLI](https://github.com/aliyun/darabonba-cli)。
 
 ## 钉钉群
+
 ![Darabonba钉钉群](./fixtures/qrcode.svg)
 
 ## 案例
+
 - [阿里云多语言 SDK](https://github.com/aliyun/alibabacloud-sdk)
 - [支付宝开放平台多语言 SDK](https://github.com/alipay/alipay-easysdk)
 
 ## 许可证
+
 [Apache-2.0](/LICENSE)
 
 Copyright (c) 2009-present, Alibaba Cloud All rights reserved.
