@@ -4,7 +4,7 @@
 
 `Darabonba` 做为为`OpenAPI` 而生的语言， `API` 和 [Function](./function.md) 是 `Darabonba` 的核心。上文介绍的基础类型、复杂类型和 `Model 类型` 都是为了更好的描述 `API` 和 `Function`。同时 `Darabonba` 为 `API` & `Function` 的定义添加了许多不同于其他语言的功能，让我们可以更容易、更准确的描述 `OpenAPI`。
 
-## API
+## API 语法
 
 `Darabonba` 可以通过 `api` 关键字定义方法的逻辑来更好的描述 `OpenAPI`，我们通过下面的例子来讲述。
 
