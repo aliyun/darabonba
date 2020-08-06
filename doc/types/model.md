@@ -1,10 +1,10 @@
-# 模型（Model）
+# 自定义类型 `Model`
 
 ## 介绍
 
-在 Darabonba 中，我们通过 Model 来表示属性可枚举的对象结构，可以将其翻译为一个确切的类型，比如在 Java、TypeScript 中可以翻译为 class，在 Go 中可以翻译为 struct。通过该类型可以为我们的 function 和 api 提供准确的入参和出参类型。Model 通过 `model modelName{ key: valueType }` 的方式定义，`valueType` 可以为基础类型、复杂类型及 Model。
+在 `Darabonba` 中，我们通过 `Model` 来表示属性可枚举的对象结构，可以将其翻译为一个确切的类型，比如在 `Java`、`TypeScript` 中可以翻译为 `class`，在 `Go` 中可以翻译为 `struct`。通过该类型可以为我们的 `function` 和 `api` 提供准确的入参和出参类型。`Model` 通过 `model modelName { key: valueType }` 的方式定义，`valueType` 可以为基础类型、复杂类型及 `Model`。
 
-```dara
+```js
 model Simple {
   name: string,
   age: number
@@ -24,14 +24,14 @@ model Complex {
 }
 ```
 
-## 匿名子 Model
+## 匿名 `Model`
 
-Model的 `valueType` 中不仅可以使用已经定义好的 Model，还能直接在 `valueType` 处定义匿名子 Model 使用。
+`Model` 的 `valueType` 中不仅可以使用已经定义好的 `Model`，还能直接在 `valueType` 处定义匿名 `Model` 使用。
 
-```dara
+```js
 model Complex {
   arr: [ string ],
-  // 通过匿名子 Model 指定字段类型
+  // 通过匿名 Model 指定字段类型
   subModel: {
     username: string,
     age: number
@@ -39,11 +39,11 @@ model Complex {
 }
 ```
 
-## 初始化 Model
+## Model 初始化
 
-Model 的使用类似于 Java、TypeScript 中的 class，通过关键字 new 来得到 Model 的实例。
+`Model` 的使用类似于 `Java`、`TypeScript` 中的 `class`，通过关键字 `new` 来得到 `Model` 的实例。
 
-```dara
+```js
 model User {
   username: string,
   age: number
@@ -69,7 +69,7 @@ init() {
     username = user.username,
     age = user.age
   };
-  
+
   var complex = new Complex{
     arr = [ 'page' ],
     otherModel = user,
