@@ -4212,4 +4212,1005 @@ describe('semantic', function () {
         `, '__filename');
     }).to.not.throwError();
   });
+
+  it('get value from array to assign should be ok', function () {
+    let ast = parse(`
+      static function main(): void {
+        var configs = [1,2,3];
+        var config = configs[0];
+      }`, '__filename');
+    let [, expr] = ast.moduleBody.nodes[0].functionBody.stmts.stmts;
+    expect(expr.expr).to.eql({
+      'type': 'array_access',
+      'id': {
+        'tag': 2,
+        'loc': {
+          'start': {
+            'line': 4,
+            'column': 22
+          },
+          'end': {
+            'line': 4,
+            'column': 29
+          }
+        },
+        'lexeme': 'configs',
+        'index': 23,
+        'type': 'variable'
+      },
+      'accessKey': {
+        'type': 'number',
+        'value': {
+          'tag': 9,
+          'loc': {
+            'start': {
+              'line': 4,
+              'column': 30
+            },
+            'end': {
+              'line': 4,
+              'column': 31
+            }
+          },
+          'value': 0,
+          'type': 'integer',
+          'index': 25
+        },
+        'loc': {
+          'start': {
+            'line': 4,
+            'column': 30
+          },
+          'end': {
+            'line': 4,
+            'column': 31
+          }
+        },
+        'tokenRange': [
+          25,
+          26
+        ],
+        'inferred': {
+          'type': 'basic',
+          'name': 'integer'
+        }
+      },
+      'loc': {
+        'start': {
+          'line': 4,
+          'column': 22
+        },
+        'end': {
+          'line': 4,
+          'column': 32
+        }
+      },
+      'tokenRange': [
+        23,
+        27
+      ],
+      'inferred': {
+        'type': 'basic',
+        'name': 'integer'
+      }
+    });
+
+    ast = parse(`
+      static function main(): void {
+        var data = {
+          configs = [1,2,3]
+        };
+        var config = data.configs[0];
+      }`, '__filename');
+    [, expr] = ast.moduleBody.nodes[0].functionBody.stmts.stmts;
+    expect(expr.expr).to.eql({
+      'type': 'array_access',
+      'id': {
+        'tag': 2,
+        'loc': {
+          'start': {
+            'line': 6,
+            'column': 22
+          },
+          'end': {
+            'line': 6,
+            'column': 26
+          }
+        },
+        'lexeme': 'data',
+        'index': 27,
+        'type': 'variable',
+        'inferred': {
+          'type': 'map',
+          'keyType': {
+            'type': 'basic',
+            'name': 'string'
+          },
+          'valueType': {
+            'type': 'array',
+            'itemType': {
+              'type': 'basic',
+              'name': 'integer'
+            }
+          }
+        }
+      },
+      'propertyPath': [
+        {
+          'tag': 2,
+          'loc': {
+            'start': {
+              'line': 6,
+              'column': 27
+            },
+            'end': {
+              'line': 6,
+              'column': 34
+            }
+          },
+          'lexeme': 'configs',
+          'index': 29
+        }
+      ],
+      'accessKey': {
+        'type': 'number',
+        'value': {
+          'tag': 9,
+          'loc': {
+            'start': {
+              'line': 6,
+              'column': 35
+            },
+            'end': {
+              'line': 6,
+              'column': 36
+            }
+          },
+          'value': 0,
+          'type': 'integer',
+          'index': 31
+        },
+        'loc': {
+          'start': {
+            'line': 6,
+            'column': 35
+          },
+          'end': {
+            'line': 6,
+            'column': 36
+          }
+        },
+        'tokenRange': [
+          31,
+          32
+        ],
+        'inferred': {
+          'type': 'basic',
+          'name': 'integer'
+        }
+      },
+      'loc': {
+        'start': {
+          'line': 6,
+          'column': 22
+        },
+        'end': {
+          'line': 6,
+          'column': 37
+        }
+      },
+      'tokenRange': [
+        27,
+        33
+      ],
+      'propertyPathTypes': [
+        {
+          'type': 'array',
+          'itemType': {
+            'type': 'basic',
+            'name': 'integer'
+          }
+        }
+      ],
+      'inferred': {
+        'type': 'basic',
+        'name': 'integer'
+      }
+    });
+
+    ast = parse(`
+      model M {
+        configs: [ number ]
+      }
+      static function main(): void {
+        var m = new M{
+          configs = [1,2,3]
+        };
+        var config = m.configs[0];
+      }`, '__filename');
+    [, expr] = ast.moduleBody.nodes[1].functionBody.stmts.stmts;
+    expect(expr.expr).to.eql({
+      'type': 'array_access',
+      'id': {
+        'tag': 2,
+        'loc': {
+          'start': {
+            'line': 9,
+            'column': 22
+          },
+          'end': {
+            'line': 9,
+            'column': 23
+          }
+        },
+        'lexeme': 'm',
+        'index': 38,
+        'type': 'variable',
+        'inferred': {
+          'type': 'model',
+          'name': 'M',
+          'moduleName': undefined
+        }
+      },
+      'propertyPath': [
+        {
+          'tag': 2,
+          'loc': {
+            'start': {
+              'line': 9,
+              'column': 24
+            },
+            'end': {
+              'line': 9,
+              'column': 31
+            }
+          },
+          'lexeme': 'configs',
+          'index': 40
+        }
+      ],
+      'accessKey': {
+        'type': 'number',
+        'value': {
+          'tag': 9,
+          'loc': {
+            'start': {
+              'line': 9,
+              'column': 32
+            },
+            'end': {
+              'line': 9,
+              'column': 33
+            }
+          },
+          'value': 0,
+          'type': 'integer',
+          'index': 42
+        },
+        'loc': {
+          'start': {
+            'line': 9,
+            'column': 32
+          },
+          'end': {
+            'line': 9,
+            'column': 33
+          }
+        },
+        'tokenRange': [
+          42,
+          43
+        ],
+        'inferred': {
+          'type': 'basic',
+          'name': 'integer'
+        }
+      },
+      'loc': {
+        'start': {
+          'line': 9,
+          'column': 22
+        },
+        'end': {
+          'line': 9,
+          'column': 34
+        }
+      },
+      'tokenRange': [
+        38,
+        44
+      ],
+      'propertyPathTypes': [
+        {
+          'type': 'array',
+          'itemType': {
+            'type': 'basic',
+            'name': 'number'
+          }
+        }
+      ],
+      'inferred': {
+        'type': 'basic',
+        'name': 'number'
+      }
+    });
+
+    ast = parse(`
+      static function f(config: number): void {
+        var config2 = config;
+      }
+
+      static function main(): void {
+        var data = {
+          configs = [1,2,3]
+        };
+        var config = f(data.configs[0]);
+      }`, '__filename');
+    let [arg] = ast.moduleBody.nodes[1].functionBody.stmts.stmts[1].expr.args;
+    expect(arg).to.eql({
+      'type': 'array_access',
+      'id': {
+        'tag': 2,
+        'loc': {
+          'start': {
+            'line': 10,
+            'column': 24
+          },
+          'end': {
+            'line': 10,
+            'column': 28
+          }
+        },
+        'lexeme': 'data',
+        'index': 46,
+        'type': 'variable',
+        'inferred': {
+          'type': 'map',
+          'keyType': {
+            'type': 'basic',
+            'name': 'string'
+          },
+          'valueType': {
+            'type': 'array',
+            'itemType': {
+              'type': 'basic',
+              'name': 'integer'
+            }
+          }
+        }
+      },
+      'propertyPath': [
+        {
+          'tag': 2,
+          'loc': {
+            'start': {
+              'line': 10,
+              'column': 29
+            },
+            'end': {
+              'line': 10,
+              'column': 36
+            }
+          },
+          'lexeme': 'configs',
+          'index': 48
+        }
+      ],
+      'accessKey': {
+        'type': 'number',
+        'value': {
+          'tag': 9,
+          'loc': {
+            'start': {
+              'line': 10,
+              'column': 37
+            },
+            'end': {
+              'line': 10,
+              'column': 38
+            }
+          },
+          'value': 0,
+          'type': 'integer',
+          'index': 50
+        },
+        'loc': {
+          'start': {
+            'line': 10,
+            'column': 37
+          },
+          'end': {
+            'line': 10,
+            'column': 38
+          }
+        },
+        'tokenRange': [
+          50,
+          51
+        ],
+        'inferred': {
+          'type': 'basic',
+          'name': 'integer'
+        }
+      },
+      'loc': {
+        'start': {
+          'line': 10,
+          'column': 24
+        },
+        'end': {
+          'line': 10,
+          'column': 39
+        }
+      },
+      'tokenRange': [
+        46,
+        52
+      ],
+      'propertyPathTypes': [
+        {
+          'type': 'array',
+          'itemType': {
+            'type': 'basic',
+            'name': 'integer'
+          }
+        }
+      ],
+      'inferred': {
+        'type': 'basic',
+        'name': 'integer'
+      },
+      'needCast': false
+    });
+
+    ast = parse(`
+      model M {
+        config: number
+      }
+      static function main(): void {
+        var data = {
+          configs = [1,2,3]
+        };
+        var m = new M{
+          config = data.configs[0]
+        };
+      }`, '__filename');
+    [expr] = ast.moduleBody.nodes[1].functionBody.stmts.stmts[1].expr.object.fields;
+    expect(expr).to.eql({
+      'type': 'objectField',
+      'fieldName': {
+        'tag': 2,
+        'loc': {
+          'start': {
+            'line': 10,
+            'column': 11
+          },
+          'end': {
+            'line': 10,
+            'column': 17
+          }
+        },
+        'lexeme': 'config',
+        'index': 37
+      },
+      'expr': {
+        'type': 'array_access',
+        'id': {
+          'tag': 2,
+          'loc': {
+            'start': {
+              'line': 10,
+              'column': 20
+            },
+            'end': {
+              'line': 10,
+              'column': 24
+            }
+          },
+          'lexeme': 'data',
+          'index': 39,
+          'type': 'variable',
+          'inferred': {
+            'type': 'map',
+            'keyType': {
+              'type': 'basic',
+              'name': 'string'
+            },
+            'valueType': {
+              'type': 'array',
+              'itemType': {
+                'type': 'basic',
+                'name': 'integer'
+              }
+            }
+          }
+        },
+        'propertyPath': [
+          {
+            'tag': 2,
+            'loc': {
+              'start': {
+                'line': 10,
+                'column': 25
+              },
+              'end': {
+                'line': 10,
+                'column': 32
+              }
+            },
+            'lexeme': 'configs',
+            'index': 41
+          }
+        ],
+        'accessKey': {
+          'type': 'number',
+          'value': {
+            'tag': 9,
+            'loc': {
+              'start': {
+                'line': 10,
+                'column': 33
+              },
+              'end': {
+                'line': 10,
+                'column': 34
+              }
+            },
+            'value': 0,
+            'type': 'integer',
+            'index': 43
+          },
+          'loc': {
+            'start': {
+              'line': 10,
+              'column': 33
+            },
+            'end': {
+              'line': 10,
+              'column': 34
+            }
+          },
+          'tokenRange': [
+            43,
+            44
+          ],
+          'inferred': {
+            'type': 'basic',
+            'name': 'integer'
+          }
+        },
+        'loc': {
+          'start': {
+            'line': 10,
+            'column': 20
+          },
+          'end': {
+            'line': 11,
+            'column': 9
+          }
+        },
+        'tokenRange': [
+          39,
+          45
+        ],
+        'propertyPathTypes': [
+          {
+            'type': 'array',
+            'itemType': {
+              'type': 'basic',
+              'name': 'integer'
+            }
+          }
+        ],
+        'inferred': {
+          'type': 'basic',
+          'name': 'integer'
+        }
+      },
+      'tokenRange': [
+        37,
+        45
+      ],
+      'inferred': {
+        'type': 'basic',
+        'name': 'integer'
+      },
+      'expectedType': {
+        'type': 'basic',
+        'name': 'number'
+      }
+    });
+
+    ast = parse(`
+      type @configs = [ number ];
+      init(configs: [ number ]) {
+        @configs = configs;
+        var config = @configs[0];
+      }`, '__filename');
+    [, expr] = ast.moduleBody.nodes[1].initBody.stmts;
+    expect(expr.expr).to.eql({
+      'type': 'array_access',
+      'id': {
+        'tag': 3,
+        'loc': {
+          'start': {
+            'line': 5,
+            'column': 22
+          },
+          'end': {
+            'line': 5,
+            'column': 30
+          }
+        },
+        'lexeme': '@configs',
+        'index': 24
+      },
+      'accessKey': {
+        'type': 'number',
+        'value': {
+          'tag': 9,
+          'loc': {
+            'start': {
+              'line': 5,
+              'column': 31
+            },
+            'end': {
+              'line': 5,
+              'column': 32
+            }
+          },
+          'value': 0,
+          'type': 'integer',
+          'index': 26
+        },
+        'loc': {
+          'start': {
+            'line': 5,
+            'column': 31
+          },
+          'end': {
+            'line': 5,
+            'column': 32
+          }
+        },
+        'tokenRange': [
+          26,
+          27
+        ],
+        'inferred': {
+          'type': 'basic',
+          'name': 'integer'
+        }
+      },
+      'loc': {
+        'start': {
+          'line': 5,
+          'column': 22
+        },
+        'end': {
+          'line': 5,
+          'column': 33
+        }
+      },
+      'tokenRange': [
+        24,
+        28
+      ],
+      'inferred': {
+        'type': 'basic',
+        'name': 'number'
+      }
+    });
+  });
+
+  it('assign a value to array should be ok', function () {
+    let ast = parse(`
+      static function main(): void {
+        var configs = [1,2,3];
+        configs[3] = 4;
+      }`, '__filename');
+    let [, expr] = ast.moduleBody.nodes[0].functionBody.stmts.stmts;
+    expect(expr.left).to.eql({
+      'type': 'array_access',
+      'id': {
+        'tag': 2,
+        'loc': {
+          'start': {
+            'line': 4,
+            'column': 9
+          },
+          'end': {
+            'line': 4,
+            'column': 16
+          }
+        },
+        'lexeme': 'configs',
+        'index': 20,
+        'type': 'variable'
+      },
+      'accessKey': {
+        'type': 'number',
+        'value': {
+          'tag': 9,
+          'loc': {
+            'start': {
+              'line': 4,
+              'column': 17
+            },
+            'end': {
+              'line': 4,
+              'column': 18
+            }
+          },
+          'value': 3,
+          'type': 'integer',
+          'index': 22
+        },
+        'loc': {
+          'start': {
+            'line': 4,
+            'column': 17
+          },
+          'end': {
+            'line': 4,
+            'column': 18
+          }
+        },
+        'tokenRange': [
+          22,
+          23
+        ]
+      },
+      'loc': {
+        'start': {
+          'line': 4,
+          'column': 9
+        },
+        'end': {
+          'line': 4,
+          'column': 20
+        }
+      },
+      'inferred': {
+        'type': 'basic',
+        'name': 'integer'
+      }
+    });
+
+    ast = parse(`
+      static function main(): void {
+        var data = {
+          configs = [1,2,3]
+        };
+        data.configs[3] = 4;
+      }`, '__filename');
+    [, expr] = ast.moduleBody.nodes[0].functionBody.stmts.stmts;
+    expect(expr.left).to.eql({
+      'type': 'array_access',
+      'id': {
+        'tag': 2,
+        'loc': {
+          'start': {
+            'line': 6,
+            'column': 9
+          },
+          'end': {
+            'line': 6,
+            'column': 13
+          }
+        },
+        'lexeme': 'data',
+        'index': 24,
+        'type': 'variable',
+        'inferred': {
+          'type': 'map',
+          'keyType': {
+            'type': 'basic',
+            'name': 'string'
+          },
+          'valueType': {
+            'type': 'array',
+            'itemType': {
+              'type': 'basic',
+              'name': 'integer'
+            }
+          }
+        }
+      },
+      'propertyPath': [
+        {
+          'tag': 2,
+          'loc': {
+            'start': {
+              'line': 6,
+              'column': 14
+            },
+            'end': {
+              'line': 6,
+              'column': 21
+            }
+          },
+          'lexeme': 'configs',
+          'index': 26
+        }
+      ],
+      'accessKey': {
+        'type': 'number',
+        'value': {
+          'tag': 9,
+          'loc': {
+            'start': {
+              'line': 6,
+              'column': 22
+            },
+            'end': {
+              'line': 6,
+              'column': 23
+            }
+          },
+          'value': 3,
+          'type': 'integer',
+          'index': 28
+        },
+        'loc': {
+          'start': {
+            'line': 6,
+            'column': 22
+          },
+          'end': {
+            'line': 6,
+            'column': 23
+          }
+        },
+        'tokenRange': [
+          28,
+          29
+        ]
+      },
+      'loc': {
+        'start': {
+          'line': 6,
+          'column': 9
+        },
+        'end': {
+          'line': 6,
+          'column': 25
+        }
+      },
+      'propertyPathTypes': [
+        {
+          'type': 'array',
+          'itemType': {
+            'type': 'basic',
+            'name': 'integer'
+          }
+        }
+      ],
+      'inferred': {
+        'type': 'basic',
+        'name': 'integer'
+      }
+    });
+
+    ast = parse(`
+      model M {
+        configs: [ number ]
+      }
+      static function main(): void {
+        var m = new M{
+          configs = [1,2,3]
+        };
+        m.configs[3] = 4;
+      }`, '__filename');
+    [, expr] = ast.moduleBody.nodes[1].functionBody.stmts.stmts;
+    expect(expr.left).to.eql({
+      'type': 'array_access',
+      'id': {
+        'tag': 2,
+        'loc': {
+          'start': {
+            'line': 9,
+            'column': 9
+          },
+          'end': {
+            'line': 9,
+            'column': 10
+          }
+        },
+        'lexeme': 'm',
+        'index': 35,
+        'type': 'variable',
+        'inferred': {
+          'moduleName': undefined,
+          'type': 'model',
+          'name': 'M'
+        }
+      },
+      'propertyPath': [
+        {
+          'tag': 2,
+          'loc': {
+            'start': {
+              'line': 9,
+              'column': 11
+            },
+            'end': {
+              'line': 9,
+              'column': 18
+            }
+          },
+          'lexeme': 'configs',
+          'index': 37
+        }
+      ],
+      'accessKey': {
+        'type': 'number',
+        'value': {
+          'tag': 9,
+          'loc': {
+            'start': {
+              'line': 9,
+              'column': 19
+            },
+            'end': {
+              'line': 9,
+              'column': 20
+            }
+          },
+          'value': 3,
+          'type': 'integer',
+          'index': 39
+        },
+        'loc': {
+          'start': {
+            'line': 9,
+            'column': 19
+          },
+          'end': {
+            'line': 9,
+            'column': 20
+          }
+        },
+        'tokenRange': [
+          39,
+          40
+        ]
+      },
+      'loc': {
+        'start': {
+          'line': 9,
+          'column': 9
+        },
+        'end': {
+          'line': 9,
+          'column': 22
+        }
+      },
+      'propertyPathTypes': [
+        {
+          'type': 'array',
+          'itemType': {
+            'type': 'basic',
+            'name': 'number'
+          }
+        }
+      ],
+      'inferred': {
+        'type': 'basic',
+        'name': 'number'
+      }
+    });
+    expect(() => {
+      parse(`
+        static function main(): void {
+          var data = {
+            configs = [1,2,3]
+          };
+          data.configs['3'] = 4;
+        }`, '__filename');
+    }).to.throwException(function (e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`The key expr type must be number type`);
+    });
+  });
 });
