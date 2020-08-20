@@ -3037,6 +3037,145 @@ describe('parser', function () {
     });
   });
 
+  it('map[string]moduleModel should ok', function(){
+    var ast = parse(`
+      import oss;
+
+      model A {
+        B: map[string]oss.C
+      }
+    `, '__filename');
+    const [model] = ast.moduleBody.nodes;
+    expect(model.type).to.be('model');
+    expect(model.modelBody.nodes[0].fieldValue.valueType).to.be.eql({
+      'type': 'subModel_or_moduleModel',
+      'path': [
+        {
+          'tag': 2,
+          'loc': {
+            'start': {
+              'line': 5,
+              'column': 23
+            },
+            'end': {
+              'line': 5,
+              'column': 26
+            }
+          },
+          'lexeme': 'oss',
+          'index': 13
+        },
+        {
+          'tag': 2,
+          'loc': {
+            'start': {
+              'line': 5,
+              'column': 27
+            },
+            'end': {
+              'line': 5,
+              'column': 28
+            }
+          },
+          'lexeme': 'C',
+          'index': 15
+        }
+      ],
+      'loc': {
+        'start': {
+          'line': 5,
+          'column': 23
+        },
+        'end': {
+          'line': 5,
+          'column': 28
+        }
+      }
+    });
+
+    ast = parse(`
+      import oss;
+
+      init(){
+        var test: map[string] oss.C = {};
+      }
+    `, '__filename');
+    const [init] = ast.moduleBody.nodes;
+    expect(init.initBody.stmts[0].expectedType).to.be.eql({
+      'loc': {
+        'start': {
+          'line': 5,
+          'column': 19
+        },
+        'end': {
+          'line': 5,
+          'column': 36
+        }
+      },
+      'type': 'map',
+      'keyType': {
+        'tag': 8,
+        'loc': {
+          'start': {
+            'line': 5,
+            'column': 23
+          },
+          'end': {
+            'line': 5,
+            'column': 29
+          }
+        },
+        'lexeme': 'string',
+        'index': 13
+      },
+      'valueType': {
+        'type': 'subModel_or_moduleModel',
+        'path': [
+          {
+            'tag': 2,
+            'loc': {
+              'start': {
+                'line': 5,
+                'column': 31
+              },
+              'end': {
+                'line': 5,
+                'column': 34
+              }
+            },
+            'lexeme': 'oss',
+            'index': 15
+          },
+          {
+            'tag': 2,
+            'loc': {
+              'start': {
+                'line': 5,
+                'column': 35
+              },
+              'end': {
+                'line': 5,
+                'column': 36
+              }
+            },
+            'lexeme': 'C',
+            'index': 17
+          }
+        ],
+        'loc': {
+          'start': {
+            'line': 5,
+            'column': 31
+          },
+          'end': {
+            'line': 5,
+            'column': 36
+          }
+        }
+      }
+    });
+  });
+
   it('import should ok', function () {
     var ast = parse(`import oss
 
@@ -3610,9 +3749,10 @@ describe('parser', function () {
     });
   });
 
-  it('submodel as type should ok', function () {
+  it('subModel type should ok', function () {
     var ast = parse(`
-    
+      import oss
+
       model A {
         B: {
           str: string
@@ -3627,17 +3767,21 @@ describe('parser', function () {
     expect(fun.type).to.be('function');
     expect(fun.returnType).to.be.eql({
       type: 'subModel_or_moduleModel',
+      loc: {
+        start: { line: 10, column: 25 },
+        end: { line: 10, column: 28 }
+      },
       path: [
         {
           tag: 2,
-          loc: loc(9, 25, 9, 26),
-          index: 17,
+          loc: loc(10, 25, 10, 26),
+          index: 19,
           lexeme: 'A'
         },
         {
           tag: 2,
-          loc: loc(9, 27, 9, 28),
-          index: 19,
+          loc: loc(10, 27, 10, 28),
+          index: 21,
           lexeme: 'B'
         }
       ]

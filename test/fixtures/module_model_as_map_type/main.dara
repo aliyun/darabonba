@@ -1,0 +1,9 @@
+import OSS
+
+model M {
+  config: map[string]OSS.Config
+}
+
+init(){
+  var config: map[string]OSS.Config = {};
+}

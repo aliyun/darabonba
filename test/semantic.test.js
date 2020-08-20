@@ -5213,4 +5213,149 @@ describe('semantic', function () {
       expect(e.message).to.be(`The key expr type must be number type`);
     });
   });
+
+  it('moduleModel as map value type should ok', function () {  
+    let ast = readAndParse('fixtures/module_model_as_map_type/main.dara');
+    const [model, init] = ast.moduleBody.nodes;
+    expect(model.modelBody.nodes[0].fieldValue).to.eql({
+      'type': 'fieldType',
+      'fieldType': 'map',
+      'keyType': {
+        'tag': 8,
+        'loc': {
+          'start': {
+            'line': 4,
+            'column': 15
+          },
+          'end': {
+            'line': 4,
+            'column': 21
+          }
+        },
+        'lexeme': 'string',
+        'index': 10
+      },
+      'valueType': {
+        'type': 'moduleModel',
+        'path': [
+          {
+            'tag': 2,
+            'loc': {
+              'start': {
+                'line': 4,
+                'column': 22
+              },
+              'end': {
+                'line': 4,
+                'column': 25
+              }
+            },
+            'lexeme': 'OSS',
+            'index': 12,
+            'idType': 'module'
+          },
+          {
+            'tag': 2,
+            'loc': {
+              'start': {
+                'line': 4,
+                'column': 26
+              },
+              'end': {
+                'line': 4,
+                'column': 32
+              }
+            },
+            'lexeme': 'Config',
+            'index': 14
+          }
+        ],
+        'loc': {
+          'start': {
+            'line': 4,
+            'column': 22
+          },
+          'end': {
+            'line': 4,
+            'column': 32
+          }
+        }
+      }
+    });
+
+    expect(init.initBody.stmts[0].expectedType).to.eql({
+      'loc': {
+        'start': {
+          'line': 8,
+          'column': 15
+        },
+        'end': {
+          'line': 8,
+          'column': 36
+        }
+      },
+      'type': 'map',
+      'keyType': {
+        'tag': 8,
+        'loc': {
+          'start': {
+            'line': 8,
+            'column': 19
+          },
+          'end': {
+            'line': 8,
+            'column': 25
+          }
+        },
+        'lexeme': 'string',
+        'index': 25
+      },
+      'valueType': {
+        'type': 'moduleModel',
+        'path': [
+          {
+            'tag': 2,
+            'loc': {
+              'start': {
+                'line': 8,
+                'column': 26
+              },
+              'end': {
+                'line': 8,
+                'column': 29
+              }
+            },
+            'lexeme': 'OSS',
+            'index': 27,
+            'idType': 'module'
+          },
+          {
+            'tag': 2,
+            'loc': {
+              'start': {
+                'line': 8,
+                'column': 30
+              },
+              'end': {
+                'line': 8,
+                'column': 36
+              }
+            },
+            'lexeme': 'Config',
+            'index': 29
+          }
+        ],
+        'loc': {
+          'start': {
+            'line': 8,
+            'column': 26
+          },
+          'end': {
+            'line': 8,
+            'column': 36
+          }
+        }
+      }
+    });
+  });
 });
