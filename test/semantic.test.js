@@ -289,6 +289,7 @@ describe('semantic', function () {
           var query = {
             ...a
           };
+          return query;
         }`, '__filename');
     }).to.not.throwException();
   });
@@ -853,7 +854,7 @@ describe('semantic', function () {
         }
 
         static function test(): GroupDetailResponse.abilities {
-
+          return new GroupDetailResponse.abilities{};
         }`, '__filename');
     }).to.not.throwError();
 
@@ -3833,6 +3834,7 @@ describe('semantic', function () {
               32, 32,
               64, 64
             );
+            return '';
           }
           
           init() {}`, '__filename');
@@ -4144,7 +4146,6 @@ describe('semantic', function () {
         }
         `, '__filename');
     }).to.not.throwError();
-
 
     expect(function () {
       parse(`
@@ -5356,6 +5357,136 @@ describe('semantic', function () {
           }
         }
       }
+    });
+  });
+
+  it('no return should not ok', function () {
+    expect(function() {
+      parse(`
+      static function main(): string {
+      }`, '__filename');
+    }).to.throwException(function(ex) {
+      expect(ex).be.a(SyntaxError);
+      expect(ex.message).to.be('no return statement');
+    });
+  });
+
+  it('no return when void should ok', function () {
+    expect(function() {
+      parse(`
+      static function main(): void {
+      }`, '__filename');
+    }).to.not.throwException();
+  });
+
+  it('return string should ok', function () {
+    expect(function() {
+      parse(`
+      static function main(): string {
+        return '';
+      }`, '__filename');
+    }).to.not.throwException();
+  });
+
+  it('return string should ok', function () {
+    expect(function() {
+      parse(`
+      static function main(): string {
+        if (true) {
+          return '';
+        } else {
+          return '';
+        }
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function() {
+      parse(`
+      static function main(): string {
+        if (true) {
+        }
+      }`, '__filename');
+    }).to.throwException(function(ex) {
+      expect(ex).be.a(SyntaxError);
+      expect(ex.message).to.be('no return statement');
+    });
+
+    expect(function() {
+      parse(`
+      static function main(): string {
+        if (true) {
+          return '';
+        }
+      }`, '__filename');
+    }).to.throwException(function(ex) {
+      expect(ex).be.a(SyntaxError);
+      expect(ex.message).to.be('no return statement');
+    });
+
+    expect(function() {
+      parse(`
+      static function main(): string {
+        if (true) {
+          return '';
+        } else {
+
+        }
+      }`, '__filename');
+    }).to.throwException(function(ex) {
+      expect(ex).be.a(SyntaxError);
+      expect(ex.message).to.be('no return statement');
+    });
+
+    expect(function() {
+      parse(`
+      static function main(): string {
+        if (true) {
+          return '';
+        } else if (true) {
+
+        }
+      }`, '__filename');
+    }).to.throwException(function(ex) {
+      expect(ex).be.a(SyntaxError);
+      expect(ex.message).to.be('no return statement');
+    });
+
+    expect(function() {
+      parse(`
+      static function main(): string {
+        if (true) {
+          return '';
+        } else if (true) {
+          return '';
+        }
+      }`, '__filename');
+    }).to.throwException(function(ex) {
+      expect(ex).be.a(SyntaxError);
+      expect(ex.message).to.be('no return statement');
+    });
+
+    expect(function() {
+      parse(`
+      static function main(): string {
+        '';
+      }`, '__filename');
+    }).to.throwException(function(ex) {
+      expect(ex).be.a(SyntaxError);
+      expect(ex.message).to.be('no return statement');
+    });
+  });
+
+  it('no return stmt in api should not ok', function () {
+    expect(function() {
+      parse(`
+      api hello(): string {
+        return '';
+      } returns {
+
+      }`, '__filename');
+    }).to.throwException(function(ex) {
+      expect(ex).be.a(SyntaxError);
+      expect(ex.message).to.be('no return statement');
     });
   });
 });

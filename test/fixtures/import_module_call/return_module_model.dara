@@ -1,4 +1,5 @@
 import OSS
 
 static function test(): OSS.MyModel {
+    return new OSS.MyModel;
 }
