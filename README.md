@@ -43,6 +43,7 @@
   - C++
 - [VS Code 插件](https://github.com/aliyun/darabonba-vscode)：提供语法高亮、代码提示、代码格式化、语法检查
 - [CLI](https://github.com/aliyun/darabonba-cli)：命令行工具
+- [Darabonba模块仓库](https://darabonba.api.aliyun.com/module)：模块仓库，提供 Darabonba 模块的发布和下载
 
 ## 文档
 
@@ -53,6 +54,7 @@
 - [Function](./doc/function.md)
 - [API](./doc/api.md)
 - [模块系统](./doc/module.md)
+- [控制语句](./doc/statements.md)
 - 语言规范
 
 ## 安装
