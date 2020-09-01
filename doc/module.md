@@ -71,6 +71,7 @@ function sayUserName(username: string): string {
   "version": "1.0.0",
   "main": "./main.tea",
   "libraries": {
+    // 属性名 TestModule 是 dara 脚本 import 时使用的名字
     "TestModule": "TestModule的本地引用路径"
   }
 }
@@ -139,3 +140,74 @@ static function getSubUserInfo(department: string): string {
   return `${basicInfo} he's department is ${department} `;
 }
 ```
+
+## 模块仓库
+
+开发者不仅可以使用自己本地编写的模块来进行开发，也可以使用[模块仓库](https://darabonba.api.aliyun.com/module)中其他开发者发布的模块来进行开发，从而简化开发避免重复造轮子。
+
+### 引用远端模块
+
+在[模块仓库](https://darabonba.api.aliyun.com/module)中找到需要的模块后，可以直接在 `Darafile` 的 `libraries` 属性中通过模块的 `scope`、`name`、`version` 来引用。
+
+```js
+{
+  "scope": "darabonba",
+  "name": "Sample",
+  "version": "1.0.0",
+  "main": "./main.tea",
+  "libraries": {
+    // 属性名 TestModule 是 dara 脚本 import 时使用的名字
+    "TestModule": "darabonba:TestModule:1.0.0"
+  }
+}
+```
+在 `Darafile` 中确定了需要引入哪些模块后，接下来我们需要借助 `Darabonba CLI` 从远端代码仓库中拉取 `libraries` 中定义的模块，拉取操作如下：
+
+```sh
+$ dara install
+```
+
+在安装完成以后，我们就可以利用安装的模块来编写我们的 `dara` 脚本了，与本地引用时使用一致。
+
+```js
+import TestModule;
+
+type @operator = string
+
+init(operator: string) {
+  @operator = operator;
+  // 初始化 TestModule 模块，执行其中的 init 方法
+  var moduleInstance = new TestModule('darabonba');
+  // function 和 api 都只能通过模块实例调用。
+  var sayName = moduleInstance.sayUserName('test');
+}
+
+static function getUserInfo(department: string): string {
+  // 实例化 TestModule 模块中的 model
+  var basicUserInfo = new TestModule.User{
+    name = 'test',
+    age = 0
+  };
+  // 调用 TestModule 模块中的方法
+  var basicInfo: string = TestModule.getUser('test', 27);
+  return `${basicInfo} he's department is ${department} `;
+}
+```
+
+### 发布模块
+
+在完成 `dara` 脚本的编写以后，同样可以对自己的 `dara` 模块进行发布。首先通过下面的命令进行登录。
+
+```sh
+$ dara login
+```
+
+登录所用的密码账号，需要通过登录[阿里云官网](https://account.aliyun.com/login/login.htm?oauth_callback=https%3A%2F%2Fdarabonba.api.aliyun.com%2Fadmin%2Fmaintainer)后跳转到 [Darabonba 个人中心](https://darabonba.api.aliyun.com/admin/maintainer) 进行注册。
+
+在注册完成，并成功通过 `dara login` 登录以后，就可以使用下面的命令对模块进行发布了。
+
+```sh
+$ dara publish
+```
+
+发布成功后，所有的 Darabonba 开发者都可以引用这个模块了。
