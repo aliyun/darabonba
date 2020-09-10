@@ -2211,6 +2211,15 @@ describe('semantic', function () {
 
     expect(function () {
       parse(`
+        model M = {};
+        static function callOSS(): map[string]any {
+          var m = new M{};
+          return {key = m};
+        }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
         static function callOSS(): map[string]string {
           return {key = 1};
         }`, '__filename');
@@ -5488,5 +5497,18 @@ describe('semantic', function () {
       expect(ex).be.a(SyntaxError);
       expect(ex.message).to.be('no return statement');
     });
+  });
+
+  it('assign map[string]model to map[string]any should ok', function () {
+    expect(function () {
+      parse(`
+      model M{}
+      static function main(): void {
+        var m = new M{};
+        var a: map[string]any = {
+          m = m
+        };
+      }`, '__filename');
+    }).to.not.throwException();
   });
 });
