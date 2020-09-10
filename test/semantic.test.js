@@ -5397,6 +5397,17 @@ describe('semantic', function () {
     }).to.not.throwException();
   });
 
+  it('no return but throw error should ok', function () {
+    expect(function () {
+      parse(`
+      static function main(): string {
+        throw {
+          message = 'error'
+        }
+      }`, '__filename');
+    }).to.not.throwException();
+  });
+
   it('return string should ok', function () {
     expect(function() {
       parse(`
@@ -5480,6 +5491,97 @@ describe('semantic', function () {
         '';
       }`, '__filename');
     }).to.throwException(function(ex) {
+      expect(ex).be.a(SyntaxError);
+      expect(ex.message).to.be('no return statement');
+    });
+
+    expect(function () {
+      parse(`
+      static function main(): string {
+        try {
+          return '';
+        } finally {
+          '';
+        }
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+      static function main(): string {
+        try {
+          '';
+        } finally {
+          return '';
+        }
+      }`, '__filename');
+    }).to.not.throwException();
+    
+    expect(function () {
+      parse(`
+      static function main(): string {
+        try {
+          return '';
+        } catch(err) {
+          return '';
+        }
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+      static function main(): string {
+        try {
+          return '';
+        } catch(err) {
+          return '';
+        } finally {
+          '';
+        }
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+      static function main(): string {
+        try {
+          '';
+        } catch(err) {
+          '';
+        } finally {
+          return '';
+        }
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+      static function main(): string {
+        try {
+          '';
+        } catch(err) {
+          return '';
+        } finally {
+          '';
+        }
+      }`, '__filename');
+    }).to.throwException(function (ex) {
+      expect(ex).be.a(SyntaxError);
+      expect(ex.message).to.be('no return statement');
+    });
+
+    expect(function () {
+      parse(`
+      static function main(): string {
+        try {
+          return '';
+        } catch(err) {
+          '';
+        } finally {
+          '';
+        }
+      }`, '__filename');
+    }).to.throwException(function (ex) {
       expect(ex).be.a(SyntaxError);
       expect(ex.message).to.be('no return statement');
     });
