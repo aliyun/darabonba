@@ -104,7 +104,8 @@ static function getUser(username: string, age: number): string {
 ```
 
 ## 生成代码
-Darabonba 主要的作用是利用它为任意风格的接口生成多语言的 SDK 、代码示例、测试用例、接口编排等，比如我们生成 TypeScript 的代码就可以直接利用下面的命令编译 `hello.tea` 并将生成的代码输出到同目录下的 tmp 文件夹中：
+
+Darabonba 主要的作用是利用它为任意风格的接口生成多语言的 SDK 、代码示例、测试用例、接口编排等，比如我们生成 TypeScript 的代码就可以直接利用下面的命令编译 `hello.dara` 并将生成的代码输出到同目录下的 tmp 文件夹中：
 
 ```sh
 $ dara codegen ts ./tmp
