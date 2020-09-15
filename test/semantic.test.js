@@ -5613,4 +5613,72 @@ describe('semantic', function () {
       }`, '__filename');
     }).to.not.throwException();
   });
+
+  it('runtime block\'s env local should be separated with apiBody & returnBody', function () {
+    expect(function () {
+      parse(`
+      init() {}
+
+      api hello(): object {
+        __request.method = 'GET';
+        __request.pathname = '/';
+        __request.headers = {
+          host = 'www.test.com',
+        };
+        var retry = false;
+      } returns {
+        if(retry){
+          return __request.headers;
+        }
+        return {};
+      } runtime {
+
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+      init() {}
+      
+      api hello(): object {
+        __request.method = 'GET';
+        __request.pathname = '/';
+        __request.headers = {
+          host = 'www.test.com',
+        };
+        var retry = false;
+      } returns {
+        if(retry){
+          return __request.headers;
+        }
+        return {};
+      } runtime {
+        retry = retry
+      }`, '__filename');
+    }).to.throwException(function (ex) {
+      expect(ex).be.a(SyntaxError);
+      expect(ex.message).to.be('variable "retry" undefined');
+    });
+
+    expect(function () {
+      parse(`
+      init() {}
+
+      api hello(retry: boolean): object {
+        __request.method = 'GET';
+        __request.pathname = '/';
+        __request.headers = {
+          host = 'www.test.com',
+        };
+        var test = retry;
+      } returns {
+        if(test){
+          return __request.headers;
+        }
+        return {};
+      } runtime {
+        retry = retry
+      }`, '__filename');
+    }).to.not.throwException();
+  });
 });
