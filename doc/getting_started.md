@@ -111,4 +111,4 @@ Darabonba 主要的作用是利用它为任意风格的接口生成多语言的 
 $ dara codegen ts ./tmp
 ```
 
-其他语言输入对应的将 ts 替换为对应的 java、csharp、python、go、php 即可。
+其他语言输入对应的将 ts 替换为对应的 java、csharp、python、go、php 即可，每个语言都可以配置自己独立的生成配置，具体配置请参考 [Darafile 详解](./darafile.md)。
