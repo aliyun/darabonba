@@ -55,6 +55,7 @@
 - [API](./doc/api.md)
 - [模块系统](./doc/module.md)
 - [控制语句](./doc/statements.md)
+- [Darafile 详解](./doc/darafile.md)
 - 语言规范
 
 ## 安装
