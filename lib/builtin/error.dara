@@ -1,0 +1,6 @@
+model Error {
+    name: string,
+    message: string,
+    code: string,
+    stack: string
+}

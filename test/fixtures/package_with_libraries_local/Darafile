@@ -1,0 +1,6 @@
+{
+    "darabonba": "2.0",
+    "libraries": {
+        "std": "./libraries/std"
+    }
+}

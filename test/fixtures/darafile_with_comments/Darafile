@@ -1,6 +1,0 @@
-{
-    // commits
-    "libraries": {
-        "OSS": "alibabacloud:OSS:*"
-    }
-}

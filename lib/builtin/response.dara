@@ -1,0 +1,6 @@
+model Response {
+    statusCode: int32,
+    statusMessage: string,
+    headers: map[string]string,
+    body: readable
+}
