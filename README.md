@@ -35,12 +35,12 @@
   - [PHP](https://github.com/aliyun/darabonba-php-generator)
   - [Golang](https://github.com/aliyun/darabonba-go-generator)
   - [Python](https://github.com/aliyun/darabonba-python-generator)
+  - [C++](https://github.com/aliyun/darabonba-cpp-generator)
   - Swift
   - Dart
   - Ruby
   - Lua
   - Kotlin
-  - C++
 - [VS Code 插件](https://github.com/aliyun/darabonba-vscode)：提供语法高亮、代码提示、代码格式化、语法检查
 - [CLI](https://github.com/aliyun/darabonba-cli)：命令行工具
 - [Darabonba模块仓库](https://darabonba.api.aliyun.com/module)：模块仓库，提供 Darabonba 模块的发布和下载
