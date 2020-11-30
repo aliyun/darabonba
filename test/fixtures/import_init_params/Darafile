@@ -1,6 +1,0 @@
-{
-    "libraries": {
-        "oss": "path/to/oss",
-        "OSS": "./oss.dara"
-    }
-}

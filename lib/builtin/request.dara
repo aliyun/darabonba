@@ -1,0 +1,9 @@
+model Request {
+    protocol?: string,
+    port?: int32,
+    method: string,
+    pathname: string,
+    query?: map[string]string,
+    headers?: map[string]string,
+    body: readable
+}
