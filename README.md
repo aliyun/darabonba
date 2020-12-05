@@ -56,6 +56,9 @@
 - [模块系统](./doc/module.md)
 - [控制语句](./doc/statements.md)
 - [Darafile 详解](./doc/darafile.md)
+- [基于 Darabonba 编写工具模块](./doc/demo_util.md)
+- [基于 Darabonba 编写 SDK](./doc/demo_sdk.md)
+- [基于 Darabonba 编写 CodeSample](./doc/demo_codesample.md)
 - 语言规范
 
 ## 安装
