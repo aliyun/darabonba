@@ -143,9 +143,14 @@ describe('lexer', function () {
     const txt = fs.readFileSync(path.join(__dirname, 'fixtures/escape.txt'), 'utf8');
     expect(lex(txt, '__filename')).to.be.eql([
       { tag: 1, string: 'doesn\'t match.',
-        'loc': loc(1, 2, 1, 17) },
+        'loc': loc(1, 2, 1, 17)
+      },
+      {
+        tag: 1, string: '"also can match"',
+        'loc': loc(2, 2, 2, 20)
+      },
       { tag: undefined,
-        loc: loc(1, 18, 1, 18)
+        loc: loc(2, 21, 2, 21)
       }
     ]);
 

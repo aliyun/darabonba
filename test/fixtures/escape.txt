@@ -1,1 +1,2 @@
 'doesn\'t match.'
+"\"also can match\""
