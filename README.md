@@ -58,7 +58,7 @@
 - [Darafile 详解](./doc/darafile.md)
 - [基于 Darabonba 编写工具模块](./doc/demo_util.md)
 - [基于 Darabonba 编写 SDK](./doc/demo_sdk.md)
-- [基于 Darabonba 编写 CodeSample](./doc/demo_codesample.md)
+- 基于 Darabonba 编写 CodeSample
 - 语言规范
 
 ## 安装
