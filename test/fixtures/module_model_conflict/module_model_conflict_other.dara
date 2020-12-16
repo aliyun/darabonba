@@ -1,4 +1,8 @@
 import OSS
 import Source
 
-init(config1: Source.Config, config2: OSS.Config) { }
+model Config{};
+
+init(config1: Source.Config, config2: OSS.Config) {
+  var conf = new Config;
+}

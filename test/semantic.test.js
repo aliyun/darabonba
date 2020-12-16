@@ -4027,8 +4027,9 @@ describe('semantic', function () {
     ast = readAndParse('fixtures/module_model_conflict/module_model_in_params.dara');
     expect(ast.conflictModels.has('OSS:Config')).to.be(true);
     ast = readAndParse('fixtures/module_model_conflict/module_model_conflict_other.dara');
-    expect(ast.conflictModels.has('OSS:Config')).to.be(false);
+    expect(ast.conflictModels.has('OSS:Config')).to.be(true);
     expect(ast.conflictModels.has('Source:Config')).to.be(true);
+    expect(ast.conflictModels.has('Config')).to.be(true);
     ast = readAndParse('fixtures/module_model_conflict/module_model_unuse.dara');
     expect(ast.conflictModels.has('OSS:Config')).to.be(false);
   });
