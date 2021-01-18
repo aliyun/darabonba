@@ -1304,6 +1304,11 @@ describe('semantic', function () {
                 'args': [
                   {
                     'fields': [],
+                    'expectedType': {
+                      'moduleName': undefined,
+                      'name': 'M',
+                      'type': 'model'
+                    },
                     'inferred': {
                       'keyType': { name: 'string', type: 'basic' },
                       'type': 'map',
@@ -1474,6 +1479,10 @@ describe('semantic', function () {
         {
           'args': [
             {
+              'expectedType': {
+                'name': 'string',
+                'type': 'basic'
+              },
               'inferred': {
                 'name': 'string',
                 'type': 'basic'
@@ -1594,6 +1603,10 @@ describe('semantic', function () {
                   }
                 }
               ],
+              'expectedType': {
+                'name': 'string',
+                'type': 'basic'
+              },
               'inferred': {
                 'name': 'string',
                 'type': 'basic'
@@ -1633,6 +1646,10 @@ describe('semantic', function () {
           'args': [
             {
               'inferred': {
+                'name': 'string',
+                'type': 'basic'
+              },
+              'expectedType': {
                 'name': 'string',
                 'type': 'basic'
               },
@@ -2542,6 +2559,10 @@ describe('semantic', function () {
                 'loc': loc(5, 21, 5, 22),
                 'tag': 2
               },
+              'expectedType': {
+                'name': 'any',
+                'type': 'basic'
+              },
               'inferred': {
                 'moduleName': undefined,
                 'name': 'M',
@@ -2593,6 +2614,11 @@ describe('semantic', function () {
                 'name': 'null',
                 'type': 'basic'
               },
+              'expectedType': {
+                'moduleName': undefined,
+                'name': 'M',
+                'type': 'model'
+              },
               'needCast': false,
               'tokenRange': [28, 29],
               'type': 'null'
@@ -2643,6 +2669,11 @@ describe('semantic', function () {
               'inferred': {
                 'moduleName': undefined,
                 'name': 'M',
+                'type': 'model'
+              },
+              'expectedType': {
+                'moduleName': undefined,
+                'name': '$Model',
                 'type': 'model'
               },
               'needCast': false,
@@ -4607,6 +4638,10 @@ describe('semantic', function () {
           'index': 48
         }
       ],
+      'expectedType': {
+        'name': 'number',
+        'type': 'basic'
+      },
       'accessKey': {
         'type': 'number',
         'value': {
