@@ -5717,4 +5717,39 @@ describe('semantic', function () {
       }`, '__filename');
     }).to.not.throwException();
   });
+
+  it('parameter expected type is ok', function () {
+    const ast = readAndParse('fixtures/params_expected_type/main.dara');
+    const superArgs = ast.moduleBody.nodes[0].initBody.stmts[0].args[0].expectedType;
+    const constructArgs = ast.moduleBody.nodes[0].initBody.stmts[1].expr.args[0].expectedType;
+    
+    const instanceCallArgs = ast.moduleBody.nodes[0].initBody.stmts[3].args[0].expectedType;
+    const methodCallArgs = ast.moduleBody.nodes[0].initBody.stmts[4].args[0].expectedType;
+    const staticArgs = ast.moduleBody.nodes[0].initBody.stmts[5].args[0].expectedType;
+    expect(superArgs).to.be.eql({
+      'type': 'basic',
+      'name': 'string'
+    });
+
+    expect(constructArgs).to.be.eql({
+      'type': 'basic',
+      'name': 'string'
+    });
+
+    expect(instanceCallArgs).to.be.eql({
+      'type': 'model',
+      'name': 'Options',
+      'moduleName': 'OSS'
+    });
+
+    expect(methodCallArgs).to.be.eql({
+      'type': 'basic',
+      'name': 'number'
+    });
+
+    expect(staticArgs).to.be.eql({
+      'type': 'basic',
+      'name': 'string'
+    });
+  });
 });

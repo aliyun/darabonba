@@ -1,0 +1,16 @@
+import OSS;
+import Test;
+
+extends Test;
+
+init(str: string){
+  super(str);
+  var oss = new OSS('str');
+  var option = new OSS.Options{};
+  oss.putObject(option);
+  call(2);
+  OSS.setFileInfo(str);
+}
+
+function call(num: number): void {
+}
