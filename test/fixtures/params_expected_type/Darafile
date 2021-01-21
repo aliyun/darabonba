@@ -1,0 +1,6 @@
+{
+    "libraries": {
+        "OSS": "./oss.dara",
+        "Test": "./test.dara"
+    }
+}

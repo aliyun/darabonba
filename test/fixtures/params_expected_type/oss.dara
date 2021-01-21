@@ -1,0 +1,11 @@
+model Options{};
+
+init(str: string);
+
+static function setFileInfo(mime: string): void{
+
+}
+
+function putObject(options: Options): void {
+
+}
