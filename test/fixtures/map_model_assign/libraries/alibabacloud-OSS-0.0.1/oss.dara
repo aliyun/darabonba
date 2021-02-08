@@ -1,0 +1,11 @@
+model Config {
+    accessKeyId: string
+};
+
+model M {
+    config?: map[string]Config
+}
+
+init(config: Config);
+
+function getAccessKeyId(): string;

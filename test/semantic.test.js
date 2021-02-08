@@ -5752,4 +5752,10 @@ describe('semantic', function () {
       'name': 'string'
     });
   });
+
+  it('assign when map value type is model  should ok', function () {
+    expect(function () {
+      readAndParse('fixtures/map_model_assign/main.dara');
+    }).to.not.throwException();
+  });
 });
