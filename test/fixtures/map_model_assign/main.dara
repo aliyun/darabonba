@@ -1,0 +1,26 @@
+import OSS
+
+model M{
+  m?: string
+}
+
+model N{
+  n?: map[string]M
+}
+
+init(){
+  var config = new OSS.Config{};
+  var map1 = {
+    key = config
+  };
+  var m = new OSS.M{
+    config = map1
+  };
+  var m2 = new M{};
+  var map2 = {
+    key = m2
+  };
+  var n = new N{
+    n = map2
+  };
+}
