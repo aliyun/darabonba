@@ -4,7 +4,7 @@
 
 ## 选择工具模块
 
-要实现一个可用的 SDK 工具模块是必不可少的，在通过 Darabonba 描述 OpenAPI 之前我们必须确定我们需要哪些工具模块，在 SDk 的生成过程中，我们累积了很多常用的方法并封装成了一个工具模块，就是 Darbaonba 官方提供的 [Darabonba Util](https://github.com/aliyun/tea-util)，通过 `Util` 工具模块可以帮助我们完成下列复杂逻辑：
+要实现一个可用的 SDK 工具模块是必不可少的，在通过 Darabonba 描述 OpenAPI 之前我们必须确定我们需要哪些工具模块，在 SDK 的生成过程中，我们累积了很多常用的方法并封装成了一个工具模块，就是 Darbaonba 官方提供的 [Darabonba Util](https://github.com/aliyun/tea-util)，通过 `Util` 工具模块可以帮助我们完成下列复杂逻辑：
 
 - 使用 `readAsJSON` 方法服务端返回的流读取并按 `JSON` 格式解析
 - Darabonba 目前缺少了一些逻辑表达的语句解析能力，所以也需要用到 `Util` 工具模块的 `equalNumber` 方法来比对 Http 状态码。
