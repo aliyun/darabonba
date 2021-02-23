@@ -5758,4 +5758,101 @@ describe('semantic', function () {
       readAndParse('fixtures/map_model_assign/main.dara');
     }).to.not.throwException();
   });
+
+  it('map value type is model should ok', function () {
+    let ast = parse(`
+      model M {
+        configs: map[string]N
+      }
+
+      model N {
+        config: string,
+      }
+
+      static function main(m: M): void {
+        var config = m.configs;
+      }`, '__filename');
+    const [ expr ] = ast.moduleBody.nodes[2].functionBody.stmts.stmts;
+    expect(expr.expr).to.eql({
+      'type': 'property_access',
+      'id': {
+        'tag': 2,
+        'loc': {
+          'start': {
+            'line': 11,
+            'column': 22
+          },
+          'end': {
+            'line': 11,
+            'column': 23
+          }
+        },
+        'lexeme': 'm',
+        'index': 34,
+        'type': 'variable',
+        'inferred': {
+          'moduleName': undefined,
+          'type': 'model',
+          'name': 'M'
+        }
+      },
+      'propertyPath': [
+        {
+          'tag': 2,
+          'loc': {
+            'start': {
+              'line': 11,
+              'column': 24
+            },
+            'end': {
+              'line': 11,
+              'column': 31
+            }
+          },
+          'lexeme': 'configs',
+          'index': 36
+        }
+      ],
+      'loc': {
+        'start': {
+          'line': 11,
+          'column': 22
+        },
+        'end': {
+          'line': 11,
+          'column': 31
+        }
+      },
+      'tokenRange': [
+        34,
+        37
+      ],
+      'propertyPathTypes': [
+        {
+          'type': 'map',
+          'keyType': {
+            'type': 'basic',
+            'name': 'string'
+          },
+          'valueType': {
+            'moduleName': undefined,
+            'type': 'model',
+            'name': 'N'
+          }
+        }
+      ],
+      'inferred': {
+        'type': 'map',
+        'keyType': {
+          'type': 'basic',
+          'name': 'string'
+        },
+        'valueType': {
+          'moduleName': undefined,
+          'type': 'model',
+          'name': 'N'
+        }
+      }
+    });
+  });
 });
