@@ -80,3 +80,47 @@ init() {
   };
 }
 ```
+
+## Model 的字段描述
+
+通过字段的描述，可以更好的约束字段的行为，如限制最大值或最小值等，还能为字段的使用提供简单的介绍和说明。
+
+目前支持的描述关键字:
+
+- maximum :
+  - 限制字段的`最大值`，只能用于数字类型的字段。
+- minimum :
+  - 限制字段的`最小值`，只能用于数字类型的字段。
+- maxLength :
+  - 限制字段的`最大长度`，可以用于字符串、数组类型的字段。
+- minLength :
+  - 限制字段的`最小长度`，可以用于字符串、数组类型的字段。
+- pattern :
+  - 字符串的正则匹配规则，只能用于字符串类型的字段。
+- description :
+  - 字段的描述信息。
+- example :
+  - 字段的使用示例。
+- default :
+  - 字段的默认值。
+
+使用示例
+
+```js
+model User {
+  username: string(
+    description="登陆账号",
+    example="johny",
+    maxLength=32,
+    minLength=5,
+    pattern="[a-z0-9A-Z]+"
+  ),
+  age: number(
+    description="年龄",
+    example="18",
+    maximum=150,
+    minimum=0,
+    default=18
+  )
+}
+```
