@@ -458,6 +458,30 @@ describe('parser', function () {
       'type': 'modelBody'
     });
 
+    expect(modelField(`new?: string`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'new',
+            'tag': 2,
+            loc: loc(3, 11, 3, 14)
+          },
+          'fieldValue': {
+            'fieldType': 'string',
+            'type': 'fieldType'
+          },
+          'required': false,
+          'tokenRange': [5, 9],
+          'type': 'modelField'
+        }
+      ],
+      'tokenRange': [4, 9],
+      'type': 'modelBody'
+    });
+
+
     expect(modelField(`name?: ID`)).to.be.eql({
       'nodes': [
         {
