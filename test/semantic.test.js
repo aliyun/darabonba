@@ -5855,4 +5855,122 @@ describe('semantic', function () {
       }
     });
   });
+
+  it('string or number enum should ok', function () {
+    expect(function () {
+      parse(`
+      enum E: string {
+        str(value='str', description='str'),
+      }
+    `, '__filename');
+    }).to.not.throwException();
+
+    expect(() => {
+      parse(`
+      enum E: number {
+        num(value=123, description='num'),
+      }
+    `, '__filename');
+    }).to.not.throwException();
+
+    expect(() => {
+      parse(`
+      enum E: int16 {
+        num(value=123, description='num'),
+      }
+    `, '__filename');
+    }).to.not.throwException();
+
+    expect(() => {
+      parse(`
+      enum E: float {
+        num(value=12.3, description='num'),
+      }
+    `, '__filename');
+    }).to.not.throwException();
+
+    expect(() => {
+      parse(`
+      enum E: long {
+        num(value=123L, description='num'),
+      }
+    `, '__filename');
+    }).to.not.throwException();
+
+    expect(() => {
+      parse(`
+      enum E: double {
+        num(value=12.3d, description='num'),
+      }
+    `, '__filename');
+    }).to.not.throwException();
+
+    expect(() => {
+      parse(`
+      enum E: string {
+        str(value='str'),
+      }
+    `, '__filename');
+    }).to.not.throwException();
+  });
+
+
+  it('wrong value type enum should not ok', function () {
+    expect(() => {
+      parse(`
+      enum E: number {
+        str(value='str', description='str'),
+      }
+    `, '__filename');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('the enum types are mismatched. expected number, but string');
+    });
+
+    expect(() => {
+      parse(`
+      enum E: string {
+        num(value=123, description='num'),
+      }
+    `, '__filename');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('the enum types are mismatched. expected string, but integer');
+    });
+
+    expect(() => {
+      parse(`
+      enum E: integer {
+        num(value=12.3, description='num'),
+      }
+    `, '__filename');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('the enum types are mismatched. expected integer, but float');
+    });
+  });
+
+  it('enum has wrong attr should not ok', function () {
+    expect(() => {
+      parse(`
+      enum E: string {
+        str(description='str'),
+      }
+    `, '__filename');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('enum "E" must have attribute "value".');
+    });
+
+    expect(() => {
+      parse(`
+      enum E: string {
+        str(value='str', value=123, description='str'),
+      }
+    `, '__filename');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('the enum attribute "value" is redefined.');
+    });
+  });
 });
