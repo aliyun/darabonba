@@ -6937,4 +6937,377 @@ describe('parser', function () {
       ]
     });
   });
+
+  it('string enum should ok', function () {
+    var ast = parse(`
+      enum E: string {
+        str(value='str', description='str'),
+      }
+    `, '__filename');
+    let [enumAst] = ast.moduleBody.nodes;
+    expect(enumAst).to.be.eql({
+      'type': 'enum',
+      'enumName': {
+        'tag': 2,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 12
+          },
+          'end': {
+            'line': 2,
+            'column': 13
+          }
+        },
+        'lexeme': 'E',
+        'index': 2
+      },
+      'enumType': {
+        'tag': 8,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 15
+          },
+          'end': {
+            'line': 2,
+            'column': 21
+          }
+        },
+        'lexeme': 'string',
+        'index': 4
+      },
+      'enumBody': {
+        'type': 'enumBody',
+        'nodes': [
+          {
+            'type': 'enumField',
+            'fieldName': {
+              'tag': 2,
+              'loc': {
+                'start': {
+                  'line': 3,
+                  'column': 9
+                },
+                'end': {
+                  'line': 3,
+                  'column': 12
+                }
+              },
+              'lexeme': 'str',
+              'index': 6
+            },
+            'enumAttrs': [
+              {
+                'type': 'enumAttr',
+                'attrName': {
+                  'tag': 2,
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 13
+                    },
+                    'end': {
+                      'line': 3,
+                      'column': 18
+                    }
+                  },
+                  'lexeme': 'value',
+                  'index': 8
+                },
+                'attrValue': {
+                  'type': 'string',
+                  'value': {
+                    'tag': 1,
+                    'loc': {
+                      'start': {
+                        'line': 3,
+                        'column': 20
+                      },
+                      'end': {
+                        'line': 3,
+                        'column': 23
+                      }
+                    },
+                    'string': 'str',
+                    'index': 10
+                  },
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 20
+                    },
+                    'end': {
+                      'line': 3,
+                      'column': 23
+                    }
+                  }
+                }
+              },
+              {
+                'type': 'enumAttr',
+                'attrName': {
+                  'tag': 2,
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 26
+                    },
+                    'end': {
+                      'line': 3,
+                      'column': 37
+                    }
+                  },
+                  'lexeme': 'description',
+                  'index': 12
+                },
+                'attrValue': {
+                  'type': 'string',
+                  'value': {
+                    'tag': 1,
+                    'loc': {
+                      'start': {
+                        'line': 3,
+                        'column': 39
+                      },
+                      'end': {
+                        'line': 3,
+                        'column': 42
+                      }
+                    },
+                    'string': 'str',
+                    'index': 14
+                  },
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 39
+                    },
+                    'end': {
+                      'line': 3,
+                      'column': 42
+                    }
+                  }
+                }
+              }
+            ],
+            'tokenRange': [
+              6,
+              16
+            ]
+          }
+        ],
+        'tokenRange': [
+          5,
+          17
+        ]
+      },
+      'tokenRange': [
+        1,
+        17
+      ],
+      'annotation': undefined
+    });
+  });
+
+  it('number enum should ok', function () {
+    var ast = parse(`
+      enum E: number {
+        num(value=12, description='num'),
+      }
+    `, '__filename');
+    let [enumAst] = ast.moduleBody.nodes;
+    expect(enumAst).to.be.eql({
+      'type': 'enum',
+      'enumName': {
+        'tag': 2,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 12
+          },
+          'end': {
+            'line': 2,
+            'column': 13
+          }
+        },
+        'lexeme': 'E',
+        'index': 2
+      },
+      'enumType': {
+        'tag': 8,
+        'loc': {
+          'start': {
+            'line': 2,
+            'column': 15
+          },
+          'end': {
+            'line': 2,
+            'column': 21
+          }
+        },
+        'lexeme': 'number',
+        'index': 4
+      },
+      'enumBody': {
+        'type': 'enumBody',
+        'nodes': [
+          {
+            'type': 'enumField',
+            'fieldName': {
+              'tag': 2,
+              'loc': {
+                'start': {
+                  'line': 3,
+                  'column': 9
+                },
+                'end': {
+                  'line': 3,
+                  'column': 12
+                }
+              },
+              'lexeme': 'num',
+              'index': 6
+            },
+            'enumAttrs': [
+              {
+                'type': 'enumAttr',
+                'attrName': {
+                  'tag': 2,
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 13
+                    },
+                    'end': {
+                      'line': 3,
+                      'column': 18
+                    }
+                  },
+                  'lexeme': 'value',
+                  'index': 8
+                },
+                'attrValue': {
+                  'type': 'number',
+                  'value': {
+                    'tag': 9,
+                    'loc': {
+                      'start': {
+                        'line': 3,
+                        'column': 19
+                      },
+                      'end': {
+                        'line': 3,
+                        'column': 21
+                      }
+                    },
+                    'value': 12,
+                    'type': 'integer',
+                    'index': 10
+                  },
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 19
+                    },
+                    'end': {
+                      'line': 3,
+                      'column': 21
+                    }
+                  }
+                }
+              },
+              {
+                'type': 'enumAttr',
+                'attrName': {
+                  'tag': 2,
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 23
+                    },
+                    'end': {
+                      'line': 3,
+                      'column': 34
+                    }
+                  },
+                  'lexeme': 'description',
+                  'index': 12
+                },
+                'attrValue': {
+                  'type': 'string',
+                  'value': {
+                    'tag': 1,
+                    'loc': {
+                      'start': {
+                        'line': 3,
+                        'column': 36
+                      },
+                      'end': {
+                        'line': 3,
+                        'column': 39
+                      }
+                    },
+                    'string': 'num',
+                    'index': 14
+                  },
+                  'loc': {
+                    'start': {
+                      'line': 3,
+                      'column': 36
+                    },
+                    'end': {
+                      'line': 3,
+                      'column': 39
+                    }
+                  }
+                }
+              }
+            ],
+            'tokenRange': [
+              6,
+              16
+            ]
+          }
+        ],
+        'tokenRange': [
+          5,
+          17
+        ]
+      },
+      'tokenRange': [
+        1,
+        17
+      ],
+      annotation: undefined
+    });
+  });
+
+  it('other type enum should not ok', function () {
+    expect(() => {
+      parse(`
+      enum E: boolean {
+        str(value=true, description='str'),
+      }
+    `, '__filename');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      console.log(e.message);
+      expect(e.message).to.be('Unexpected token: Word: `true`. expect string or number');
+    });
+  });
+
+  it('enum has no attr should not ok', function () {
+    expect(() => {
+      parse(`
+      enum E: string {
+        str,
+      }
+    `, '__filename');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      console.log(e.message);
+      expect(e.message).to.be('Unexpected token: ,. Expect (, but ,');
+    });
+  });
 });
