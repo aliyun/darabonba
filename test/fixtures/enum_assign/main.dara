@@ -1,0 +1,16 @@
+import Source
+
+type @conf = Source.Config
+
+model M{
+  config: Source.Config
+};
+
+init() {
+  var m = {
+    config: Source.Config.SourceId;
+  };
+  var conf: Source.Config = Source.Config.SourceId;
+
+  @conf = Source.Config.SourceId;
+}
