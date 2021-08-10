@@ -5973,4 +5973,53 @@ describe('semantic', function () {
       expect(e.message).to.be('the enum attribute "value" is redefined.');
     });
   });
+
+  it('assign enum to value type variable should ok', function () {
+    expect(() => {
+      parse(`
+      type @e = E
+
+      enum E: string {
+        str(value='str', description='str'),
+      }
+
+      model M {
+        m: E
+      }
+
+      init(){
+        var str: E = E.str;
+        @e = E.str;
+        var e = new M {
+          m = E.str
+        };
+      }
+    `, '__filename');
+    }).to.not.throwException();
+  });
+
+  it('assign enum to wrong type variable should not ok', function () {
+    expect(() => {
+      parse(`
+      type @e = string
+
+      enum E: string {
+        str(value='str', description='str'),
+      }
+
+      init(){
+        @e = E.str;
+      }
+    `, '__filename');
+    }).to.throwException(function (e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('can\'t assign E to string');
+    });
+  });
+
+  it('assign module enum should ok', function () {
+    expect(function () {
+      readAndParse('fixtures/declare_module_model/main.dara');
+    }).to.not.throwException();
+  });
 });

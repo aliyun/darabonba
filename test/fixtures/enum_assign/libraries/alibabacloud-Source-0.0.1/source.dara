@@ -1,0 +1,3 @@
+enum Config: string {
+    SourceId(value='id')
+};
