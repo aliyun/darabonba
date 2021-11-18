@@ -1,0 +1,7 @@
+{
+    "name": "OSS",
+    "main": "./oss.dara",
+    "libraries": {
+        "Basic": "alibabacloud:Basic:*"
+    }
+}

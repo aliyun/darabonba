@@ -358,6 +358,7 @@ function callOSS(): string {
         'args': [],
         'inferred': {
           'name': 'OSS',
+          'parentModuleIds': [],
           'type': 'module_instance'
         },
         'tokenRange': [12, 16],

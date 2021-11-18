@@ -6022,4 +6022,10 @@ describe('semantic', function () {
       readAndParse('fixtures/declare_module_model/main.dara');
     }).to.not.throwException();
   });
+
+  it('assign derived module to basic module should ok', function () {
+    expect(function () {
+      readAndParse('fixtures/assign_derived_module/main.dara');
+    }).to.not.throwException();
+  });
 });

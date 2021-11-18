@@ -1,0 +1,7 @@
+import OSS
+import Basic
+
+
+static function main() : void {
+    var basic: Basic = new OSS();
+}

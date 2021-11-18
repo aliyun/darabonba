@@ -1,0 +1,6 @@
+import Basic
+
+extends Basic
+
+
+init();
