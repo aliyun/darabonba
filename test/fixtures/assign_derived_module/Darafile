@@ -1,0 +1,6 @@
+{
+    "libraries": {
+        "OSS": "alibabacloud:OSS:*",
+        "Basic": "alibabacloud:Basic:*"
+    }
+}
