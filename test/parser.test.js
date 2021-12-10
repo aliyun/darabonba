@@ -7378,4 +7378,28 @@ describe('parser', function () {
       expect(e.message).to.be('Unexpected token: ,. Expect (, but ,');
     });
   });
+
+  it('number/new/super/rpc filed get/set should ok', function () {
+    expect(() => {
+      parse(`model M{
+        number: number,
+        super: number,
+        rpc: number,
+        new: number,
+      }
+
+      static function main(str: [string]): void {
+        var m = new M{
+          number = 123,
+          super = 123,
+          rpc = 123,
+          new = 123,
+        };
+        var number = m.number;
+        var super = m.super;
+        var rpc = m.rpc;
+        var new = m.new;
+      }`, '__filename');
+    }).to.not.throwException();
+  });
 });
