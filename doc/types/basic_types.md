@@ -93,12 +93,12 @@ var data: bytes = null;
 var readStream: readable = null;
 ```
 
-## writable
+## writeable
 
-`Darabonba` 定义了 `writable` 类型来为流式数据的传输提供了支持，目前只支持赋值 `null` 给 `writable` 类型的变量 。
+`Darabonba` 定义了 `writeable` 类型来为流式数据的传输提供了支持，目前只支持赋值 `null` 给 `writeable` 类型的变量 。
 
 ```js
-var data: writable = null;
+var data: writeable = null;
 ```
 
 ## Any
