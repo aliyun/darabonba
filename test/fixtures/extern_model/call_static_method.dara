@@ -1,0 +1,7 @@
+import OSS
+
+init(){}
+
+function call(): void {
+  OSS.staticPutObject();
+}

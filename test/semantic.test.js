@@ -6028,4 +6028,12 @@ describe('semantic', function () {
       readAndParse('fixtures/assign_derived_module/main.dara');
     }).to.not.throwException();
   });
+
+  it('return type can be set in usedExternModel', function () {
+    let ast = readAndParse('fixtures/extern_model/main.dara');
+    // expect(ast.usedTypes.has('readable')).to.be(true);
+    expect(ast.usedExternModel.get('OSS').has('MyModel')).to.eql(true);
+    ast = readAndParse('fixtures/extern_model/call_static_method.dara');
+    expect(ast.usedExternModel.get('OSS').has('MyModel')).to.eql(true);
+  });
 });
