@@ -1,0 +1,13 @@
+model MyModel {
+
+}
+
+init();
+
+function putObject(a: string): MyModel {
+  return new MyModel{};
+}
+
+static function staticPutObject(): MyModel {
+  return new MyModel{};
+}

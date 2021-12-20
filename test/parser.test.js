@@ -7386,6 +7386,7 @@ describe('parser', function () {
         super: number,
         rpc: number,
         new: number,
+        object: number,
       }
 
       static function main(str: [string]): void {
@@ -7394,11 +7395,13 @@ describe('parser', function () {
           super = 123,
           rpc = 123,
           new = 123,
+          object = 123
         };
         var number = m.number;
         var super = m.super;
         var rpc = m.rpc;
         var new = m.new;
+        var object = m.object;
       }`, '__filename');
     }).to.not.throwException();
   });
