@@ -4,4 +4,5 @@ init(){}
 
 function call(): void {
   OSS.staticPutObject();
+  OSS.staticPutObjectStr();
 }

@@ -5,4 +5,5 @@ init(){}
 function call(): void {
   var oss = new OSS();
   oss.putObject("string");
+  oss.putObjectStr("string");
 }
