@@ -8,6 +8,15 @@ function putObject(a: string): MyModel {
   return new MyModel{};
 }
 
+function putObjectStr(a: string): string {
+  return a;
+}
+
 static function staticPutObject(): MyModel {
   return new MyModel{};
 }
+
+static function staticPutObjectStr(): string {
+  return 'string';
+}
+
