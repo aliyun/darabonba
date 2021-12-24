@@ -6033,7 +6033,9 @@ describe('semantic', function () {
     let ast = readAndParse('fixtures/extern_model/main.dara');
     // expect(ast.usedTypes.has('readable')).to.be(true);
     expect(ast.usedExternModel.get('OSS').has('MyModel')).to.eql(true);
+    expect(ast.usedExternModel.get('OSS').has('string')).to.eql(false);
     ast = readAndParse('fixtures/extern_model/call_static_method.dara');
     expect(ast.usedExternModel.get('OSS').has('MyModel')).to.eql(true);
+    expect(ast.usedExternModel.get('OSS').has('string')).to.eql(false);
   });
 });
