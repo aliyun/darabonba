@@ -5,4 +5,6 @@ init(){}
 function call(): void {
   OSS.staticPutObject();
   OSS.staticPutObjectStr();
+  OSS.staticPutObjectMap();
+  OSS.staticPutObjectEnum();
 }

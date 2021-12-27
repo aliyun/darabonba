@@ -1,0 +1,11 @@
+import Map
+
+init(){}
+
+function call(): void {
+  var m = new Map();
+  Map.staticPutObjectMap();
+  m.putObjectMap({
+    str = new Map.MyModel{}
+  });
+}

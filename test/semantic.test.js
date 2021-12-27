@@ -6034,8 +6034,16 @@ describe('semantic', function () {
     // expect(ast.usedTypes.has('readable')).to.be(true);
     expect(ast.usedExternModel.get('OSS').has('MyModel')).to.eql(true);
     expect(ast.usedExternModel.get('OSS').has('string')).to.eql(false);
+    expect(ast.usedExternModel.get('OSS').has('Config')).to.eql(true);
+    expect(ast.usedExternModel.get('OSS').has('map')).to.eql(false);
+    expect(ast.usedExternModel.get('OSS').has(undefined)).to.eql(false);
     ast = readAndParse('fixtures/extern_model/call_static_method.dara');
     expect(ast.usedExternModel.get('OSS').has('MyModel')).to.eql(true);
+    expect(ast.usedExternModel.get('OSS').has('Config')).to.eql(true);
     expect(ast.usedExternModel.get('OSS').has('string')).to.eql(false);
+    expect(ast.usedExternModel.get('OSS').has('map')).to.eql(false);
+    expect(ast.usedExternModel.get('OSS').has(undefined)).to.eql(false);
+    ast = readAndParse('fixtures/extern_model/map_value_extern_model.dara');
+    expect(ast.usedExternModel.get('Map').has('MyModel')).to.eql(true);
   });
 });
