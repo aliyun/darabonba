@@ -1,0 +1,15 @@
+model MyModel {
+
+}
+
+init();
+
+static function staticPutObjectMap(): map[string]MyModel {
+  return {
+    str = new MyModel{}
+  };
+}
+
+function putObjectMap(a: map[string]MyModel): map[string]MyModel {
+  return a;
+}

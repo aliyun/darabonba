@@ -1,5 +1,6 @@
 {
     "libraries": {
-        "OSS": "./oss.dara"
+        "OSS": "./oss.dara",
+        "Map": "./map.dara"
     }
 }
