@@ -101,7 +101,9 @@ api downloadModule(pathname: string, query: DownloadModuleRequest): DownloadModu
       code = `${result.code}`
     };
   }
-  return result;
+  return {
+    ...result
+  };
 } runtime {
   timeout = 10000 // 10s 的过期时间
 }
@@ -183,7 +185,9 @@ api login(pathname: string, body: LoginRequest): LoginResponse {
     };
   }
   @auth = Util.assertAsString(result.rev);
-  return result;
+  return {
+    ...result
+  };
 } runtime {
   timeout = 10000 // 10s 的过期时间
 }
@@ -252,7 +256,9 @@ api publishModule(form: PublishModuleRequest): publishResponse {
       code = `${result.code}`
     };
   }
-  return result;
+  return {
+    ...result
+  };
 } runtime {
   timeout = 60000
 }
@@ -301,7 +307,9 @@ api login(pathname: string, body: LoginRequest): LoginResponse {
 } returns {
   var result = _handle(__response);
   @auth = Util.assertAsString(result.rev);
-  return result;
+  return {
+    ...result
+  };
 } runtime {
   timeout = 10000 // 10s 的过期时间
 }
