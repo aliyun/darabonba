@@ -57,7 +57,9 @@ api getUser(request: UserRequest, runtime: RuntimeOptions): UserResponse {
     };
   }
   var result = Util.assertAsMap(Util.readAsJSON(__response.body));
-  return result;
+  return {
+    ...result
+  };
 } runtime {
   // 描述运行时参数
   timeouted = 'retry',

@@ -38,13 +38,19 @@
     // packageInfo 中的每一项都对应 pom.xml 中的同名信息
     // 只会在首次生成 pom.xml 时生效，以免人工改动 pom.xml 重置其信息
     "packageInfo": {
+      "groupId": "com.aliyun",
+      "artifactId": "sdk",
+      "version": "2.0.6",
       "description": "Alibaba Cloud SDK for Java",
       "url": "https://github.com/aliyun/alibabacloud-sdk",
       "licenseName": "The Apache License, Version 2.0",
       "licenseUrl": "http://www.apache.org/licenses/LICENSE-2.0.txt",
       "developerId": "aliyunproducts",
       "developerName": "Aliyun SDK",
-      "developerEmail": "aliyunsdk@aliyun.com"
+      "developerEmail": "aliyunsdk@aliyun.com",
+      "scmConnection": "",
+      "scmDeveloperConnection": "",
+      "scmUrl": ""
     }
   },
   // 生成 Python 相关的个性化配置
@@ -64,7 +70,31 @@
       // 包作者
       "author": "Alibaba Cloud SDK",
       // 包作者邮箱
-      "email": "sdk-team@alibabacloud.com"
+      "email": "sdk-team@alibabacloud.com",
+      // 指定依赖，非必填
+      "require": ["xxx>=0.0.1, <1.0.0", "xxx>=0.0.1, <1.0.0"]
+    }
+  },
+  // 生成 Python2 相关的个性化配置
+  "python2": {
+    // 生成 python 包的包名，同时也是文件夹名，使用蛇形体
+    "package": "alibabacloud_sdk_py2",
+    // 决定 client 文件的文件名与 client 类名，使用蛇形体
+    "clientName": "client",
+    // 决定生成 Python 包信息文件 setup.py 中相关内容
+    "packageInfo": {
+      // python 库名，配置 packeageInfo 必填
+      "name": "alibabacloud_sdk_py2",
+      // 简介，配置 packeageInfo 必填
+      "desc": "Alibaba Cloud SDK Library for Python",
+      // github 地址，配置 packeageInfo 必填
+      "github": "https://github.com/aliyun/alibabacloud-sdk",
+      // 包作者
+      "author": "Alibaba Cloud SDK",
+      // 包作者邮箱
+      "email": "sdk-team@alibabacloud.com",
+      // 指定依赖，非必填
+      "require": ["xxx>=0.0.1, <1.0.0", "xxx>=0.0.1, <1.0.0"]
     }
   },
   "csharp": {
@@ -77,12 +107,20 @@
     "packageInfo": {
       //csproj 的项目文件名称，例为: sdk.csproj
       "name": "sdk",
+      // 版本号
+      "version": "2.0.6",
       // 生成 AssemblyInfo.cs 文件中的 AssemblyTitle 值
       "title": "alibabacloud-sdk",
       // 生成 AssemblyInfo.cs 文件中的 AssemblyDescription 值
       "description": "Alibaba Cloud SDK Library for .NET",
       // 生成 AssemblyInfo.cs 文件中的 AssemblyCompany 值
-      "company": "Alibaba Cloud, Inc"
+      "company": "Alibaba Cloud, Inc",
+      // 生成 AssemblyInfo.cs 文件中的 AssemblyProduct 值
+      "product": "sdk",
+      // 生成 AssemblyInfo.cs 文件中的 AssemblyCopyright 值
+      "copyRight": "",
+      // 生成 AssemblyInfo.cs 文件中的 Guid 值
+      "guid": ""
     }
   },
   "php": {
@@ -98,6 +136,26 @@
       "desc": "Alibaba Cloud SDK Library for PHP",
       // 代码发布的 github 地址
       "github": "https://github.com/aliyun/alibabacloud-sdk"
+    }
+  },
+  "go": {
+    // 额外引用的依赖，非必填
+    "package": [
+      "io"
+    ],
+    // 指定是否生成接口 interface
+    "interface": true,
+    // 文件名固定为 client.go，仅决定 client.go 中的 struct 名称，使用大驼峰
+    "clientName": "Client"
+  },
+  "cpp": {
+    "packageInfo": {
+      "git": {
+        // git 组织名
+        "scope": "alibabacloud-sdk-cpp",
+        // git 组织下的仓库名
+        "project": "dara-openapi"
+      }
     }
   }
 }
