@@ -1,0 +1,5 @@
+{
+    "name": "OSS",
+    "main": "./oss.dara",
+    "libraries": {}
+}

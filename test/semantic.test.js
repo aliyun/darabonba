@@ -6046,4 +6046,67 @@ describe('semantic', function () {
     ast = readAndParse('fixtures/extern_model/map_value_extern_model.dara');
     expect(ast.usedExternModel.get('Map').has('MyModel')).to.eql(true);
   });
+
+  it('use typedef should ok', function () {
+    expect(() => {
+      parse(`
+      typedef HttpResponse
+      typedef HttpRequest
+
+      type @vid=HttpRequest
+
+      model M {
+        a: HttpResponse,
+        b: HttpRequest
+      }
+
+      static function TestA(a: HttpResponse, b: HttpRequest): string;
+
+      static function TestB(a: string) throws : HttpResponse;
+    `, '__filename');
+    }).to.not.throwException();
+  });
+
+  it('assign typedef type should ok', function () {
+    expect(() => {
+      parse(`
+      typedef HttpResponse
+      type @vid=HttpResponse
+      
+      model M {
+        a: HttpResponse
+      }
+
+      init(a: HttpResponse){
+        @vid = a;
+        var m = new M{
+          a = a
+        };
+      }
+    `, '__filename');
+    }).to.not.throwException();
+  });
+
+
+  it('assign typedef wrong type should not ok', function () {
+    expect(() => {
+      parse(`
+      typedef HttpResponse
+      type @vid=HttpResponse
+
+      init(a: string){
+        @vid = a;
+      }
+    `, '__filename');
+    }).to.throwException(function (e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('can\'t assign string to HttpResponse');
+    });
+  });
+
+  it('use module deftype should ok', function () {
+    expect(function () {
+      readAndParse('fixtures/assign_module_typedef/main.dara');
+    }).to.not.throwException();
+  });
 });
