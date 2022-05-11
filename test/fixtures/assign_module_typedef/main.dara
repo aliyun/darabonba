@@ -1,0 +1,12 @@
+import OSS
+
+model M{
+    a: OSS.HttpRequest
+}
+
+static function main(test: OSS.HttpRequest) : void {
+    var oss = new OSS(test);
+    var m = new M{
+        a = test
+    };
+}

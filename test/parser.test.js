@@ -7405,4 +7405,31 @@ describe('parser', function () {
       }`, '__filename');
     }).to.not.throwException();
   });
+
+  it('typedef should ok', function () {
+    var ast = parse(`
+      typedef HttpRequest;
+    `, '__filename');
+    let [enumAst] = ast.moduleBody.nodes;
+    expect(enumAst).to.be.eql({
+      'type': 'typedef',
+      'value': {
+        'tag': 2,
+        'loc': {
+          'end': {
+            'column': 26,
+            'line': 2
+          },
+          'start': {
+            'column': 15,
+            'line': 2
+          }
+        },
+        'lexeme': 'HttpRequest',
+        'index': 2
+      },
+      'tokenRange': [1, 3],
+      'annotation': undefined
+    });
+  });
 });
