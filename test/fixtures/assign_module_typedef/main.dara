@@ -4,8 +4,15 @@ model M{
     a: OSS.HttpRequest
 }
 
+static function testFunc(test: OSS.HttpRequest) : void {
+    var m = new M{
+        a = test
+    };
+}
+
 static function main(test: OSS.HttpRequest) : void {
     var oss = new OSS(test);
+    testFunc(test);
     var m = new M{
         a = test
     };

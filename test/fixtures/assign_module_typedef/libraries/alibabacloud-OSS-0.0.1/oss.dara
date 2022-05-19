@@ -1,6 +1,11 @@
 typedef HttpRequest
 type @vid=HttpRequest
 
+function testFunc(test: HttpRequest): void {
+  var a = test;
+}
+
 init(test: HttpRequest){
   @vid = test;
+  testFunc(test);
 }
