@@ -1,0 +1,6 @@
+import OSS
+
+
+static function main(subm: OSS.M.subM) : void {
+    OSS.testFunc(subm);
+}
