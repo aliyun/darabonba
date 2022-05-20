@@ -1,7 +1,7 @@
 typedef HttpRequest
 type @vid=HttpRequest
 
-function testFunc(test: HttpRequest): void {
+static function testFunc(test: HttpRequest): void {
   var a = test;
 }
 
