@@ -1,0 +1,17 @@
+
+model M {
+  subM: {
+    a: string,
+  }
+}
+
+static function testFunc(subm: M.subM): void {
+  var a = subm;
+}
+
+init(){
+  var subm = new M.subM{
+    a = 'test'
+  };
+  testFunc(subm);
+}

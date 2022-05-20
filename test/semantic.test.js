@@ -6109,4 +6109,10 @@ describe('semantic', function () {
       readAndParse('fixtures/assign_module_typedef/main.dara');
     }).to.not.throwException();
   });
+
+  it('use module submodel should ok', function () {
+    expect(function () {
+      readAndParse('fixtures/module_submodel_call/main.dara');
+    }).to.not.throwException();
+  });
 });
