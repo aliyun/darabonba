@@ -6,6 +6,10 @@ model M{
   config: Source.Config
 };
 
+static testFunc(conf: Source.Config): Source.Config {
+  return Source.testFunc(conf);
+}
+
 init() {
   var m = {
     config: Source.Config.SourceId;

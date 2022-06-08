@@ -1,3 +1,7 @@
 enum Config: string {
     SourceId(value='id')
 };
+
+static function testFunc(conf: Config): Config {
+    return conf;
+}
