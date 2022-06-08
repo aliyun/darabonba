@@ -5,13 +5,14 @@ model M{
 }
 
 
-static function main(test: OSS.HttpRequest) : void {
+static function main(test: OSS.HttpRequest) : OSS.HttpResponse {
     var oss = new OSS(test);
     testFunc(test);
-    OSS.testFunc(test);
     var m = new M{
         a = test
     };
+    OSS.testFunc(test);
+    return OSS.testFunc2(test);
 }
 
 static function testFunc(test: OSS.HttpRequest) : void {

@@ -1,9 +1,13 @@
 typedef HttpRequest
+typedef HttpResponse
 type @vid=HttpRequest
 
 static function testFunc(test: HttpRequest): void {
   var a = test;
 }
+
+static function testFunc2(test: HttpRequest): HttpResponse;
+
 
 init(test: HttpRequest){
   @vid = test;
