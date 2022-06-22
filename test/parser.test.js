@@ -7379,13 +7379,14 @@ describe('parser', function () {
     });
   });
 
-  it('number/new/super/rpc filed get/set should ok', function () {
+  it('number/new/super/rpc/extends filed get/set should ok', function () {
     expect(() => {
       parse(`model M{
         number: number,
         super: number,
         rpc: number,
         new: number,
+        extends: number,
         object: number,
       }
 
@@ -7395,6 +7396,7 @@ describe('parser', function () {
           super = 123,
           rpc = 123,
           new = 123,
+          extends = 123,
           object = 123
         };
         var number = m.number;
@@ -7402,6 +7404,7 @@ describe('parser', function () {
         var rpc = m.rpc;
         var new = m.new;
         var object = m.object;
+        var extends = m.extends;
       }`, '__filename');
     }).to.not.throwException();
   });
