@@ -1,3 +1,10 @@
+// Originally written by @JacksonTian, migrated to TypeScript by @GZGavinZhao.
+//
+// Original code (JS version) is written under an MIT license, available here:
+// https://github.com/JacksonTian/skyline
+//
+// Thank you so much for your original work!
+
 export class Lexer {
 	source: string;
 	filename: string;
