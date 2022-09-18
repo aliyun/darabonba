@@ -1,5 +1,3 @@
-'use strict';
-
 export class Env {
 	preEnv: Env;
 	map: Map<string, string>;

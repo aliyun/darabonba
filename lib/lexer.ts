@@ -1,7 +1,5 @@
-'use strict';
-
 import { isLetter, isDecimalDigit } from './helper.js';
-import { Tag } from './tag.js';
+import { Tag, tip } from './tag.js';
 import { Keyword } from './keyword.js';
 import { Lexer as BaseLexer } from './skyline/lexer.js';
 import { Loc, Token } from './skyline/token.js';
@@ -419,6 +417,7 @@ export class Lexer extends BaseLexer {
 			this.error(`Unexpect ${this.peek} after '|', expect '|'`);
 		}
 
+		// 警察叔叔，就是他，就是他让我不能用Tag作为类型，逼我写成`string | tag`！QAQ
 		var tok = new Token(this.peek, {
 			start,
 			end: this.loc()
