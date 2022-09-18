@@ -1,8 +1,11 @@
-export class Token {
-	tag: string;
-	loc: number;
+export class Loc {
+	constructor(public line: number, public column: number) { }
+}
 
-	constructor(tag: string, loc: number) {
+export class Token {
+	loc: { start: Loc, end: Loc };
+
+	constructor(public tag: string, loc: { start: Loc, end: Loc }) {
 		this.tag = tag;
 		this.loc = loc;
 	}

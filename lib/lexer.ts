@@ -4,7 +4,7 @@ import { isLetter, isDecimalDigit } from './helper.js';
 import { Tag } from './tag.js';
 import { Keyword } from './keyword.js';
 import { Lexer as BaseLexer } from './skyline/lexer.js';
-import { Token } from './skyline/token.js';
+import { Loc, Token } from './skyline/token.js';
 
 import {
 	StringLiteral,
@@ -80,18 +80,19 @@ export class Lexer extends BaseLexer {
 		this.inTemplate = false;
 	}
 
-	error(message) {
+	error(message: string) {
 		console.error(`${this.filename}:${this.line}:${this.column}`);
 		console.error(`${this.source.split('\n')[this.line - 1]}`);
 		console.error(`${' '.repeat(this.column - 1)}^`);
 		throw new SyntaxError(message);
 	}
 
-	loc() {
-		return {
-			line: this.line,
-			column: this.column
-		};
+	loc(): Loc {
+		return new Loc(this.line, this.column)
+		// return {
+		// 	line: this.line,
+		// 	column: this.column
+		// };
 	}
 
 	parseString() {
@@ -99,7 +100,7 @@ export class Lexer extends BaseLexer {
 		let str = '';
 		this.getch();
 		let start = this.loc();
-		var end;
+		var end: Loc;
 		for (; ;) {
 			if (this.peek === quote) {
 				end = this.loc();
@@ -110,7 +111,7 @@ export class Lexer extends BaseLexer {
 			var c = this.peek;
 			if (this.peek === '\\') {
 				this.getch();
-				switch (this.peek) { // 解析转义字符
+				switch (this.peek as string) { // 解析转义字符
 					case '0':
 						c = '\0';
 						break;
@@ -273,7 +274,7 @@ export class Lexer extends BaseLexer {
 				this.getch();
 				// comments
 				let str = '//';
-				while (this.peek !== '\n' && this.peek) {
+				while (this.peek as string !== '\n' && this.peek) {
 					str += this.peek;
 					this.getch();
 				}
@@ -293,7 +294,7 @@ export class Lexer extends BaseLexer {
 				do {
 					str += this.peek;
 					this.getch();
-				} while (!(this.peek === '*' && this.readch(1) === '/')); // ends with '*/'
+				} while (!(this.peek as string === '*' && this.readch(1) === '/')); // ends with '*/'
 				// consume */
 				str += '*/';
 				this.getch();
@@ -313,7 +314,7 @@ export class Lexer extends BaseLexer {
 				this.getch();
 				let start = this.loc();
 				while (this.peek) {
-					if (this.peek === '$') {
+					if (this.peek as string === '$') {
 						if (this.readch(1) === '{') {
 							let end = this.loc();
 							// consume '${'
@@ -325,7 +326,7 @@ export class Lexer extends BaseLexer {
 						}
 					}
 
-					if (this.peek === '`') {
+					if (this.peek as string === '`') {
 						let end = this.loc();
 						this.inTemplate = false;
 						this.getch();
