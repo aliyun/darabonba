@@ -1,10 +1,13 @@
 'use strict';
-const path = require('path');
-const fs = require('fs');
+import path from 'path';
+import fs from 'fs';
+import expect from 'expect.js';
+import { fileURLToPath } from 'url';
+import { parse } from '../index.js';
 
-const expect = require('expect.js');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const { parse } = require('..');
 
 function readAndParse(specPath) {
   const filePath = path.join(__dirname, specPath);

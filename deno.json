@@ -1,0 +1,8 @@
+{
+  "importMap": "import_map.json",
+  "tasks": {
+    "npm:add": "deno run -A https://esm.sh/v95 add",
+    "npm:update": "deno run -A https://esm.sh/v95 update",
+    "npm:remove": "deno run -A https://esm.sh/v95 remove"
+  }
+}

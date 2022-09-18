@@ -1,11 +1,14 @@
 'use strict';
 
-const path = require('path');
-const fs = require('fs');
+import path from 'path';
+import fs from 'fs';
+import { fileURLToPath } from 'url';
+import expect from 'expect.js';
+import { parse } from '../index.js';
 
-const expect = require('expect.js');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const { parse } = require('..');
 
 function pos(line, column) {
   return { line, column };

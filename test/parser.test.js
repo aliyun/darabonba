@@ -1,9 +1,8 @@
 'use strict';
 
-const expect = require('expect.js');
-
-const Parser = require('../lib/parser');
-const Lexer = require('../lib/lexer');
+import expect from 'expect.js';
+import { Parser } from '../lib/parser.js';
+import { Lexer } from '../lib/lexer.js';
 
 function parse(source, filePath) {
   const lexer = new Lexer(source, filePath);

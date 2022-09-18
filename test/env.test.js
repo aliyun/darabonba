@@ -1,8 +1,7 @@
 'use strict';
 
-const expect = require('expect.js');
-
-const Env = require('../lib/env');
+import expect from 'expect.js';
+import { Env } from '../lib/env.js';
 
 describe('env', function () {
   it('get ok', function () {

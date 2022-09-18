@@ -1,8 +1,7 @@
 'use strict';
 
-const expect = require('expect.js');
-
-const util = require('../lib/util');
+import expect from 'expect.js';
+import * as util from '../lib/util.js';
 
 describe('util', function () {
   it('isBasicType should ok', function () {

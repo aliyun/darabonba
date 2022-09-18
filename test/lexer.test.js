@@ -1,11 +1,14 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+import expect from 'expect.js';
+import { Lexer } from '../lib/lexer.js';
 
-const expect = require('expect.js');
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
-const Lexer = require('../lib/lexer');
 
 function lex(source, filename) {
   var lexer = new Lexer(source, filename);
