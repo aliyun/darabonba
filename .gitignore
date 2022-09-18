@@ -5,3 +5,6 @@ coverage/
 *.tgz
 dist/
 .DS_Store
+
+# In this way, I don't have to change paths...
+lib/*.js

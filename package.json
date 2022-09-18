@@ -16,6 +16,7 @@
   "author": "Jackson Tian",
   "license": "MIT",
   "devDependencies": {
+    "@types/node": "^18.7.18",
     "codecov": "^3",
     "eslint": "^7",
     "expect.js": "^0.3.1",
