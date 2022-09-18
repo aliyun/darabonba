@@ -8,8 +8,9 @@
     "test": "test"
   },
   "scripts": {
+    "compile": "tsc",
     "lint": "eslint --fix lib test *.js",
-    "test": "mocha --inline-diffs -b -R spec test/*.test.js",
+    "test": "yarn run tsc && mocha --inline-diffs -b -R spec test/*.test.js",
     "test-cov": "nyc -r=html -r=text -r=lcov mocha -R spec test/*.test.js",
     "ci": "npm run lint && npm run test-cov && codecov"
   },
@@ -21,7 +22,8 @@
     "eslint": "^7",
     "expect.js": "^0.3.1",
     "mocha": "^7",
-    "nyc": "^15"
+    "nyc": "^15",
+    "typescript": "^4.8.3"
   },
   "dependencies": {
     "@jacksontian/skyline": "^1.3.0",
