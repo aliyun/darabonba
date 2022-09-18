@@ -4,5 +4,5 @@
 		"lib": ["es6"],
 		"module": "es6",
 	},
-	"include": ["lib/*"]
+	"include": ["lib/*", "lib/skyline/*"]
 }
