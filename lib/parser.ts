@@ -1,10 +1,13 @@
-'use strict';
-
 import { Tag, tip } from './tag.js';
 import { Parser as BaseParser } from './skyline/parser.js';
+import { Lexer } from './lexer.js';
 
 export class Parser extends BaseParser {
-	constructor(lexer) {
+	comments: Map<any, any>;
+	index: number;
+	lexer: Lexer;
+
+	constructor(lexer: Lexer) {
 		super(lexer);
 		this.comments = new Map();
 		this.index = 0;
@@ -24,7 +27,7 @@ export class Parser extends BaseParser {
 		return tip(tag);
 	}
 
-	isID() {
+	isID(): boolean {
 		if (this.is(Tag.ID) ||
 			this.is(Tag.NEW) ||
 			this.is(Tag.EXTENDS) ||
@@ -550,6 +553,7 @@ export class Parser extends BaseParser {
 			const node = {
 				type: 'fieldType',
 				fieldType: 'array',
+				fieldItemType: undefined,
 			};
 			this.move();
 			if (this.look.tag === '[') {
@@ -1453,7 +1457,8 @@ export class Parser extends BaseParser {
 		if (this.look.tag === '}') {
 			return {
 				type: 'stmts',
-				stmts: []
+				stmts: [],
+				tokenRange: undefined,
 			};
 		}
 
@@ -1466,7 +1471,8 @@ export class Parser extends BaseParser {
 		}
 		return {
 			type: 'stmts',
-			stmts: stmts
+			stmts: stmts,
+			tokenRange: undefined,
 		};
 	}
 

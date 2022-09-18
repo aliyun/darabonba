@@ -10,7 +10,7 @@
   "scripts": {
     "compile": "tsc",
     "lint": "eslint --fix lib test *.js",
-    "test": "tsc && mocha --require ts-node/register --inline-diffs -b -R spec test/*.test.js",
+    "test": "tsc && mocha --inline-diffs -b -R spec test/*.test.js",
     "test-cov": "nyc -r=html -r=text -r=lcov mocha -R spec test/*.test.js",
     "ci": "npm run lint && npm run test-cov && codecov"
   },

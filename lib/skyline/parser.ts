@@ -13,7 +13,7 @@ export class Parser {
 
 	constructor(lexer: any) {
 		this.lexer = lexer;
-		this.look = null;
+		this.look = undefined;
 	}
 
 	tagTip(_tag: any) {
