@@ -8,6 +8,10 @@ model N{
   n?: map[string]M
 }
 
+model A{
+  a?: [map[string]OSS.Config]
+}
+
 init(){
   var config = new OSS.Config{};
   var map1 = {
@@ -22,5 +26,12 @@ init(){
   };
   var n = new N{
     n = map2
+  };
+  var a = new A{
+    a = [
+      {
+        test = config
+      }
+    ]
   };
 }

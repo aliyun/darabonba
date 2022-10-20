@@ -6115,4 +6115,35 @@ describe('semantic', function () {
       readAndParse('fixtures/module_submodel_call/main.dara');
     }).to.not.throwException();
   });
+
+  it('[  map[string]any ] assign should be ok', function() { 
+    expect(() => {
+      parse(`
+      model A {
+        a: string
+      }
+      model M {
+        a: [  map[string]any ],
+        b: [ map[string]A ]
+      }
+
+      init(){
+        var m = new M{
+          a = [
+            {
+              test = 'test' 
+            }
+          ],
+          b = [
+            {
+              test = new A{
+                a = 'test'
+              }
+            }
+          ]
+        };
+      }
+    `, '__filename');
+    }).to.not.throwException();
+  });
 });
