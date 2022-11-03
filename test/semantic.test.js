@@ -2541,13 +2541,13 @@ describe('semantic', function () {
 
   describe('needToMap', function () {
     it('needToMap should ok', function () {
-      const ast = parse(`
+      let ast = parse(`
         static function callA(a: any): void;
         model M = {};
         static function main(): void {
           callA(new M);
         }`, '__filename');
-      const [, , f2] = ast.moduleBody.nodes;
+      let [, , f2] = ast.moduleBody.nodes;
       expect(f2.functionBody.stmts.stmts).to.be.eql([
         {
           'args': [
@@ -2562,6 +2562,68 @@ describe('semantic', function () {
               'expectedType': {
                 'name': 'any',
                 'type': 'basic'
+              },
+              'inferred': {
+                'moduleName': undefined,
+                'name': 'M',
+                'type': 'model'
+              },
+              'needCast': false,
+              'object': null,
+              'propertyPath': [],
+              'tokenRange': [28, 30],
+              'type': 'construct_model'
+            }
+          ],
+          'inferred': {
+            'name': 'void',
+            'type': 'basic'
+          },
+          'isAsync': false,
+          'isStatic': true,
+          'hasThrow': false,
+          'left': {
+            'id': {
+              'index': 26,
+              'lexeme': 'callA',
+              'loc': loc(5, 11, 5, 16),
+              'tag': 2
+            },
+            'type': 'method_call'
+          },
+          'loc': loc(5, 11, 5, 23),
+          'tokenRange': [26, 31],
+          'type': 'call'
+        }
+      ]);
+      ast = parse(`
+      static function callA(a: object): void;
+      model M = {};
+      static function main(): void {
+        callA(new M);
+      }`, '__filename');
+      [, , f2] = ast.moduleBody.nodes;
+      expect(f2.functionBody.stmts.stmts).to.be.eql([
+        {
+          'args': [
+            {
+              'aliasId': {
+                'index': 29,
+                'isModel': true,
+                'lexeme': 'M',
+                'loc': loc(5, 19, 5, 20),
+                'tag': 2
+              },
+              'expectedType': {
+                'keyType': {
+                  'name': 'string',
+                  'type': 'basic'
+                },
+                'type': 'map',
+                'valueType': {
+                  'name': 'any',
+                  'type': 'basic'
+                }
               },
               'inferred': {
                 'moduleName': undefined,
@@ -2586,12 +2648,12 @@ describe('semantic', function () {
             'id': {
               'index': 26,
               'lexeme': 'callA',
-              'loc': loc(5, 11, 5, 16),
+              'loc': loc(5, 9, 5, 14),
               'tag': 2
             },
             'type': 'method_call'
           },
-          'loc': loc(5, 11, 5, 23),
+          'loc': loc(5, 9, 5, 21),
           'tokenRange': [26, 31],
           'type': 'call'
         }
@@ -2814,7 +2876,7 @@ describe('semantic', function () {
   });
 
   it('construct model expectedType should be ok', function () {
-    
+
     let ast = parse(`
       model M {
         key: [ string ],
@@ -3654,7 +3716,7 @@ describe('semantic', function () {
         };
       }`, '__filename');
     }).to.not.throwError();
-    
+
 
     expect(function () {
       parse(`
@@ -4050,7 +4112,7 @@ describe('semantic', function () {
     });
   });
 
-  it('conflict models should ok', function () { 
+  it('conflict models should ok', function () {
     let ast = readAndParse('fixtures/module_model_conflict/module_model_in_function.dara');
     expect(ast.conflictModels.has('OSS:Config')).to.be(true);
     ast = readAndParse('fixtures/module_model_conflict/module_model_in_model.dara');
@@ -4111,7 +4173,7 @@ describe('semantic', function () {
         }
         `, '__filename');
     }).to.not.throwError();
-       
+
 
     expect(function () {
       parse(`
@@ -5260,7 +5322,7 @@ describe('semantic', function () {
     });
   });
 
-  it('moduleModel as map value type should ok', function () {  
+  it('moduleModel as map value type should ok', function () {
     let ast = readAndParse('fixtures/module_model_as_map_type/main.dara');
     const [model, init] = ast.moduleBody.nodes;
     expect(model.modelBody.nodes[0].fieldValue).to.eql({
@@ -5406,18 +5468,18 @@ describe('semantic', function () {
   });
 
   it('no return should not ok', function () {
-    expect(function() {
+    expect(function () {
       parse(`
       static function main(): string {
       }`, '__filename');
-    }).to.throwException(function(ex) {
+    }).to.throwException(function (ex) {
       expect(ex).be.a(SyntaxError);
       expect(ex.message).to.be('no return statement');
     });
   });
 
   it('no return when void should ok', function () {
-    expect(function() {
+    expect(function () {
       parse(`
       static function main(): void {
       }`, '__filename');
@@ -5425,7 +5487,7 @@ describe('semantic', function () {
   });
 
   it('return string should ok', function () {
-    expect(function() {
+    expect(function () {
       parse(`
       static function main(): string {
         return '';
@@ -5445,7 +5507,7 @@ describe('semantic', function () {
   });
 
   it('return string should ok', function () {
-    expect(function() {
+    expect(function () {
       parse(`
       static function main(): string {
         if (true) {
@@ -5456,30 +5518,30 @@ describe('semantic', function () {
       }`, '__filename');
     }).to.not.throwException();
 
-    expect(function() {
+    expect(function () {
       parse(`
       static function main(): string {
         if (true) {
         }
       }`, '__filename');
-    }).to.throwException(function(ex) {
+    }).to.throwException(function (ex) {
       expect(ex).be.a(SyntaxError);
       expect(ex.message).to.be('no return statement');
     });
 
-    expect(function() {
+    expect(function () {
       parse(`
       static function main(): string {
         if (true) {
           return '';
         }
       }`, '__filename');
-    }).to.throwException(function(ex) {
+    }).to.throwException(function (ex) {
       expect(ex).be.a(SyntaxError);
       expect(ex.message).to.be('no return statement');
     });
 
-    expect(function() {
+    expect(function () {
       parse(`
       static function main(): string {
         if (true) {
@@ -5488,12 +5550,12 @@ describe('semantic', function () {
 
         }
       }`, '__filename');
-    }).to.throwException(function(ex) {
+    }).to.throwException(function (ex) {
       expect(ex).be.a(SyntaxError);
       expect(ex.message).to.be('no return statement');
     });
 
-    expect(function() {
+    expect(function () {
       parse(`
       static function main(): string {
         if (true) {
@@ -5502,12 +5564,12 @@ describe('semantic', function () {
 
         }
       }`, '__filename');
-    }).to.throwException(function(ex) {
+    }).to.throwException(function (ex) {
       expect(ex).be.a(SyntaxError);
       expect(ex.message).to.be('no return statement');
     });
 
-    expect(function() {
+    expect(function () {
       parse(`
       static function main(): string {
         if (true) {
@@ -5516,17 +5578,17 @@ describe('semantic', function () {
           return '';
         }
       }`, '__filename');
-    }).to.throwException(function(ex) {
+    }).to.throwException(function (ex) {
       expect(ex).be.a(SyntaxError);
       expect(ex.message).to.be('no return statement');
     });
 
-    expect(function() {
+    expect(function () {
       parse(`
       static function main(): string {
         '';
       }`, '__filename');
-    }).to.throwException(function(ex) {
+    }).to.throwException(function (ex) {
       expect(ex).be.a(SyntaxError);
       expect(ex.message).to.be('no return statement');
     });
@@ -5552,7 +5614,7 @@ describe('semantic', function () {
         }
       }`, '__filename');
     }).to.not.throwException();
-    
+
     expect(function () {
       parse(`
       static function main(): string {
@@ -5624,14 +5686,14 @@ describe('semantic', function () {
   });
 
   it('no return stmt in api should not ok', function () {
-    expect(function() {
+    expect(function () {
       parse(`
       api hello(): string {
         return '';
       } returns {
 
       }`, '__filename');
-    }).to.throwException(function(ex) {
+    }).to.throwException(function (ex) {
       expect(ex).be.a(SyntaxError);
       expect(ex.message).to.be('no return statement');
     });
@@ -5722,7 +5784,7 @@ describe('semantic', function () {
     const ast = readAndParse('fixtures/params_expected_type/main.dara');
     const superArgs = ast.moduleBody.nodes[0].initBody.stmts[0].args[0].expectedType;
     const constructArgs = ast.moduleBody.nodes[0].initBody.stmts[1].expr.args[0].expectedType;
-    
+
     const instanceCallArgs = ast.moduleBody.nodes[0].initBody.stmts[3].args[0].expectedType;
     const methodCallArgs = ast.moduleBody.nodes[0].initBody.stmts[4].args[0].expectedType;
     const staticArgs = ast.moduleBody.nodes[0].initBody.stmts[5].args[0].expectedType;
@@ -5772,7 +5834,7 @@ describe('semantic', function () {
       static function main(m: M): void {
         var config = m.configs;
       }`, '__filename');
-    const [ expr ] = ast.moduleBody.nodes[2].functionBody.stmts.stmts;
+    const [expr] = ast.moduleBody.nodes[2].functionBody.stmts.stmts;
     expect(expr.expr).to.eql({
       'type': 'property_access',
       'id': {
@@ -6116,7 +6178,7 @@ describe('semantic', function () {
     }).to.not.throwException();
   });
 
-  it('[  map[string]any ] assign should be ok', function() { 
+  it('[  map[string]any ] assign should be ok', function () {
     expect(() => {
       parse(`
       model A {
