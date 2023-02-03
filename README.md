@@ -36,7 +36,7 @@
   - [Golang](https://github.com/aliyun/darabonba-go-generator)
   - [Python](https://github.com/aliyun/darabonba-python-generator)
   - [C++](https://github.com/aliyun/darabonba-cpp-generator)
-  - Swift
+  - [Swift](https://github.com/aliyun/swift-generator)
   - Dart
   - Ruby
   - Lua
