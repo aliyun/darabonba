@@ -69,7 +69,7 @@ $ npm install @darabonba/cli -g
 
 该命令执行后会具有一个 `dara` 命令，关于 `dara` 命令的详情可参考 [CLI](https://github.com/aliyun/darabonba-cli)。
 
-## 钉钉群
+## 钉钉群（群号：34664551）
 
 ![Darabonba钉钉群](./fixtures/qrcode.svg)
 
