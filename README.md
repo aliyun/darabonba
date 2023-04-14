@@ -3,15 +3,14 @@
 # Darabonba(原名 TeaDSL)
 
 [![NPM version][npm-image]][npm-url]
-[![build status][travis-image]][travis-url]
+[![Node.js CI](https://github.com/aliyun/darabonba/actions/workflows/node.js.yml/badge.svg)](https://github.com/aliyun/darabonba/actions/workflows/node.js.yml)
 [![codecov][cov-image]][cov-url]
 [![David deps][david-image]][david-url]
 [![npm download][download-image]][download-url]
 
+
 [npm-image]: https://img.shields.io/npm/v/@darabonba/parser.svg?style=flat-square
 [npm-url]: https://npmjs.org/package/@darabonba/parser
-[travis-image]: https://img.shields.io/travis/aliyun/darabonba.svg?style=flat-square
-[travis-url]: https://travis-ci.org/aliyun/darabonba
 [cov-image]: https://codecov.io/gh/aliyun/darabonba/branch/master/graph/badge.svg
 [cov-url]: https://codecov.io/gh/aliyun/darabonba
 [david-image]: https://img.shields.io/david/aliyun/darabonba.svg?style=flat-square
