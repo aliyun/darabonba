@@ -234,6 +234,46 @@ describe('parser', function () {
       'type': 'moduleBody'
     });
 
+    expect(moduleBody('type @id = map[string] [any]')).to.be.eql({
+      'type': 'moduleBody',
+      'nodes': [
+        {
+          'annotation': undefined,
+          'type': 'type',
+          'vid': {
+            'tag': 3,
+            loc: loc(2, 14, 2, 17),
+            'lexeme': '@id',
+            'index': 2
+          },
+          'value': {
+            loc: loc(2, 20, 2, 36),
+            'type': 'map',
+            'keyType': {
+              'tag': 8,
+              loc: loc(2, 24, 2, 30),
+              'lexeme': 'string',
+              'index': 6
+            },
+            'valueType': {
+              'type': 'array',
+              loc: loc(2, 32, 2, 36),
+              'subType': {
+                'tag': 8,
+                loc: loc(2, 33, 2, 36),
+                'lexeme': 'any',
+                'index': 9
+              }
+            }
+          },
+          'tokenRange': [
+            1,
+            11
+          ]
+        }
+      ]
+    });
+
     expect(moduleBody('type @id = [ string ]')).to.be.eql({
       'nodes': [
         {
@@ -253,6 +293,7 @@ describe('parser', function () {
               'tag': 8,
               loc: loc(2, 22, 2, 28)
             },
+            loc: loc(2, 20, 2, 29),
             'type': 'array'
           }
         }
@@ -3120,6 +3161,7 @@ describe('parser', function () {
             'loc': loc(3, 26, 3, 32),
             'tag': 8
           },
+          'loc': loc(3, 25, 3, 32),
           'type': 'array',
         },
       },
