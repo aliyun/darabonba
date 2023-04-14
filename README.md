@@ -48,9 +48,10 @@
 ## 文档
 
 - [5 分钟上手 Darabonba](./doc/getting_started.md)
-- [基本类型](./doc/types/basic_types.md)
-- [复合类型](./doc/types/complex_types.md)
-- [自定义类型 `Model`](./doc/types/model.md)
+- 类型
+  - [基本类型](./doc/types/basic_types.md)
+  - [复合类型](./doc/types/complex_types.md)
+  - [自定义类型 `Model`](./doc/types/model.md)
 - [Function](./doc/function.md)
 - [API](./doc/api.md)
 - [模块系统](./doc/module.md)
