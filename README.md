@@ -1,6 +1,6 @@
 ![Darabonba Logo](./fixtures/dara_logo.svg)
 
-# Darabonba(原名 TeaDSL)
+# Darabonba
 
 [![NPM version][npm-image]][npm-url]
 [![Node.js CI](https://github.com/aliyun/darabonba/actions/workflows/node.js.yml/badge.svg)](https://github.com/aliyun/darabonba/actions/workflows/node.js.yml)
