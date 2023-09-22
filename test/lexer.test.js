@@ -564,6 +564,30 @@ describe('lexer', function () {
     ]);
   });
 
+  it('asyncIterator should ok', function () {
+    const tokens = lex('asyncIterator[string]', '__filename');
+    expect(tokens).to.have.length(5);
+    expect(tokens.map((item) => token(item))).to.eql([
+      {lexeme: 'asyncIterator', tag: 8},
+      {lexeme: undefined, tag: '['},
+      {lexeme: 'string', tag: 8},
+      {lexeme: undefined, tag: ']'},
+      {lexeme: undefined, tag: undefined}
+    ]);
+  });
+
+  it('iterator should ok', function () {
+    const tokens = lex('iterator[string]', '__filename');
+    expect(tokens).to.have.length(5);
+    expect(tokens.map((item) => token(item))).to.eql([
+      {lexeme: 'iterator', tag: 8},
+      {lexeme: undefined, tag: '['},
+      {lexeme: 'string', tag: 8},
+      {lexeme: undefined, tag: ']'},
+      {lexeme: undefined, tag: undefined}
+    ]);
+  });
+
   it('&& should ok', function () {
     const tokens = lex('&&', '__filename');
     expect(tokens).to.have.length(2);

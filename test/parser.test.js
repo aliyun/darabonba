@@ -3310,6 +3310,94 @@ describe('parser', function () {
     });
   });
 
+  it('iterator[string] should ok', function () {
+    var ast = parse(`
+      model mymodel = {
+        key: iterator[string]
+      }
+    `, '__filename');
+
+    const [model] = ast.moduleBody.nodes;
+
+    expect(model.type).to.be('model');
+    const [field] = model.modelBody.nodes;
+    expect(field).to.eql({
+      'attrs': [],
+      'fieldName': {
+        'index': 5,
+        'lexeme': 'key',
+        'loc': {
+          'end': {
+            'column': 12,
+            'line': 3
+          },
+          'start': {
+            'column': 9,
+            'line': 3
+          },
+        },
+        'tag': 2
+      },
+      'fieldValue': {
+        'fieldType': 'iterator',
+        'valueType': {
+          'index': 9,
+          'lexeme': 'string',
+          'loc': loc(3, 23, 3, 29),
+          'tag': 8,
+        },
+        'type': 'fieldType',
+      },
+      'required': true,
+      'tokenRange': [5, 11],
+      'type': 'modelField'
+    });
+  });
+
+  it('asyncIterator[string] should ok', function () {
+    var ast = parse(`
+      model mymodel = {
+        key: asyncIterator[string]
+      }
+    `, '__filename');
+
+    const [model] = ast.moduleBody.nodes;
+
+    expect(model.type).to.be('model');
+    const [field] = model.modelBody.nodes;
+    expect(field).to.eql({
+      'attrs': [],
+      'fieldName': {
+        'index': 5,
+        'lexeme': 'key',
+        'loc': {
+          'end': {
+            'column': 12,
+            'line': 3
+          },
+          'start': {
+            'column': 9,
+            'line': 3
+          },
+        },
+        'tag': 2
+      },
+      'fieldValue': {
+        'fieldType': 'asyncIterator',
+        'valueType': {
+          'index': 9,
+          'lexeme': 'string',
+          'loc': loc(3, 28, 3, 34),
+          'tag': 8,
+        },
+        'type': 'fieldType',
+      },
+      'required': true,
+      'tokenRange': [5, 11],
+      'type': 'modelField'
+    });
+  });
+
   it('import should ok', function () {
     var ast = parse(`import oss
 
@@ -3828,6 +3916,17 @@ describe('parser', function () {
     expect(fun.type).to.be('function');
     expect(fun.isAsync).to.be(true);
   });
+
+  it('async function with iterator/asyncIterator should ok', function () {
+    var ast = parse(`
+      async function test1(): iterator[string];
+      async function test2(): asyncIterator[string];
+    `, '__filename');
+    const [fun] = ast.moduleBody.nodes;
+    expect(fun.type).to.be('function');
+    expect(fun.isAsync).to.be(true);
+  });
+
 
   it('null should ok', function () {
     var ast = parse(`

@@ -1216,6 +1216,30 @@ describe('semantic', function () {
     });
   });
 
+  it('iterator should ok', function () {
+    expect(function () {
+      parse(`
+        function getIterator(it: iterator[string]): void {
+          it.a = 1;
+        }
+`, '__filename');
+    }).to.throwException(function (e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`The type of 'it' must be model, object or map`);
+    });
+
+    expect(function () {
+      parse(`
+        function getIterator(it: asyncIterator[string]): void {
+          it.a = 1;
+        }
+`, '__filename');
+    }).to.throwException(function (e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`The type of 'it' must be model, object or map`);
+    });
+  });
+
   it('parameter check for call should ok', function () {
     expect(function () {
       parse(`
