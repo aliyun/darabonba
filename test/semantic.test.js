@@ -1240,6 +1240,35 @@ describe('semantic', function () {
     });
   });
 
+  it('yield should ok', function () {
+    expect(function () {
+      parse(`
+  async function test1(): iterator[string];
+  async function test2(): iterator[string]{
+    var it:iterator[string] = test1();
+    for(var test : it) {
+        yield test;
+    }
+  }
+  async function test3(): iterator[string]{
+    yield 'test';
+  }
+`, '__filename');
+    }).to.ok();
+
+    expect(function () {
+      parse(`
+  async function test2(): iterator[string]{
+    yield 32;
+  }
+`, '__filename');
+    }).to.throwException(function (e) {
+      expect(e).to.be.a(SyntaxError);
+      console.log(e.message);
+      expect(e.message).to.be(`the return type is not expected, expect: string, actual: integer`);
+    });
+  });
+
   it('parameter check for call should ok', function () {
     expect(function () {
       parse(`

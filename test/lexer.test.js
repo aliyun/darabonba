@@ -588,6 +588,16 @@ describe('lexer', function () {
     ]);
   });
 
+  it('yield should ok', function () {
+    const tokens = lex('yield test', '__filename');
+    expect(tokens).to.have.length(3);
+    expect(tokens.map((item) => token(item))).to.eql([
+      {lexeme: 'yield', tag: 34},
+      {lexeme: 'test', tag: 2},
+      {lexeme: undefined, tag: undefined}
+    ]);
+  });
+
   it('&& should ok', function () {
     const tokens = lex('&&', '__filename');
     expect(tokens).to.have.length(2);

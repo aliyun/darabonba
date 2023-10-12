@@ -3927,6 +3927,31 @@ describe('parser', function () {
     expect(fun.isAsync).to.be(true);
   });
 
+  it('use yield return iterator type should ok', function () {
+    var ast = parse(`
+      async function test1(): iterator[string];
+      async function test2(): iterator[string]{
+        var it:iterator[string] = test1();
+        for(var test : it) {
+           yield test;
+        }
+      }
+    `, '__filename');
+    const [fun] = ast.moduleBody.nodes;
+    expect(fun.type).to.be('function');
+    expect(fun.isAsync).to.be(true);
+    // console.log('%j', fun.returnType);
+    expect(fun.returnType).to.eql({
+      'loc': loc(2, 31, 2, 46),
+      'type': 'iterator',
+      'valueType': {
+        'tag': 8,
+        'loc': loc(2, 40, 2, 46),
+        'lexeme': 'string',
+        'index': 9
+      }
+    });
+  });
 
   it('null should ok', function () {
     var ast = parse(`
