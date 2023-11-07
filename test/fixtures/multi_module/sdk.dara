@@ -1,0 +1,25 @@
+import "./model/user" User;
+import "./lib/util" Util;
+import "./api" API;
+
+type @user = User.Info
+
+init(){
+    @user = new User.Info{
+        name = 'test'
+    };
+}
+
+async function test3(): iterator[string]{
+ var it:iterator[string] = Util.test1();
+ for(var test : it) {
+    yield test;
+ }
+}
+
+
+async function test4(): number{
+var api = new API();
+ var status = api.test3();
+return status;
+}

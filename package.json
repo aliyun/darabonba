@@ -30,5 +30,6 @@
     "bin",
     "lib",
     "index.js"
-  ]
+  ],
+  "repository": "git@github.com:peze/darabonba.git"
 }

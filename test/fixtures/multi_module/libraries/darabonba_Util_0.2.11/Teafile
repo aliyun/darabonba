@@ -1,0 +1,62 @@
+{
+	"scope": "darabonba",
+	"name": "Util",
+	"version": "0.2.11",
+	"main": "./main.tea",
+	"releases": {
+		"go": "github.com/alibabacloud-go/tea-utils/v2/service:v2.0.4",
+		"ts": "@alicloud/tea-util:^1.4.7",
+		"csharp": "AlibabaCloud.TeaUtil:0.1.17",
+		"java": "com.aliyun:tea-util:0.2.21",
+		"php": "alibabacloud/tea-utils:^0.2.19",
+		"python": "alibabacloud_tea_util:0.3.11",
+		"python2": "alibabacloud_tea_util_py2:0.0.9",
+		"swift": "alibabacloud-sdk-swift/tea-utils:1.0.3",
+		"cpp": "alibabacloud-sdk-cpp/dara-util:master"
+	},
+	"java": {
+		"package": "com.aliyun.teautil",
+		"className": "Common"
+	},
+	"csharp": {
+		"namespace": "AlibabaCloud.TeaUtil",
+		"className": "Common"
+	},
+	"php": {
+		"package": "AlibabaCloud.Tea.Utils",
+		"clientName": "Utils",
+		"modelDirName": "Utils"
+	},
+	"python": {
+		"package": "alibabacloud_tea_util",
+		"clientName": "client"
+	},
+	"python2": {
+		"package": "alibabacloud_tea_util",
+		"clientName": "client"
+	},
+	"cpp": {
+		"packageInfo": {
+			"git": {
+				"scope": "alibabacloud-sdk-cpp",
+				"project": "dara-util"
+			}
+		}
+	},
+	"swift": {
+		"clientName": "Client",
+		"packageInfo": {
+			"name": "TeaUtils",
+			"desc": "Alibaba Cloud Tea Util for Swift",
+			"github": "https://github.com/alibabacloud-sdk-swift/tea-utils",
+			"author": "Alibaba Cloud SDK",
+			"email": "sdk-team@alibabacloud.com"
+		}
+	},
+	"releaselog": {
+		"changelog": [
+			"[java]fix: enable getNonce() on Android platform."
+		],
+		"compatible": true
+	}
+}

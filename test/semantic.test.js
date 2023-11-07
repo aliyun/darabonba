@@ -6261,4 +6261,68 @@ describe('semantic', function () {
     `, '__filename');
     }).to.not.throwException();
   });
+
+  it('use inner module should ok', function () {
+    let ast = readAndParse('fixtures/multi_module/sdk.dara');
+    
+    const userAst = ast.innerDep.get(path.join(__dirname, './fixtures/multi_module/model/user.dara'));
+    const [model] = userAst.moduleBody.nodes;
+    expect(model.type).to.be('model');
+    expect(model.modelName).to.eql({
+      'tag': 2,
+      'loc': 
+      {
+        'start': {
+          'line': 4,
+          'column': 7
+        },
+        'end': 
+        {
+          'line': 4,
+          'column': 11
+        }
+      },
+      'lexeme':'Info',
+      'index': 9
+    });
+
+    const utilAst = ast.innerDep.get(path.join(__dirname, './fixtures/multi_module/lib/util.dara'));
+    const [ func ] = utilAst.moduleBody.nodes;
+    expect(func.type).to.be('function');
+    expect(func.functionName).to.eql({
+      'tag': 2,
+      'loc': {
+        'start': {
+          'line': 1,
+          'column': 23
+        },
+        'end': {
+          'line': 1,
+          'column': 28
+        }
+      },
+      'lexeme': 'test1',
+      'index': 4
+    });
+
+    const apiAst = ast.innerDep.get(path.join(__dirname, './fixtures/multi_module/api.dara'));
+    const [ init, api ] = apiAst.moduleBody.nodes;
+    expect(init.type).to.be('init');
+    expect(api.type).to.be('api');
+    expect(api.apiName).to.eql({
+      'tag': 2,
+      'loc': {
+        'start': {
+          'line': 7,
+          'column': 5
+        },
+        'end': {
+          'line': 7,
+          'column': 10
+        }
+      },
+      'lexeme': 'test3',
+      'index': 15
+    });
+  });
 });

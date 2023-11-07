@@ -1,0 +1,244 @@
+/**
+ * This is a utility module
+ */
+
+/**
+ * The common runtime options model
+ */
+model RuntimeOptions {
+  autoretry?: boolean(description='whether to try again', name='autoretry'),
+  ignoreSSL?: boolean(description='ignore SSL validation', name='ignoreSSL'),
+  key?: string(description='privite key for client certificate', name='key'),
+  cert?: string(description='client certificate', name='cert'),
+  ca?: string(description='server certificate', name='ca'),
+  maxAttempts?: number(description='maximum number of retries', name='max_attempts'),
+  backoffPolicy?: string(description='backoff policy', name='backoff_policy'),
+  backoffPeriod?: number(description='backoff period', name='backoff_period'),
+  readTimeout?: number(description='read timeout', name='readTimeout'),
+  connectTimeout?: number(description='connect timeout', name='connectTimeout'),
+  httpProxy?: string(description='http proxy url', name='httpProxy'),
+  httpsProxy?: string(description='https Proxy url', name='httpsProxy'),
+  noProxy?: string(description='agent blacklist', name='noProxy'),
+  maxIdleConns?: number(description='maximum number of connections', name='maxIdleConns'),
+  localAddr?: string(description='local addr', name='localAddr'),
+  socks5Proxy?: string(description='SOCKS5 proxy', name='socks5Proxy'),
+  socks5NetWork?: string(description='SOCKS5 netWork', name='socks5NetWork'),
+  keepAlive?: boolean(description='whether to enable keep-alive', name='keepAlive'),
+}
+
+/**
+ * Convert a string(utf8) to bytes
+ * @return the return bytes
+ */
+static function toBytes(val: string): bytes;
+
+/**
+ * Convert a bytes to string(utf8)
+ * @return the return string
+ */
+static function toString(val: bytes): string;
+
+/**
+ * Parse it by JSON format
+ * @return the parsed result
+ */
+static function parseJSON(val: string): any;
+
+/**
+ * Read data from a readable stream, and compose it to a bytes
+ * @param stream the readable stream
+ * @return the bytes result
+ */
+static async function readAsBytes(stream: readable): bytes;
+
+/**
+ * Read data from a readable stream, and compose it to a string
+ * @param stream the readable stream
+ * @return the string result
+ */
+static async function readAsString(stream: readable): string {
+  var buff = readAsBytes(stream);
+  return toString(buff);
+}
+
+/**
+ * Read data from a readable stream, and parse it by JSON format
+ * @param stream the readable stream
+ * @return the parsed result
+ */
+static async function readAsJSON(stream: readable): any {
+  return parseJSON(readAsString(stream));
+}
+
+/**
+ * Generate a nonce string
+ * @return the nonce string
+ */
+static function getNonce(): string;
+
+/**
+ * Get an UTC format string by current date, e.g. 'Thu, 06 Feb 2020 07:32:54 GMT'
+ * @return the UTC format string
+ */
+static function getDateUTCString(): string;
+
+/**
+ * If not set the real, use default value
+ * @return the return string
+ */
+static function defaultString(real: string, default: string): string;
+
+/**
+ * If not set the real, use default value
+ * @return the return number
+ */
+static function defaultNumber(real: number, default: number): number;
+
+/**
+ * Format a map to form string, like a=a%20b%20c
+ * @return the form string
+ */
+static function toFormString(val: object): string;
+
+/**
+ * Stringify a value by JSON format
+ * @return the JSON format string
+ */
+static function toJSONString(val: any): string;
+
+/**
+ * Check the string is empty?
+ * @return if string is null or zero length, return true
+ */
+static function empty(val: string): boolean;
+
+/**
+ * Check one string equals another one?
+ * @return if equals, return true
+ */
+static function equalString(val1: string, val2: string): boolean;
+
+/**
+ * Check one number equals another one?
+ * @return if equals, return true
+ */
+static function equalNumber(val1: number, val2: number): boolean;
+
+/**
+ * Check one value is unset
+ * @return if unset, return true
+ */
+static function isUnset(value: any): boolean;
+
+/**
+ * Stringify the value of map
+ * @return the new stringified map
+ */
+static function stringifyMapValue(m: map[string]any): map[string]string;
+
+/**
+ * Anyify the value of map
+ * @return the new anyfied map
+ */
+static function anyifyMapValue(m: map[string]string): map[string]any;
+
+/**
+ * Assert a value, if it is a boolean, return it, otherwise throws
+ * @return the boolean value
+ */
+static function assertAsBoolean(value: any)throws : boolean;
+
+/**
+ * Assert a value, if it is a string, return it, otherwise throws
+ * @return the string value
+ */
+static function assertAsString(value: any)throws : string;
+
+/**
+ * Assert a value, if it is a bytes, return it, otherwise throws
+ * @return the bytes value
+ */
+static function assertAsBytes(value: any)throws : bytes;
+
+/**
+ * Assert a value, if it is a number, return it, otherwise throws
+ * @return the number value
+ */
+static function assertAsNumber(value: any)throws : number;
+
+/**
+ * Assert a value, if it is a integer, return it, otherwise throws
+ * @return the integer value
+ */
+static function assertAsInteger(value: any)throws : integer;
+
+/**
+ * Assert a value, if it is a map, return it, otherwise throws
+ * @return the map value
+ */
+static function assertAsMap(value: any)throws : map[string]any;
+
+/**
+ * Assert a value, if it is a array, return it, otherwise throws
+ * @return the array value
+ */
+static function assertAsArray(value: any)throws : [ any ];
+
+/**
+ * Get user agent, if it userAgent is not null, splice it with defaultUserAgent and return, otherwise return defaultUserAgent
+ * @return the string value
+ */
+static function getUserAgent(userAgent: string): string;
+
+/**
+ * If the code between 200 and 300, return true, or return false
+ * @return boolean
+ */
+static function is2xx(code: number): boolean;
+
+/**
+ * If the code between 300 and 400, return true, or return false
+ * @return boolean
+ */
+static function is3xx(code: number): boolean;
+
+/**
+ * If the code between 400 and 500, return true, or return false
+ * @return boolean
+ */
+static function is4xx(code: number): boolean;
+
+/**
+ * If the code between 500 and 600, return true, or return false
+ * @return boolean
+ */
+static function is5xx(code: number): boolean;
+
+/**
+ * Validate model
+ * @return void
+ */
+static function validateModel(m: $Model) throws: void;
+
+/**
+ * Model transforms to map[string]any
+ * @return map[string]any
+ */
+static function toMap(in: $Model): map[string]any;
+
+
+/**
+ * Suspends the current thread for the specified number of milliseconds.
+ */
+static async function sleep(millisecond: number): void;
+
+/**
+ * Transform input as array.
+ */
+static function toArray(input: any): [ map[string]any ];
+
+/**
+ * Assert a value, if it is a readable, return it, otherwise throws
+ * @return the readable value
+ */
+static function assertAsReadable(value: any)throws : readable;

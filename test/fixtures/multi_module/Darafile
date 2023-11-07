@@ -1,0 +1,9 @@
+{
+	"scope": "darabonba",
+	"name": "Util",
+	"version": "0.2.10",
+	"main": "./sdk.dara",
+	"libraries": {
+		"DARAUtil": "darabonba:Util:*"
+	}
+}

@@ -3727,6 +3727,89 @@ describe('parser', function () {
     ]);
   });
 
+  it('import inner module should ok', function () {
+    var ast = parse(`import './test/oss' oss
+
+
+  function callOSS(): string {
+    var config = new oss.Config{
+      accessKeyId = "ak",
+    };
+    return "OK";
+  }
+
+`, '__filename');
+
+    const [innerModule] = ast.imports;
+    expect(innerModule.lexeme).to.be('oss');
+    expect(innerModule.innerPath).to.be('./test/oss');
+
+    const [fun] = ast.moduleBody.nodes;
+    expect(fun.type).to.be('function');
+    expect(fun.functionName).to.eql({
+      'index': 5,
+      'lexeme': 'callOSS',
+      'loc': loc(4, 12, 4, 19),
+      'tag': 2
+    });
+    expect(fun.functionBody).to.be.ok();
+    expect(fun.functionBody.stmts.stmts).to.eql([
+      {
+        'expr': {
+          'aliasId': {
+            'index': 15,
+            'lexeme': 'oss',
+            'loc': loc(5, 22, 5, 25),
+            'tag': 2
+          },
+          propertyPath: [
+            {
+              'index': 17,
+              'lexeme': 'Config',
+              'loc': loc(5, 26, 5, 32),
+              'tag': 2
+            }
+          ],
+          'object': {
+            'fields': [
+              {
+                'expr': string('ak', 6, 22, 6, 24, 21, 21, 22),
+                'fieldName': {
+                  'index': 19,
+                  'lexeme': 'accessKeyId',
+                  'loc': loc(6, 7, 6, 18),
+                  'tag': 2
+                },
+                'tokenRange': [19, 22],
+                'type': 'objectField'
+              }
+            ],
+            'tokenRange': [18, 23],
+            'type': 'object',
+            loc: loc(5, 32, 7, 6)
+          },
+          'tokenRange': [14, 24],
+          'type': 'construct_model'
+        },
+        'id': {
+          'index': 12,
+          'lexeme': 'config',
+          'loc': loc(5, 9, 5, 15),
+          'tag': 2
+        },
+        expectedType: undefined,
+        'tokenRange': [11, 24],
+        'type': 'declare'
+      },
+      {
+        'expr': string('OK', 8, 13, 8, 15, 26, 26, 27),
+        'type': 'return',
+        'tokenRange': [25, 27],
+        'loc': loc(8, 5, 9, 3)
+      }
+    ]);
+  });
+
   it('module call in expr should ok', function () {
     var ast = parse(`import oss
 
