@@ -608,6 +608,86 @@ describe('lexer', function () {
     expect(tokens[0].toString()).to.be('Operator: `&&`');
   });
 
+  it('== should ok', function () {
+    const tokens = lex('==', '__filename');
+    expect(tokens).to.have.length(2);
+    expect(tokens.map((item) => token(item))).to.eql([
+      {lexeme: '==', tag: 37},
+      {lexeme: undefined, tag: undefined}
+    ]);
+    expect(tokens[0].toString()).to.be('Operator: `==`');
+  });
+
+  it('!= should ok', function () {
+    const tokens = lex('!=', '__filename');
+    expect(tokens).to.have.length(2);
+    expect(tokens.map((item) => token(item))).to.eql([
+      {lexeme: '!=', tag: 38},
+      {lexeme: undefined, tag: undefined}
+    ]);
+    expect(tokens[0].toString()).to.be('Operator: `!=`');
+  });
+
+  it('>= should ok', function () {
+    const tokens = lex('>=', '__filename');
+    expect(tokens).to.have.length(2);
+    expect(tokens.map((item) => token(item))).to.eql([
+      {lexeme: '>=', tag: 40},
+      {lexeme: undefined, tag: undefined}
+    ]);
+    expect(tokens[0].toString()).to.be('Operator: `>=`');
+  });
+
+  it('<= should ok', function () {
+    const tokens = lex('<=', '__filename');
+    expect(tokens).to.have.length(2);
+    expect(tokens.map((item) => token(item))).to.eql([
+      {lexeme: '<=', tag: 42},
+      {lexeme: undefined, tag: undefined}
+    ]);
+    expect(tokens[0].toString()).to.be('Operator: `<=`');
+  });
+
+  it('> should ok', function () {
+    const tokens = lex('>', '__filename');
+    expect(tokens).to.have.length(2);
+    expect(tokens.map((item) => token(item))).to.eql([
+      {lexeme: '>', tag: 39},
+      {lexeme: undefined, tag: undefined}
+    ]);
+    expect(tokens[0].toString()).to.be('Operator: `>`');
+  });
+
+  it('< should ok', function () {
+    const tokens = lex('<', '__filename');
+    expect(tokens).to.have.length(2);
+    expect(tokens.map((item) => token(item))).to.eql([
+      {lexeme: '<', tag: 41},
+      {lexeme: undefined, tag: undefined}
+    ]);
+    expect(tokens[0].toString()).to.be('Operator: `<`');
+  });
+
+  it('++ should ok', function () {
+    const tokens = lex('++', '__filename');
+    expect(tokens).to.have.length(2);
+    expect(tokens.map((item) => token(item))).to.eql([
+      {lexeme: '++', tag: 35},
+      {lexeme: undefined, tag: undefined}
+    ]);
+    expect(tokens[0].toString()).to.be('Operator: `++`');
+  });
+
+  it('-- should ok', function () {
+    const tokens = lex('--', '__filename');
+    expect(tokens).to.have.length(2);
+    expect(tokens.map((item) => token(item))).to.eql([
+      {lexeme: '--', tag: 36},
+      {lexeme: undefined, tag: undefined}
+    ]);
+    expect(tokens[0].toString()).to.be('Operator: `--`');
+  });
+
   it('& should not ok', function () {
     expect(function () {
       lex('&', '__filename');

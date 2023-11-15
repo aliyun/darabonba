@@ -352,6 +352,7 @@ describe('parser', function () {
       'nodes': [
         {
           'annotation': undefined,
+          'extendOn': undefined,
           'tokenRange': [1, 5],
           'modelBody': {
             'nodes': [],
@@ -374,6 +375,7 @@ describe('parser', function () {
       'nodes': [
         {
           'annotation': undefined,
+          'extendOn': undefined,
           'modelBody': {
             'nodes': [],
             'tokenRange': [3, 4],
@@ -396,6 +398,7 @@ describe('parser', function () {
       'nodes': [
         {
           'annotation': undefined,
+          'extendOn': undefined,
           'modelBody': {
             'nodes': [],
             'tokenRange': [4, 5],
@@ -5390,6 +5393,330 @@ describe('parser', function () {
     ]);
   });
 
+  it('support equal expr', function () {
+    var ast = parse(`
+    
+      static function func(): boolean  {
+        var a = 1;
+        var b = 1;
+        return a == b;
+      }
+    `, '__filename');
+
+    const [func] = ast.moduleBody.nodes;
+    const expr = func.functionBody.stmts.stmts[2];
+    expect(expr).to.eql({
+      'type': 'return',
+      'expr': {
+        'type': 'eq',
+        'left': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(6, 16, 6, 17),
+            'lexeme': 'a',
+            'index': 20
+          },
+          'loc': loc(6, 16, 6, 17)
+        },
+        'right': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(6, 21, 6, 22),
+            'lexeme': 'b',
+            'index': 22
+          },
+          'loc': loc(6, 21, 6, 22),
+          'tokenRange': [
+            22,
+            23
+          ]
+        },
+        'loc': loc(6, 16, 6, 22),
+        'tokenRange': [
+          20,
+          23
+        ]
+      },
+      'loc': loc(6, 9, 7, 7),
+      'tokenRange': [
+        19,
+        23
+      ]
+    });
+  });
+
+  it('support not equal expr', function () {
+    var ast = parse(`
+    
+      static function func(): boolean  {
+        var a = 1;
+        var b = 2;
+        return a != b;
+      }
+    `, '__filename');
+
+    const [func] = ast.moduleBody.nodes;
+    const expr = func.functionBody.stmts.stmts[2];
+    expect(expr).to.eql({
+      'type': 'return',
+      'expr': {
+        'type': 'neq',
+        'left': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(6, 16, 6, 17),
+            'lexeme': 'a',
+            'index': 20
+          },
+          'loc': loc(6, 16, 6, 17)
+        },
+        'right': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(6, 21, 6, 22),
+            'lexeme': 'b',
+            'index': 22
+          },
+          'loc': loc(6, 21, 6, 22),
+          'tokenRange': [
+            22,
+            23
+          ]
+        },
+        'loc': loc(6, 16, 6, 22),
+        'tokenRange': [
+          20,
+          23
+        ]
+      },
+      'loc': loc(6, 9, 7, 7),
+      'tokenRange': [
+        19,
+        23
+      ]
+    });
+  });
+
+  it('support greater than expr', function () {
+    var ast = parse(`
+    
+      static function func(): boolean  {
+        var a = 1;
+        var b = 2;
+        return a > b;
+      }
+    `, '__filename');
+
+    const [func] = ast.moduleBody.nodes;
+    const expr = func.functionBody.stmts.stmts[2];
+    expect(expr).to.eql({
+      'type': 'return',
+      'expr': {
+        'type': 'gt',
+        'left': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(6, 16, 6, 17),
+            'lexeme': 'a',
+            'index': 20
+          },
+          'loc': loc(6, 16, 6, 17)
+        },
+        'right': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(6, 20, 6, 21),
+            'lexeme': 'b',
+            'index': 22
+          },
+          'loc': loc(6, 20, 6, 21),
+          'tokenRange': [
+            22,
+            23
+          ]
+        },
+        'loc': loc(6, 16, 6, 21),
+        'tokenRange': [
+          20,
+          23
+        ]
+      },
+      'loc': loc(6, 9, 7, 7),
+      'tokenRange': [
+        19,
+        23
+      ]
+    });
+  });
+
+  it('support greater than or equal expr', function () {
+    var ast = parse(`
+    
+      static function func(): boolean  {
+        var a = 1;
+        var b = 2;
+        return a >= b;
+      }
+    `, '__filename');
+
+    const [func] = ast.moduleBody.nodes;
+    const expr = func.functionBody.stmts.stmts[2];
+    expect(expr).to.eql({
+      'type': 'return',
+      'expr': {
+        'type': 'gte',
+        'left': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(6, 16, 6, 17),
+            'lexeme': 'a',
+            'index': 20
+          },
+          'loc': loc(6, 16, 6, 17)
+        },
+        'right': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(6, 21, 6, 22),
+            'lexeme': 'b',
+            'index': 22
+          },
+          'loc': loc(6, 21, 6, 22),
+          'tokenRange': [
+            22,
+            23
+          ]
+        },
+        'loc': loc(6, 16, 6, 22),
+        'tokenRange': [
+          20,
+          23
+        ]
+      },
+      'loc': loc(6, 9, 7, 7),
+      'tokenRange': [
+        19,
+        23
+      ]
+    });
+  });
+
+  it('support litter than expr', function () {
+    var ast = parse(`
+    
+      static function func(): boolean  {
+        var a = 1;
+        var b = 2;
+        return a < b;
+      }
+    `, '__filename');
+
+    const [func] = ast.moduleBody.nodes;
+    const expr = func.functionBody.stmts.stmts[2];
+    expect(expr).to.eql({
+      'type': 'return',
+      'expr': {
+        'type': 'lt',
+        'left': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(6, 16, 6, 17),
+            'lexeme': 'a',
+            'index': 20
+          },
+          'loc': loc(6, 16, 6, 17)
+        },
+        'right': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(6, 20, 6, 21),
+            'lexeme': 'b',
+            'index': 22
+          },
+          'loc': loc(6, 20, 6, 21),
+          'tokenRange': [
+            22,
+            23
+          ]
+        },
+        'loc': loc(6, 16, 6, 21),
+        'tokenRange': [
+          20,
+          23
+        ]
+      },
+      'loc': loc(6, 9, 7, 7),
+      'tokenRange': [
+        19,
+        23
+      ]
+    });
+  });
+
+  it('support litter than or equal expr', function () {
+    var ast = parse(`
+    
+      static function func(): boolean  {
+        var a = 1;
+        var b = 2;
+        return a <= b;
+      }
+    `, '__filename');
+
+    const [func] = ast.moduleBody.nodes;
+    const expr = func.functionBody.stmts.stmts[2];
+    expect(expr).to.eql({
+      'type': 'return',
+      'expr': {
+        'type': 'lte',
+        'left': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(6, 16, 6, 17),
+            'lexeme': 'a',
+            'index': 20
+          },
+          'loc': loc(6, 16, 6, 17)
+        },
+        'right': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(6, 21, 6, 22),
+            'lexeme': 'b',
+            'index': 22
+          },
+          'loc': loc(6, 21, 6, 22),
+          'tokenRange': [
+            22,
+            23
+          ]
+        },
+        'loc': loc(6, 16, 6, 22),
+        'tokenRange': [
+          20,
+          23
+        ]
+      },
+      'loc': loc(6, 9, 7, 7),
+      'tokenRange': [
+        19,
+        23
+      ]
+    });
+  });
+  
   it('support init body', function () {
     var ast = parse(`
     init(){
@@ -5401,6 +5728,48 @@ describe('parser', function () {
       type: 'stmts',
       'tokenRange': [4, 5],
       stmts: []
+    });
+  });
+
+  it('extends from model should ok', function () {
+    var ast = parse(`
+    model Base {};
+    model Derived extends Base {};
+    `, '__filename');
+    const derived = ast.moduleBody.nodes[1];
+    expect(derived.extendOn).to.eql({
+      'index': 9,
+      'lexeme': 'Base',
+      'loc': loc(3, 27, 3, 31),
+      'tokenRange': [8, 9],
+      'tag': 2
+    });
+  });
+
+  it('extends from submodel should ok', function () {
+    var ast = parse(`
+    model Base {
+      sub: {}
+    };
+    model Derived extends Base.sub {};
+    `, '__filename');
+    const derived = ast.moduleBody.nodes[1];
+    expect(derived.extendOn).to.eql({
+      'type': 'subModel_or_moduleModel',
+      'path': [
+        {
+          'tag': 2,
+          'loc': loc(5, 27, 5 ,31),
+          'lexeme': 'Base',
+          'index': 13
+        },
+        {
+          'tag': 2,
+          'loc': loc(5, 32, 5, 35),
+          'lexeme': 'sub',
+          'index': 15
+        }
+      ]
     });
   });
 
@@ -5542,6 +5911,7 @@ describe('parser', function () {
     expect(model).to.eql({
       'type': 'model',
       'annotation': undefined,
+      'extendOn': undefined,
       'tokenRange': [2, 6],
       'modelBody': {
         'nodes': [],
@@ -5586,6 +5956,7 @@ describe('parser', function () {
     [model] = ast.moduleBody.nodes;
     expect(model).to.eql({
       'annotation': undefined,
+      'extendOn': undefined,
       'type': 'model',
       'modelName': {
         'tag': 2,
@@ -7683,5 +8054,453 @@ describe('parser', function () {
       'tokenRange': [1, 3],
       'annotation': undefined
     });
+  });
+
+  it('a varible auto increment should ok', function () {
+    var ast = parse(`
+    init(){
+      ++a;
+      a++;
+    }
+    `, '__filename');
+    const [frontAst, backendAst] = ast.moduleBody.nodes[0].initBody.stmts;
+    expect(frontAst).to.be.eql({
+      'type': 'increment',
+      'position': 'front',
+      'expr': {
+        'type': 'variable',
+        'id': {
+          'tag': 2,
+          'loc': loc(3, 9, 3, 10),
+          'lexeme': 'a',
+          'index': 6
+        },
+        'loc': loc(3, 9, 3, 10)
+      },
+      'loc': loc(3, 9, 3, 10),
+      'tokenRange': [
+        5,
+        7
+      ]
+    });
+
+    expect(backendAst).to.be.eql({
+      'type': 'increment',
+      'position': 'backend',
+      'expr': {
+        'type': 'variable',
+        'id': {
+          'tag': 2,
+          'loc': loc(4, 7, 4, 8),
+          'lexeme': 'a',
+          'index': 8
+        },
+        'loc': loc(4, 7, 4, 8)
+      },
+      'loc': loc(4, 7, 4, 10),
+      'tokenRange': [
+        8,
+        10
+      ]
+    });
+  });
+
+  it('a varible auto decrement should ok', function () {
+    var ast = parse(`
+    init(){
+      --a;
+      a--;
+    }
+    `, '__filename');
+    const [frontAst, backendAst] = ast.moduleBody.nodes[0].initBody.stmts;
+    expect(frontAst).to.be.eql({
+      'type': 'decrement',
+      'position': 'front',
+      'expr': {
+        'type': 'variable',
+        'id': {
+          'tag': 2,
+          'loc': loc(3, 9, 3, 10),
+          'lexeme': 'a',
+          'index': 6
+        },
+        'loc': loc(3, 9, 3, 10)
+      },
+      'loc': loc(3, 9, 3, 10),
+      'tokenRange': [
+        5,
+        7
+      ]
+    });
+
+    expect(backendAst).to.be.eql({
+      'type': 'decrement',
+      'position': 'backend',
+      'expr': {
+        'type': 'variable',
+        'id': {
+          'tag': 2,
+          'loc': loc(4, 7, 4, 8),
+          'lexeme': 'a',
+          'index': 8
+        },
+        'loc': loc(4, 7, 4, 8)
+      },
+      'loc': loc(4, 7, 4, 10),
+      'tokenRange': [
+        8,
+        10
+      ]
+    });
+  });
+
+  it('binary operations should ok', function () {
+    var ast = parse(`
+    init(){
+      var a = 3 + 2;
+      var b = a + 2;
+      var c = b - a;
+      var d = a * c;
+      var e = a / c;
+      var f = "a" + "b";
+    }
+    `, '__filename');
+    const [expr1, expr2, expr3, expr4, expr5, expr6] = ast.moduleBody.nodes[0].initBody.stmts;
+    expect(expr1).to.be.eql({
+      'expectedType': undefined,
+      'type': 'declare',
+      'id': {
+        'tag': 2,
+        'loc': loc(3, 11, 3, 12),
+        'lexeme': 'a',
+        'index': 6
+      },
+      'expr': {
+        'type': 'add',
+        'left': {
+          'type': 'number',
+          'value': {
+            'tag': 9,
+            'loc': loc(3, 15, 3, 16),
+            'value': 3,
+            'type': 'integer',
+            'index': 8
+          },
+          'loc': loc(3, 15, 3, 16)
+        },
+        'right': {
+          'type': 'number',
+          'value': {
+            'tag': 9,
+            'loc': loc(3, 19, 3, 20),
+            'value': 2,
+            'type': 'integer',
+            'index': 10
+          },
+          'loc': loc(3, 19, 3 ,20),
+          'tokenRange': [
+            10,
+            11
+          ]
+        },
+        'loc': loc(3, 15, 3, 20),
+        'tokenRange': [
+          8,
+          11
+        ]
+      },
+      'tokenRange': [
+        5,
+        11
+      ]
+    });
+
+    expect(expr2).to.be.eql({
+      'expectedType': undefined,
+      'type': 'declare',
+      'id': {
+        'tag': 2,
+        'loc': loc(4, 11, 4, 12),
+        'lexeme': 'b',
+        'index': 13
+      },
+      'expr': {
+        'type': 'add',
+        'left': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(4, 15, 4, 16),
+            'lexeme': 'a',
+            'index': 15
+          },
+          'loc': loc(4, 15, 4, 16)
+        },
+        'right': {
+          'type': 'number',
+          'value': {
+            'tag': 9,
+            'loc': loc(4, 19, 4, 20),
+            'value': 2,
+            'type': 'integer',
+            'index': 17
+          },
+          'loc': loc(4, 19, 4, 20),
+          'tokenRange': [
+            17,
+            18
+          ]
+        },
+        'loc': loc(4, 15, 4, 20),
+        'tokenRange': [
+          15,
+          18
+        ]
+      },
+      'tokenRange': [
+        12,
+        18
+      ]
+    });
+
+    expect(expr3).to.be.eql({
+      'expectedType': undefined,
+      'type': 'declare',
+      'id': {
+        'tag': 2,
+        'loc': loc(5, 11, 5, 12),
+        'lexeme': 'c',
+        'index': 20
+      },
+      'expr': {
+        'type': 'subtract',
+        'left': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(5, 15, 5, 16),
+            'lexeme': 'b',
+            'index': 22
+          },
+          'loc': loc(5, 15, 5, 16)
+        },
+        'right': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(5, 19, 5, 20),
+            'lexeme': 'a',
+            'index': 24
+          },
+          'loc': loc(5, 19, 5, 20),
+          'tokenRange': [
+            24,
+            25
+          ]
+        },
+        'loc': loc(5, 15, 5, 20),
+        'tokenRange': [
+          22,
+          25
+        ]
+      },
+      'tokenRange': [
+        19,
+        25
+      ]
+    });
+
+    expect(expr4).to.be.eql({
+      'expectedType': undefined,
+      'type': 'declare',
+      'id': {
+        'tag': 2,
+        'loc': loc(6, 11, 6, 12),
+        'lexeme': 'd',
+        'index': 27
+      },
+      'expr': {
+        'type': 'multi',
+        'left': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(6, 15, 6, 16),
+            'lexeme': 'a',
+            'index': 29
+          },
+          'loc': loc(6, 15, 6, 16)
+        },
+        'right': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(6, 19, 6, 20),
+            'lexeme': 'c',
+            'index': 31
+          },
+          'loc': loc(6, 19, 6, 20),
+          'tokenRange': [
+            31,
+            32
+          ]
+        },
+        'loc': loc(6, 15, 6, 20),
+        'tokenRange': [
+          29,
+          32
+        ]
+      },
+      'tokenRange': [
+        26,
+        32
+      ]
+    });
+
+    expect(expr5).to.be.eql({
+      'expectedType': undefined,
+      'type': 'declare',
+      'id': {
+        'tag': 2,
+        'loc': loc(7, 11, 7, 12),
+        'lexeme': 'e',
+        'index': 34
+      },
+      'expr': {
+        'type': 'div',
+        'left': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(7, 15, 7, 16),
+            'lexeme': 'a',
+            'index': 36
+          },
+          'loc': loc(7, 15, 7, 16)
+        },
+        'right': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(7, 19, 7, 20),
+            'lexeme': 'c',
+            'index': 38
+          },
+          'loc': loc(7, 19, 7, 20),
+          'tokenRange': [
+            38,
+            39
+          ]
+        },
+        'loc': loc(7, 15, 7, 20),
+        'tokenRange': [
+          36,
+          39
+        ]
+      },
+      'tokenRange': [
+        33,
+        39
+      ]
+    });
+
+    expect(expr6).to.be.eql({
+      'expectedType': undefined,
+      'type': 'declare',
+      'id': {
+        'tag': 2,
+        'loc': loc(8, 11, 8, 12),
+        'lexeme': 'f',
+        'index': 41
+      },
+      'expr': {
+        'type': 'add',
+        'left': {
+          'type': 'string',
+          'value': {
+            'tag': 1,
+            'loc': loc(8, 16, 8, 17),
+            'string': 'a',
+            'index': 43
+          },
+          'loc': loc(8, 16, 8, 17)
+        },
+        'right': {
+          'type': 'string',
+          'value': {
+            'tag': 1,
+            'loc': loc(8, 22, 8, 23),
+            'string': 'b',
+            'index': 45
+          },
+          'loc': loc(8, 22, 8, 23),
+          'tokenRange': [
+            45,
+            46
+          ]
+        },
+        'loc': loc(8, 16, 8, 24),
+        'tokenRange': [
+          43,
+          46
+        ]
+      },
+      'tokenRange': [
+        40,
+        46
+      ]
+    });
+  });
+
+  it('a group operation should ok', function () {
+    var ast = parse(`
+    init(){
+      var a = 3;
+      var b = (a + 2) * 3;
+    }
+    `, '__filename');
+    const groupAst = ast.moduleBody.nodes[0].initBody.stmts[1];
+    expect(groupAst.expr.left).to.be.eql({
+      'type': 'group',
+      'expr': {
+        'type': 'add',
+        'left': {
+          'type': 'variable',
+          'id': {
+            'tag': 2,
+            'loc': loc(4, 16, 4, 17),
+            'lexeme': 'a',
+            'index': 14
+          },
+          'loc': loc(4, 16, 4, 17)
+        },
+        'right': {
+          'type': 'number',
+          'value': {
+            'tag': 9,
+            'loc': loc(4, 20, 4, 21),
+            'value': 2,
+            'type': 'integer',
+            'index': 16
+          },
+          'loc': loc(4, 20, 4, 21),
+          'tokenRange': [
+            16,
+            17
+          ]
+        },
+        'loc': loc(4, 16, 4, 21),
+        'tokenRange': [
+          14,
+          17
+        ]
+      },
+      'loc': loc(4, 15, 4, 23),
+      'tokenRange': [
+        13,
+        18
+      ]
+    });
+
   });
 });

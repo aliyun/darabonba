@@ -99,6 +99,16 @@ describe('semantic', function () {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`model "modelname" undefined`);
     });
+
+    expect(() => {
+      parse(`
+        model defined {};
+        model defined2 extends defined {};
+        model defined3 extends modelname {};`, '__filename');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`model "modelname" undefined`);
+    });
   });
 
   it('use model before define it should ok', function () {
@@ -109,10 +119,30 @@ describe('semantic', function () {
 
         model defined = {};
       `, '__filename');
-    }).to.not.throwException(function (e) { // get the exception object
-      expect(e).to.be.a(SyntaxError);
-      expect(e.message).to.be(`model "modelname" undefined`);
-    });
+    }).to.not.throwException();
+  });
+
+  it('extends model before define it should ok', function () {
+    expect(() => {
+      parse(`model defined extends undefined {
+          key: string
+        };
+
+        model undefined = {};
+      `, '__filename');
+    }).to.not.throwException();
+  });
+
+  it('extends model after define it should not ok', function () {
+    expect(() => {
+      parse(`
+      model defined = {};
+
+      model modelname extends defined {
+          key: string
+        };
+      `, '__filename');
+    }).to.not.throwException();
   });
 
   it('redefine type should not ok', function () {
@@ -2341,6 +2371,95 @@ describe('semantic', function () {
     }).to.throwException((ex) => {
       expect(ex).to.be.a(SyntaxError);
       expect(ex.message).to.be('the expr after ! must be boolean type');
+    });
+  });
+
+  it('compare expr should ok', function () {
+    expect(function () {
+      parse(`static function callOSS(): boolean {
+        return (true == false) || ("string" >= "string") || (3 < 3) || ((3 <= 2) && (2 >= 3));
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`static function callOSS(): string {
+        if(3 > 2) {
+          return 'true';
+        }
+        return 'false';
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`static function callOSS(): boolean {
+        return 3.0 == 3;
+      }`, '__filename');
+    }).to.throwException((ex) => {
+      expect(ex).to.be.a(SyntaxError);
+      expect(ex.message).to.be('float can only compare with float type, but integer');
+    });
+
+    expect(function () {
+      parse(`static function callOSS(): boolean {
+        return 3 == 3L;
+      }`, '__filename');
+    }).to.throwException((ex) => {
+      expect(ex).to.be.a(SyntaxError);
+      expect(ex.message).to.be('integer can only compare with integer type, but long');
+    });
+
+    expect(function () {
+      parse(`static function callOSS(): boolean {
+        var a: int8 = 3;
+        return a == 3;
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`static function callOSS(): boolean {
+        var a: int8 = 3;
+        var b: uint8 = 3;
+        return a == b;
+      }`, '__filename');
+    }).to.throwException((ex) => {
+      expect(ex).to.be.a(SyntaxError);
+      expect(ex.message).to.be('int8 can only compare with int8 type, but uint8');
+    });
+
+    expect(function () {
+      parse(`static function callOSS(): boolean {
+        return 'string' == 3;
+      }`, '__filename');
+    }).to.throwException((ex) => {
+      expect(ex).to.be.a(SyntaxError);
+      expect(ex.message).to.be('string can only compare with string type, but integer');
+    });
+
+    expect(function () {
+      parse(`static function callOSS(): boolean {
+        return 'string' > 3;
+      }`, '__filename');
+    }).to.throwException((ex) => {
+      expect(ex).to.be.a(SyntaxError);
+      expect(ex.message).to.be('gt can only operate number type, but left: string and right: integer');
+    });
+
+    expect(function () {
+      parse(`static function callOSS(): boolean {
+        return false <= 3;
+      }`, '__filename');
+    }).to.throwException((ex) => {
+      expect(ex).to.be.a(SyntaxError);
+      expect(ex.message).to.be('lte can only operate number type, but left: boolean and right: integer');
+    });
+
+    expect(function () {
+      parse(`static function callOSS(): boolean {
+        return 'string' > 'number';
+      }`, '__filename');
+    }).to.throwException((ex) => {
+      expect(ex).to.be.a(SyntaxError);
+      expect(ex.message).to.be('gt can only operate number type, but left: string and right: string');
     });
   });
 
@@ -6324,5 +6443,262 @@ describe('semantic', function () {
       'lexeme': 'test3',
       'index': 15
     });
+  });
+
+  it('increment/decrement from a number variable should ok', function () {
+    expect(function () {
+      parse(`static function callOSS(): void {
+        var a: int8 = 3;
+        var b: uint8 = 3;
+        var c: int16 = 3;
+        var d: uint16 = 3;
+        var e: int32 = 3;
+        var f: uint32 = 3;
+        var g: long = 3L;
+        var h: ulong = 3L;
+        var j: float = 3.0;
+        var k: double = 3.0d;
+        var l: integer = 3;
+        var m: number = 3;
+        a++;
+        ++a;
+        a--;
+        --a;
+        b++;
+        ++b;
+        b--;
+        --b;
+        c++;
+        ++c;
+        c--;
+        --c;
+        d++;
+        ++d;
+        d--;
+        --d;
+        e++;
+        ++e;
+        e--;
+        --e;
+        f++;
+        ++f;
+        f--;
+        --f;
+        g++;
+        ++g;
+        g--;
+        --g;
+        h++;
+        ++h;
+        h--;
+        --h;
+        j++;
+        ++j;
+        j--;
+        --j;
+        k++;
+        ++k;
+        k--;
+        --k;
+        l++;
+        ++l;
+        l--;
+        --l;
+        m++;
+        ++m;
+        m--;
+        --m;
+        return;
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+      static function callOSS(): void {
+        var a = '3';
+        ++a;
+        return;
+      }`, '__filename');
+    }).to.throwException(function(e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('the increment/decrement expr must be number type');
+    });
+
+    expect(function () {
+      parse(`
+      static function callOSS(): void {
+        var a = true;
+        a++;
+        return;
+      }`, '__filename');
+    }).to.throwException(function(e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('the increment/decrement expr must be number type');
+    });
+
+    expect(function () {
+      parse(`
+      model M {};
+      static function callOSS(): void {
+        var a = new M;
+        a--;
+        return;
+      }`, '__filename');
+    }).to.throwException(function(e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('the increment/decrement expr must be number type');
+    });
+
+    expect(function () {
+      parse(`
+      model M {};
+      static function callOSS(): void {
+        var a = new M;
+        --a;
+        return;
+      }`, '__filename');
+    }).to.throwException(function(e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('the increment/decrement expr must be number type');
+    });
+  });
+
+  it('group type check should ok', function () {
+    expect(function () {
+      parse(`static function callOSS(): void {
+        var a = "string";
+        var b = 3;
+        if((a == "string") || (b >= 2)) {
+          return;
+        }
+        return;
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`static function callOSS(): void {
+        var a = "string";
+        var b = 3;
+        if((a + "string") || (b >= 2)) {
+          return;
+        }
+        return;
+      }`, '__filename');
+    }).to.throwException(function(e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('the left expr must be boolean type');
+    });
+  });
+
+  it('binary operation check should ok', function () {
+    expect(function () {
+      parse(`static function callOSS(): number {
+        var a = 4;
+        var b = 3;
+        var c = a + b;
+        var d = c - b;
+        var e = c * d;
+        var f = e / d;
+        return (a + b) * c / d;
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+      static function callOSS(): number {
+        var a: integer = 3;
+        var b: number = 3;
+        return a - b;
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+      static function callOSS(): string {
+        var a = '3' + '4';
+        return a;
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+      static function callOSS(): number {
+        var a: long = 3;
+        var b: number = 3;
+        return a - b;
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+      static function callOSS(): void {
+        var a = 'a' + 'b';
+        var c = a / 3;
+        return;
+      }`, '__filename');
+    }).to.throwException(function(e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('div can only operate number type, but left: string and right: integer');
+    });
+
+    expect(function () {
+      parse(`
+      static function callOSS(): void {
+        var a = 3 * 3.0;
+        return;
+      }`, '__filename');
+    }).to.throwException(function(e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('integer can only multi with integer type, but float');
+    });
+
+    expect(function () {
+      parse(`
+      static function callOSS(): int8 {
+        var a: int8 = 3;
+        var b: uint8 = 3;
+        return a + b;
+      }`, '__filename');
+    }).to.throwException(function(e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('int8 can only add with int8 type, but uint8');
+    });
+
+    expect(function () {
+      parse(`
+      static function callOSS(): int8 {
+        var a: int16 = 3;
+        var b: uint16 = 3;
+        return a / b;
+      }`, '__filename');
+    }).to.throwException(function(e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('int16 can only div with int16 type, but uint16');
+    });
+
+    expect(function () {
+      parse(`
+      static function callOSS(): int8 {
+        var a: int32 = 3;
+        var b: uint32 = 3;
+        return a * b;
+      }`, '__filename');
+    }).to.throwException(function(e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('int32 can only multi with int32 type, but uint32');
+    });
+
+    expect(function () {
+      parse(`
+      static function callOSS(): long {
+        var a = 3L;
+        var b = 3d;
+        return a - b;
+      }`, '__filename');
+    }).to.throwException(function(e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('long can only subtract with long type, but double');
+    });
+
   });
 });
