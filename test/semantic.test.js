@@ -1249,6 +1249,18 @@ describe('semantic', function () {
   it('iterator should ok', function () {
     expect(function () {
       parse(`
+        static function getIterator(it: iterator[string]): iterator[string] {
+          return it;
+        }
+
+        static function useIterator(it: iterator[string]): void{
+          getIterator(it);
+        }
+`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
         function getIterator(it: iterator[string]): void {
           it.a = 1;
         }
@@ -2384,6 +2396,17 @@ describe('semantic', function () {
     expect(function () {
       parse(`static function callOSS(): string {
         if(3 > 2) {
+          return 'true';
+        }
+        return 'false';
+      }`, '__filename');
+    }).to.not.throwException();
+    
+    expect(function () {
+      parse(`static function callOSS(): string {
+        var a = 'string';
+        var b = 'string';
+        if(a == b) {
           return 'true';
         }
         return 'false';
