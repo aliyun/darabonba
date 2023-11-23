@@ -1396,7 +1396,7 @@ describe('parser', function () {
       stmts('throw');
     }).to.throwException(function (e) { // get the exception object
       expect(e).to.be.a(SyntaxError);
-      expect(e.message).to.be(`Unexpected token: }. Expect {, but }`);
+      expect(e.message).to.be(`Unexpected token: }. Unexpected expr: expect a exception or object.`);
     });
 
     expect(() => {
@@ -4026,7 +4026,6 @@ describe('parser', function () {
     const [fun] = ast.moduleBody.nodes;
     expect(fun.type).to.be('function');
     expect(fun.isAsync).to.be(true);
-    // console.log('%j', fun.returnType);
     expect(fun.returnType).to.eql({
       'loc': loc(2, 31, 2, 46),
       'type': 'iterator',
@@ -7980,7 +7979,6 @@ describe('parser', function () {
     `, '__filename');
     }).to.throwException(function (e) { // get the exception object
       expect(e).to.be.a(SyntaxError);
-      console.log(e.message);
       expect(e.message).to.be('Unexpected token: Word: `true`. expect string or number');
     });
   });
@@ -7994,7 +7992,6 @@ describe('parser', function () {
     `, '__filename');
     }).to.throwException(function (e) { // get the exception object
       expect(e).to.be.a(SyntaxError);
-      console.log(e.message);
       expect(e.message).to.be('Unexpected token: ,. Expect (, but ,');
     });
   });
@@ -8502,5 +8499,627 @@ describe('parser', function () {
       ]
     });
 
+  });
+
+
+  it('exception field should be ok', function () {
+    function exceptionField(value) {
+      var ast = parse(`
+        exception id = {
+          ${value}
+        }
+      `, '__filename');
+      return ast.moduleBody.nodes[0].exceptionBody;
+    }
+
+    expect(() => {
+      exceptionField('?');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`Unexpected token: ?. only id is allowed`);
+    });
+
+    expect(() => {
+      exceptionField(`name`);
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`Unexpected token: }. Expect :, but }`);
+    });
+
+    expect(() => {
+      exceptionField(`name?`);
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`Unexpected token: }. Expect :, but }`);
+    });
+
+    expect(() => {
+      exceptionField(`name?:`);
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`Unexpected token: }. expect "{", "[", "string", "number", "map", ID`);
+    });
+
+    expect(exceptionField(`name?: string`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'name',
+            'tag': 2,
+            loc: loc(3, 11, 3, 15)
+          },
+          'fieldValue': {
+            'fieldType': 'string',
+            'type': 'fieldType'
+          },
+          'required': false,
+          'tokenRange': [5, 9],
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 9],
+      'type': 'exceptionBody'
+    });
+
+    expect(exceptionField(`object?: string`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'object',
+            'tag': 2,
+            loc: loc(3, 11, 3, 17)
+          },
+          'fieldValue': {
+            'fieldType': 'string',
+            'type': 'fieldType'
+          },
+          'required': false,
+          'tokenRange': [5, 9],
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 9],
+      'type': 'exceptionBody'
+    });
+
+    expect(exceptionField(`new?: string`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'new',
+            'tag': 2,
+            loc: loc(3, 11, 3, 14)
+          },
+          'fieldValue': {
+            'fieldType': 'string',
+            'type': 'fieldType'
+          },
+          'required': false,
+          'tokenRange': [5, 9],
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 9],
+      'type': 'exceptionBody'
+    });
+
+    expect(exceptionField(`rpc?: string`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'rpc',
+            'tag': 2,
+            loc: loc(3, 11, 3, 14)
+          },
+          'fieldValue': {
+            'fieldType': 'string',
+            'type': 'fieldType'
+          },
+          'required': false,
+          'tokenRange': [5, 9],
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 9],
+      'type': 'exceptionBody'
+    });
+
+    expect(exceptionField(`super?: string`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'super',
+            'tag': 2,
+            loc: loc(3, 11, 3, 16)
+          },
+          'fieldValue': {
+            'fieldType': 'string',
+            'type': 'fieldType'
+          },
+          'required': false,
+          'tokenRange': [5, 9],
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 9],
+      'type': 'exceptionBody'
+    });
+
+    expect(exceptionField(`number?: string`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'number',
+            'tag': 2,
+            loc: loc(3, 11, 3, 17)
+          },
+          'fieldValue': {
+            'fieldType': 'string',
+            'type': 'fieldType'
+          },
+          'required': false,
+          'tokenRange': [5, 9],
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 9],
+      'type': 'exceptionBody'
+    });
+
+    expect(exceptionField(`name?: ID`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'name',
+            'tag': 2,
+            loc: loc(3, 11, 3, 15)
+          },
+          'fieldValue': {
+            'fieldType': {
+              'index': 8,
+              'lexeme': 'ID',
+              'tag': 2,
+              loc: loc(3, 18, 3, 20)
+            },
+            'type': 'fieldType'
+          },
+          'tokenRange': [5, 9],
+          'required': false,
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 9],
+      'type': 'exceptionBody'
+    });
+
+    expect(exceptionField(`name?: {}`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'name',
+            'tag': 2,
+            loc: loc(3, 11, 3, 15)
+          },
+          'fieldValue': {
+            'nodes': [],
+            'tokenRange': [8, 9],
+            'type': 'modelBody'
+          },
+          'required': false,
+          'tokenRange': [5, 10],
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 10],
+      'type': 'exceptionBody'
+    });
+    expect(() => {
+      exceptionField(`name?: [`);
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`Unexpected token: }. expect type or model name`);
+    });
+
+    expect(() => {
+      exceptionField(`name?: [ {`);
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`Unexpected token: EOF. Expect ], but EOF`);
+    });
+
+    expect(exceptionField(`name?: [{}]`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'name',
+            'tag': 2,
+            loc: loc(3, 11, 3, 15)
+          },
+          'fieldValue': {
+            'fieldType': 'array',
+            'fieldItemType': {
+              'nodes': [],
+              'tokenRange': [9, 10],
+              'type': 'modelBody'
+            },
+            'type': 'fieldType'
+          },
+          'tokenRange': [5, 12],
+          'required': false,
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 12],
+      'type': 'exceptionBody'
+    });
+
+    expect(exceptionField(`name?: [ string ]`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'name',
+            'tag': 2,
+            loc: loc(3, 11, 3, 15)
+          },
+          'fieldValue': {
+            'fieldType': 'array',
+            'fieldItemType': {
+              'index': 9,
+              'lexeme': 'string',
+              'tag': 8,
+              loc: loc(3, 20, 3, 26)
+            },
+            'type': 'fieldType'
+          },
+          'tokenRange': [5, 11],
+          'required': false,
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 11],
+      'type': 'exceptionBody'
+    });
+
+    expect(exceptionField(`name: string,`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'name',
+            'tag': 2,
+            loc: loc(3, 11, 3, 15)
+          },
+          'fieldValue': {
+            'fieldType': 'string',
+            'type': 'fieldType'
+          },
+          'required': true,
+          'tokenRange': [5, 8],
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 9],
+      'type': 'exceptionBody'
+    });
+
+    expect(exceptionField(`name: [ map[string]any ],`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'name',
+            'tag': 2,
+            loc: loc(3, 11, 3, 15)
+          },
+          'fieldValue': {
+            'fieldItemType': {
+              'keyType': {
+                'index': 10,
+                'lexeme': 'string',
+                'loc': loc(3, 23, 3, 29),
+                'tag': 8
+              },
+              'type': 'map',
+              'valueType': {
+                'index': 12,
+                'lexeme': 'any',
+                'loc': loc(3, 30, 3, 33),
+                'tag': 8
+              },
+              loc: loc(3, 19, 3, 33)
+            },
+            'fieldType': 'array',
+            'type': 'fieldType'
+          },
+          'tokenRange': [5, 14],
+          'required': true,
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 15],
+      'type': 'exceptionBody'
+    });
+
+    expect(exceptionField(`name?: string, name2: string`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'lexeme': 'name',
+            'index': 5,
+            'tag': 2,
+            loc: loc(3, 11, 3, 15)
+          },
+          'fieldValue': {
+            'fieldType': 'string',
+            'type': 'fieldType'
+          },
+          'tokenRange': [5, 9],
+          'required': false,
+          'type': 'exceptionField'
+        },
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 10,
+            'lexeme': 'name2',
+            'tag': 2,
+            loc: loc(3, 26, 3, 31)
+          },
+          'fieldValue': {
+            'fieldType': 'string',
+            'type': 'fieldType'
+          },
+          'tokenRange': [10, 13],
+          'required': true,
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 13],
+      'type': 'exceptionBody'
+    });
+
+    expect(exceptionField(`name?: string, name2: string,`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'name',
+            'tag': 2,
+            loc: loc(3, 11, 3, 15)
+          },
+          'fieldValue': {
+            'fieldType': 'string',
+            'type': 'fieldType'
+          },
+          'tokenRange': [5, 9],
+          'required': false,
+          'type': 'exceptionField'
+        },
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 10,
+            'lexeme': 'name2',
+            'tag': 2,
+            loc: loc(3, 26, 3, 31)
+          },
+          'fieldValue': {
+            'fieldType': 'string',
+            'type': 'fieldType'
+          },
+          'tokenRange': [10, 13],
+          'required': true,
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 14],
+      'type': 'exceptionBody'
+    });
+
+    expect(() => {
+      exceptionField(`name: string {`);
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`Unexpected token: {. expect ","`);
+    });
+  });
+
+  it('exception filed attrs should be ok', function () {
+    function exceptionFieldAttrs(value) {
+      var ast = parse(`
+        exception id = {
+          name: string${value}
+        }
+      `, '__filename');
+      return ast.moduleBody.nodes[0].exceptionBody.nodes[0].attrs;
+    }
+
+    expect(() => {
+      exceptionFieldAttrs('(');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`Unexpected token: }. Expect ID, but }`);
+    });
+
+    expect(() => {
+      exceptionFieldAttrs('(id');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`Unexpected token: }. Expect =, but }`);
+    });
+
+    expect(() => {
+      exceptionFieldAttrs('(id=');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`Unexpected token: }. expect string, number, bool`);
+    });
+
+    expect(() => {
+      exceptionFieldAttrs('(id="attr_value"');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`Unexpected token: }. Expect ,, but }`);
+    });
+
+    expect(() => {
+      exceptionFieldAttrs('(id="attr_value",');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`Unexpected token: }. Expect ID, but }`);
+    });
+
+    expect(exceptionFieldAttrs('(id="attr_value")')).to.be.eql([
+      {
+        'attrName': {
+          'index': 9,
+          'lexeme': 'id',
+          'tag': 2,
+          loc: loc(3, 24, 3, 26)
+        },
+        'attrValue': {
+          'index': 11,
+          'string': 'attr_value',
+          'tag': 1,
+          loc: loc(3, 28, 3, 38)
+        },
+        'type': 'attr'
+      }
+    ]);
+
+    expect(exceptionFieldAttrs('(id="attr_value",id2="value2")')).to.be.eql([
+      {
+        'attrName': {
+          'index': 9,
+          'lexeme': 'id',
+          'tag': 2,
+          loc: loc(3, 24, 3, 26)
+        },
+        'attrValue': {
+          'index': 11,
+          'string': 'attr_value',
+          'tag': 1,
+          loc: loc(3, 28, 3, 38)
+        },
+        'type': 'attr'
+      },
+      {
+        'attrName': {
+          'index': 13,
+          'lexeme': 'id2',
+          'tag': 2,
+          loc: loc(3, 40, 3, 43)
+        },
+        'attrValue': {
+          'index': 15,
+          'string': 'value2',
+          'tag': 1,
+          loc: loc(3, 45, 3, 51)
+        },
+        'type': 'attr'
+      }
+    ]);
+  });
+
+  it('extends from exception/model should ok', function () {
+    let ast = parse(`
+    exception Base {};
+    exception Derived extends Base {};
+    `, '__filename');
+    let derived = ast.moduleBody.nodes[1];
+    expect(derived.extendOn).to.eql({
+      'index': 9,
+      'lexeme': 'Base',
+      'loc': loc(3, 31, 3, 35),
+      'tokenRange': [8, 9],
+      'tag': 2
+    });
+
+    ast = parse(`
+    exception Base {
+      sub: {}
+    };
+    exception Derived extends Base.sub {};
+    `, '__filename');
+    derived = ast.moduleBody.nodes[1];
+    expect(derived.extendOn).to.eql({
+      'type': 'subModel_or_moduleModel',
+      'path': [
+        {
+          'tag': 2,
+          'loc': loc(5, 31, 5 ,35),
+          'lexeme': 'Base',
+          'index': 13
+        },
+        {
+          'tag': 2,
+          'loc': loc(5, 36, 5, 39),
+          'lexeme': 'sub',
+          'index': 15
+        }
+      ]
+    });
+
+    ast = parse(`
+    model Base {};
+    exception Derived extends Base {};
+    `, '__filename');
+    derived = ast.moduleBody.nodes[1];
+    expect(derived.extendOn).to.eql({
+      'index': 9,
+      'lexeme': 'Base',
+      'loc': loc(3, 31, 3, 35),
+      'tokenRange': [8, 9],
+      'tag': 2
+    });
+
+    ast = parse(`
+    model Base {
+      sub: {}
+    };
+    exception Derived extends Base.sub {};
+    `, '__filename');
+    derived = ast.moduleBody.nodes[1];
+    expect(derived.extendOn).to.eql({
+      'type': 'subModel_or_moduleModel',
+      'path': [
+        {
+          'tag': 2,
+          'loc': loc(5, 31, 5 ,35),
+          'lexeme': 'Base',
+          'index': 13
+        },
+        {
+          'tag': 2,
+          'loc': loc(5, 36, 5, 39),
+          'lexeme': 'sub',
+          'index': 15
+        }
+      ]
+    });
   });
 });

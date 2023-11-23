@@ -145,6 +145,49 @@ describe('semantic', function () {
     }).to.not.throwException();
   });
 
+  it('use extends model field should not ok', function () {
+    expect(() => {
+      parse(`
+      model defined = {
+        value: number,
+      };
+
+      model modelname extends defined {
+        key: string
+      };
+      
+      init() {
+        var m = new modelname {
+          key = 'key',
+          value = 100
+        };
+      }
+      `, '__filename');
+    }).to.not.throwException();
+  });
+
+  it('overwrite extends model field should not ok', function () {
+    expect(() => {
+      parse(`
+      model defined = {
+        value: number,
+      };
+
+      model modelname extends defined {
+        key: string,
+        value: string
+      };
+      
+      init() {
+        var m = new modelname {
+          key = 'key',
+          value = 'value'
+        };
+      }
+      `, '__filename');
+    }).to.not.throwException();
+  });
+
   it('redefine type should not ok', function () {
     expect(() => {
       parse(`
@@ -163,7 +206,27 @@ describe('semantic', function () {
         model id = { key: string }`, '__filename');
     }).to.throwException(function (e) { // get the exception object
       expect(e).to.be.a(SyntaxError);
-      expect(e.message).to.be(`redefined model "id"`);
+      expect(e.message).to.be(`redefined model or exception "id"`);
+    });
+  });
+
+  it('redefine exception should not ok', function () {
+    expect(() => {
+      parse(`
+        exception id = { key: string }
+        exception id = { key: string }`, '__filename');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`redefined model or exception "id"`);
+    });
+
+    expect(() => {
+      parse(`
+        model id = { key: string }
+        exception id = { key: string }`, '__filename');
+    }).to.throwException(function (e) { // get the exception object
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`redefined model or exception "id"`);
     });
   });
 
@@ -576,6 +639,7 @@ describe('semantic', function () {
     const modelA = ast.models.a;
     expect(modelA).to.eql({
       'annotation': undefined,
+      'extendOn': undefined,
       'modelBody': {
         'nodes': [
           {
@@ -635,6 +699,7 @@ describe('semantic', function () {
     const modelAB = ast.models['a.b'];
     expect(modelAB).to.eql({
       'annotation': undefined,
+      'extendOn': undefined,
       'modelBody': {
         'nodes': [
           {
@@ -711,6 +776,7 @@ describe('semantic', function () {
       type: 'model',
       modelName: { tag: 2, lexeme: 'GroupDetailResponse.abilities' },
       'annotation': undefined,
+      'extendOn': undefined,
       modelBody: {
         type: 'modelBody',
         'tokenRange': [8, 21],
@@ -781,6 +847,7 @@ describe('semantic', function () {
     const modelA = ast.models.a;
     expect(modelA).to.eql({
       'annotation': undefined,
+      'extendOn': undefined,
       'modelBody': {
         'nodes': [
           {
@@ -840,6 +907,7 @@ describe('semantic', function () {
     const modelB = ast.models.b;
     expect(modelB).to.eql({
       'annotation': undefined,
+      'extendOn': undefined,
       'modelBody': {
         'nodes': [
           {
@@ -920,6 +988,7 @@ describe('semantic', function () {
     const GroupDetailResponse = ast.models['GroupDetailResponse'];
     expect(GroupDetailResponse).to.be.eql({
       'annotation': undefined,
+      'extendOn': undefined,
       'modelBody': {
         'nodes': [
           {
@@ -1306,7 +1375,6 @@ describe('semantic', function () {
 `, '__filename');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
-      console.log(e.message);
       expect(e.message).to.be(`the return type is not expected, expect: string, actual: integer`);
     });
   });
@@ -2732,6 +2800,94 @@ describe('semantic', function () {
 
         }`, '__filename');
     }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+        exception Error {};
+        init() {}
+        api hello(): void {
+          throw new Error{};
+        } returns {
+
+        }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+        exception Error {
+          status: number,
+          message: string,
+          code: string,
+          data: map[string]string
+        };
+        init() {}
+        api hello(): void {
+          throw new Error{
+            status = 200,
+            message = 'error message',
+            code = 'Error',
+            data = {
+              test = 'test',
+            }
+          };
+        } returns {
+
+        }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+        model Base {
+          name: string,
+        };
+        exception Error extends Base {
+          message: string,
+          code: string,
+        };
+        init() {}
+        api hello(): void {
+          throw new Error{
+            name = 'errorName',
+            message = 'error message',
+            code = 'extendError'
+          };
+        } returns {
+
+        }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+        exception Error extends $Error {};
+        init() {}
+        api hello(): void {
+          throw new Error{
+            name = 'extendError',
+            message = 'error message',
+            code = 'extendError'
+          };
+        } returns {
+
+        }`, '__filename');
+    }).to.not.throwError();
+
+    expect(function () {
+      parse(`
+        exception Error {
+          status: number,
+        };
+        init() {}
+        api hello(): void {
+          throw new Error{
+            statusCode = 200,
+          };
+        } returns {
+
+        }`, '__filename');
+    }).to.throwError(function(e) {
+      expect(e).to.be.an(SyntaxError);
+      expect(e.message).to.be('the property "statusCode" is undefined in model "Error.Error"');
+    });
   });
 
   describe('needToMap', function () {
@@ -6722,6 +6878,13 @@ describe('semantic', function () {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be('long can only subtract with long type, but double');
     });
+
+  });
+
+  it('extend a module model/exception shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/extend_model/main.dara');
+    }).to.not.throwException();
 
   });
 });
