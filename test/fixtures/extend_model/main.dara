@@ -1,0 +1,40 @@
+import OSS
+
+model mainFile extends OSS.File {
+  size: number,
+}
+
+exception MainFileError extends OSS.File {
+  size: number,
+}
+
+exception ExtendFileError extends OSS.FileError {
+  size: number,
+}
+
+exception ExtendSubFileError extends OSS.SubFile.file {
+  size: number,
+}
+
+static function call(size: number): void {
+  var file = new mainFile{
+    name = 'name',
+    size = 100,
+  };
+  if(size > file.size) {
+    throw new MainFileError{
+      name = 'name',
+      size = 100,
+    }
+  } else if (size == file.size){
+    throw new ExtendFileError{
+      code = 'name',
+      size = 100,
+    }
+  } else {
+    throw new ExtendSubFileError{
+      name = 'name',
+      size = 100,
+    }
+  }
+}
