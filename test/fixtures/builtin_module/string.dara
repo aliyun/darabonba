@@ -1,0 +1,41 @@
+static async function main(args: [string]): void { 
+    var fullStr = args.join(',');
+    args = fullStr.split(',', 10);
+    
+    if((fullStr.length() > 0) && fullStr.contains('hangzhou')) {
+        var newStr1 = fullStr.replace('hangzhou', 'beijing', 1);
+    }
+
+    if(fullStr.hasPrefix('cn')) {
+        var newStr2 = fullStr.replace('cn', 'zh', 1);
+    }
+
+    if(fullStr.hasPrefix('beijing')) {
+        var newStr3 = fullStr.replace('beijing', 'chengdu', -1);
+    }
+
+    var start = fullStr.index('beijing');
+
+    var end = start + 7;
+
+    var region = fullStr.subString(start, end);
+
+    var lowerRegion = region.toLower();
+    var upperRegion = region.toUpper();
+
+    if(region.equals('beijing')) {
+        region = region + ' ';
+        region = region.trim();
+    }
+
+    var tb: bytes = fullStr.toBytes('utf8');
+    var em = 'xxx';
+    if(em.empty()) {
+        return;
+    }
+    var num = '32.0a';
+    var inum = num.parseInt() + 3;
+    var lnum:long = num.parseLong();
+    var fnum:float = num.parseFloat() + 1.0;
+    var dnum:double = num.parseDouble() + 1.0d;
+}

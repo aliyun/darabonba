@@ -1137,6 +1137,13 @@ describe('semantic', function () {
     expect(function () {
       parse(`
         static function callOSS(): void {
+          var entryVal: entry[string] = null;
+        }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+        static function callOSS(): void {
           var arrVal: [ string ] = null;
         }`, '__filename');
     }).to.not.throwException();
@@ -2313,6 +2320,18 @@ describe('semantic', function () {
     }).to.not.throwException();
 
     expect(function () {
+      parse(`static function callOSS(): entry[string] {
+        var m = {
+          key = 'value',
+        };
+
+        var entries: [ entry[string] ] = m.entries();
+
+        return entries[0];
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
       parse(`static function callOSS(): map[string]string {
         var m = {
           key = 123,
@@ -2395,6 +2414,23 @@ describe('semantic', function () {
         static function callOSS(): map[string]any {
           var m = new M{};
           return {key = m};
+        }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+        model M = {};
+        model M2 = {
+          en: entry[M]
+        };
+        static function callOSS(): entry[any] {
+          var m = {key = new M};
+          var entries = m.entries();
+          var m2 = { 
+            key = new M2{ en = entries[0] } 
+          };
+          entries = m2.entries();
+          return entries[0];
         }`, '__filename');
     }).to.not.throwException();
 
@@ -2818,17 +2854,21 @@ describe('semantic', function () {
           status: number,
           message: string,
           code: string,
-          data: map[string]string
+          data: map[string]string,
+          en: entry[string]
         };
         init() {}
         api hello(): void {
+          var m = { key = 'test'};
+          var entries = m.entries();
           throw new Error{
             status = 200,
             message = 'error message',
             code = 'Error',
             data = {
               test = 'test',
-            }
+            },
+            en = entries[0]
           };
         } returns {
 
@@ -6886,5 +6926,89 @@ describe('semantic', function () {
       readAndParse('fixtures/extend_model/main.dara');
     }).to.not.throwException();
 
+  });
+
+  it('use array builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/array.dara');
+    }).to.not.throwException();
+  });
+
+  it('use string builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/string.dara');
+    }).to.not.throwException();
+  });
+
+  it('use bytes builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/bytes.dara');
+    }).to.not.throwException();
+  });
+
+  it('use number builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/number.dara');
+    }).to.not.throwException();
+  });
+
+  it('use map builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/map.dara');
+    }).to.not.throwException();
+  });
+
+  it('use url builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/url.dara');
+    }).to.not.throwException();
+  });
+
+  it('use xml builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/xml.dara');
+    }).to.not.throwException();
+  });
+
+  it('use form builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/form.dara');
+    }).to.not.throwException();
+  });
+
+  it('use json builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/json.dara');
+    }).to.not.throwException();
+  });
+
+  it('use env builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/env.dara');
+    }).to.not.throwException();
+  });
+
+  it('use date builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/date.dara');
+    }).to.not.throwException();
+  });
+
+  it('use file builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/file.dara');
+    }).to.not.throwException();
+  });
+
+  it('use stream builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/stream.dara');
+    }).to.not.throwException();
+  });
+
+  it('use loggers builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/logger.dara');
+    }).to.not.throwException();
   });
 });

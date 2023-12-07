@@ -1,0 +1,6 @@
+init(key: string, value: any) {}
+
+function key(): string;
+
+function value(): $type;
+

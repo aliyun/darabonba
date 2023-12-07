@@ -1,0 +1,27 @@
+init(url: string) {}
+
+function format(type: string): string;
+
+function path(): string;
+
+function pathname(): string;
+
+function protocol(): string;
+
+function hostname(): string;
+
+function hash(): string;
+
+function search(): string;
+
+function href(): string;
+
+function auth(): string;
+
+static function parse(url: string): $URL;
+
+static function urlEncode(url: string): string;
+
+static function percentEncode(raw: string): string;
+
+static function pathEncode(path: string): string;

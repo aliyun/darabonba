@@ -1,0 +1,43 @@
+/**
+ * This is a console module
+ */
+
+/**
+ * Console val with log level into stdout
+ * @param val the printing string
+ * @return void
+ * @example \[LOG\] tea console example
+ */
+static function log(val: string): void;
+
+/**
+ * Console val with info level into stdout
+ * @param val the printing string
+ * @return void
+ * @example \[INFO\] tea console example
+ */
+static function info(val: string): void;
+
+/**
+ * Console val with warning level into stdout
+ * @param val the printing string
+ * @return void
+ * @example \[WARNING\] tea console example
+ */
+static function warning(val: string): void;
+
+/**
+ * Console val with debug level into stdout
+ * @param val the printing string
+ * @return void
+ * @example \[DEBUG\] tea console example
+ */
+static function debug(val: string): void;
+
+/**
+ * Console val with error level into stderr
+ * @param val the printing string
+ * @return void
+ * @example \[ERROR\] tea console example
+ */
+static function error(val: string): void;

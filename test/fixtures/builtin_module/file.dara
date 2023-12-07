@@ -1,0 +1,14 @@
+static async function main(args: [string]): void {
+    if($File.exists('/tmp/test')) {
+        var file = new $File('/tmp/test');
+        var path = file.path();
+        var length = file.length() + 10;
+        var createTime = file.createTime();
+        var modifyTime = file.modifyTime();
+        var timeLong = modifyTime.diff('minute', createTime);
+        var data = file.read(300);
+        file.write($Bytes.from('test', 'utf8'));
+        var rs:readable = $File.createReadStream('/tmp/test');
+        var ws:writable = $File.createWriteStream('/tmp/test');
+    }
+}

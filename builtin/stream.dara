@@ -1,0 +1,28 @@
+init(){}
+
+function read(size: number): bytes;
+
+function write(data: bytes): void;
+
+function pipe(rs: writable): void;
+
+/**
+ * Read data from a readable stream, and compose it to a bytes
+ * @param stream the readable stream
+ * @return the bytes result
+ */
+static async function readAsBytes(stream: readable): bytes;
+
+/**
+ * Read data from a readable stream, and parse it by JSON format
+ * @param stream the readable stream
+ * @return the parsed result
+ */
+static async function readAsJSON(stream: readable): any ;
+
+/**
+ * Read data from a readable stream, and compose it to a string
+ * @param stream the readable stream
+ * @return the string result
+ */
+static async function readAsString(stream: readable): string;

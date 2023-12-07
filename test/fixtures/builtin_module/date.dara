@@ -1,0 +1,18 @@
+static async function main(args: [string]): void {
+    var date = new $Date('2023-09-12 17:47:31.916000 +0800 UTC');
+    var dateStr = date.format('YYYY-MM-DD HH:mm:ss');
+    var timestamp = date.unix();
+    var yesterday = date.sub('day', 1);
+    var oneDay = date.diff('day', yesterday);
+    var tomorrow = date.add('day', 1);
+    var twoDay = tomorrow.diff('day', date) + oneDay;
+    var hour = date.hour();
+    var minute = date.minute();
+    var second = date.second();
+    var dayOfMonth = date.dayOfMonth();
+    var dayOfWeek = date.dayOfWeek();
+    var weekOfMonth = date.weekOfMonth();
+    var weekOfYear = date.weekOfYear();
+    var month = date.month();
+    var year = date.year();
+}

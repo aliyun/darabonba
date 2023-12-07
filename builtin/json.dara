@@ -1,0 +1,11 @@
+/**
+ * Parse it by JSON format
+ * @return the parsed result
+ */
+static function parseJSON(val: string): any;
+
+/**
+ * Stringify a value by JSON format
+ * @return the JSON format string
+ */
+static function stringify(val: any): string;
