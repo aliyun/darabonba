@@ -1,0 +1,23 @@
+init(data: number){}
+
+function parseInt(): integer;
+
+function parseLong(): long;
+
+function parseFloat(): float;
+
+function parseDouble(): double;
+
+function itol(): long;
+
+function ltoi(): integer;
+
+static function random(): number;
+
+static function floor(num: number): integer;
+
+static function round(num: number): integer;
+
+static function min(a: number, b: number): number;
+
+static function max(a: number, b: number): number;

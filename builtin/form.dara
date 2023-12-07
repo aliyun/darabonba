@@ -1,0 +1,19 @@
+/**
+ * Format a map to form string, like a=a%20b%20c
+ * @return the form string
+ */
+static function toFormString(val: object): string;
+
+/**
+ * Gets a boundary string
+ * @return the random boundary string
+ */
+static function getBoundary(): string;
+
+/**
+ * Give a form and boundary string, wrap it to a readable stream
+ * @param form The form map
+ * @param boundary the boundary string
+ * @return the readable from file form
+ */
+static function toFileForm(form: object, boundary: string): readable;

@@ -1,0 +1,7 @@
+static async function main(args: [string]): void { 
+    $Logger.log("test");
+    $Logger.info("test");
+    $Logger.warning("test");
+    $Logger.debug("test");
+    $Logger.error("test");
+}

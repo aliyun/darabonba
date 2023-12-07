@@ -1,0 +1,29 @@
+init(data: [any]){}
+
+function contains(data: any): boolean;
+
+function index(data: any): integer;
+
+function length(): integer;
+
+function get(index: integer): $type;
+
+function join(sep: string): string;
+
+function full(data: any): [ $type ];
+
+function shift(): $type;
+
+function pop(): $type;
+
+function push(data: any): integer;
+
+function unshift(data: any): integer;
+
+function concat(data: any): [ $type ];
+
+function sort(order: string): [ $type ];
+
+function append(data: any, index: integer): void;
+
+function remove(data: any): void;

@@ -1,0 +1,17 @@
+static async function main(args: [string]): void { 
+    var fullStr = args.join(',');
+    var data = fullStr.toBytes('utf8');
+    var newFullStr = data.toString();
+    if(fullStr != newFullStr) {
+        return;
+    }
+    var hexStr = data.toHex();
+
+    var base64Str = data.toBase64();
+
+    var length: integer = data.length();
+
+    var obj = data.toJSON();
+
+    var data2 = $Bytes.from(fullStr, 'base64');
+}

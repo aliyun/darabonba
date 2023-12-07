@@ -1,0 +1,12 @@
+static async function main(args: [string]): void {
+    if($File.exists('/tmp/test')) {
+        var rs:readable = $File.createReadStream('/tmp/test');
+        var ws:writable = $File.createWriteStream('/tmp/test');
+        var data = rs.read(30);
+        ws.write(data);
+        rs.pipe(ws);
+        data = $Stream.readAsBytes(rs);
+        var obj = $Stream.readAsJSON(rs);
+        var jsonStr = $Stream.readAsString(rs);
+    }
+}

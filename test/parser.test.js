@@ -3313,6 +3313,178 @@ describe('parser', function () {
     });
   });
 
+  it('entry[[string]] should ok', function () {
+    var ast = parse(`
+      model mymodel = {
+        key: entry[[string]]
+      }
+    `, '__filename');
+
+    const [model] = ast.moduleBody.nodes;
+
+    expect(model.type).to.be('model');
+    const [field] = model.modelBody.nodes;
+    expect(field).to.eql({
+      'attrs': [],
+      'fieldName': {
+        'index': 5,
+        'lexeme': 'key',
+        'loc': {
+          'end': {
+            'column': 12,
+            'line': 3
+          },
+          'start': {
+            'column': 9,
+            'line': 3
+          },
+        },
+        'tag': 2
+      },
+      'fieldValue': {
+        'fieldType': 'entry',
+        'type': 'fieldType',
+        'valueType': {
+          'subType': {
+            'index': 10,
+            'lexeme': 'string',
+            'loc': loc(3, 21, 3, 27),
+            'tag': 8
+          },
+          'loc': loc(3, 20, 3, 27),
+          'type': 'array',
+        },
+      },
+      'required': true,
+      'tokenRange': [5, 13],
+      'type': 'modelField'
+    });
+  });
+
+  it('entry[moduleModel] should ok', function(){
+    var ast = parse(`
+      import oss;
+
+      model A {
+        B: entry[oss.C]
+      }
+    `, '__filename');
+    const [model] = ast.moduleBody.nodes;
+    expect(model.type).to.be('model');
+    expect(model.modelBody.nodes[0].fieldValue.valueType).to.be.eql({
+      'type': 'subModel_or_moduleModel',
+      'path': [
+        {
+          'tag': 2,
+          'loc': {
+            'start': {
+              'line': 5,
+              'column': 18
+            },
+            'end': {
+              'line': 5,
+              'column': 21
+            }
+          },
+          'lexeme': 'oss',
+          'index': 11
+        },
+        {
+          'tag': 2,
+          'loc': {
+            'start': {
+              'line': 5,
+              'column': 22
+            },
+            'end': {
+              'line': 5,
+              'column': 23
+            }
+          },
+          'lexeme': 'C',
+          'index': 13
+        }
+      ],
+      'loc': {
+        'start': {
+          'line': 5,
+          'column': 18
+        },
+        'end': {
+          'line': 5,
+          'column': 23
+        }
+      }
+    });
+
+    ast = parse(`
+      import oss;
+
+      init(){
+        var test: entry[oss.C]  = {};
+      }
+    `, '__filename');
+    const [init] = ast.moduleBody.nodes;
+    expect(init.initBody.stmts[0].expectedType).to.be.eql({
+      'loc': {
+        'start': {
+          'line': 5,
+          'column': 19
+        },
+        'end': {
+          'line': 5,
+          'column': 30
+        }
+      },
+      'type': 'entry',
+      'valueType': {
+        'type': 'subModel_or_moduleModel',
+        'path': [
+          {
+            'tag': 2,
+            'loc': {
+              'start': {
+                'line': 5,
+                'column': 25
+              },
+              'end': {
+                'line': 5,
+                'column': 28
+              }
+            },
+            'lexeme': 'oss',
+            'index': 13
+          },
+          {
+            'tag': 2,
+            'loc': {
+              'start': {
+                'line': 5,
+                'column': 29
+              },
+              'end': {
+                'line': 5,
+                'column': 30
+              }
+            },
+            'lexeme': 'C',
+            'index': 15
+          }
+        ],
+        'loc': {
+          'start': {
+            'line': 5,
+            'column': 25
+          },
+          'end': {
+            'line': 5,
+            'column': 30
+          }
+        }
+      }
+    });
+  });
+
   it('iterator[string] should ok', function () {
     var ast = parse(`
       model mymodel = {
@@ -8859,6 +9031,39 @@ describe('parser', function () {
         }
       ],
       'tokenRange': [4, 15],
+      'type': 'exceptionBody'
+    });
+
+    expect(exceptionField(`name: [ entry[string] ],`)).to.be.eql({
+      'nodes': [
+        {
+          'attrs': [],
+          'fieldName': {
+            'index': 5,
+            'lexeme': 'name',
+            'tag': 2,
+            loc: loc(3, 11, 3, 15)
+          },
+          'fieldValue': {
+            'fieldItemType': {
+              'type': 'entry',
+              'valueType': {
+                'index': 10,
+                'lexeme': 'string',
+                'loc': loc(3, 25, 3, 31),
+                'tag': 8
+              },
+              loc: loc(3, 19, 3, 31)
+            },
+            'fieldType': 'array',
+            'type': 'fieldType'
+          },
+          'tokenRange': [5, 13],
+          'required': true,
+          'type': 'exceptionField'
+        }
+      ],
+      'tokenRange': [4, 14],
       'type': 'exceptionBody'
     });
 

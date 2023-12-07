@@ -1,0 +1,41 @@
+/**
+ * HmacSHA1 Signature
+ * @param stringToSign string
+ * @param secret string
+ * @return signed bytes
+ */
+static function HmacSHA1Sign(stringToSign: string, secret: string): bytes;
+
+
+/**
+ * HmacSHA256 Signature
+ * @param stringToSign string
+ * @param secret string
+ * @return signed bytes
+ */
+static function HmacSHA256Sign(stringToSign: string, secret: string): bytes;
+
+
+/**
+ * HmacSM3 Signature
+ * @param stringToSign string
+ * @param secret string
+ * @return signed bytes
+ */
+static function HmacSM3Sign(stringToSign: string, secret: string): bytes;
+
+
+/**
+ * SHA256withRSA Signature
+ * @param stringToSign string
+ * @param secret string
+ * @return signed bytes
+ */
+static function SHA256withRSASign(stringToSign: string, secret: string): bytes;
+
+/**
+ * MD5 Signature
+ * @param stringToSign string
+ * @return signed bytes
+ */
+static function MD5Sign(stringToSign: string): bytes;

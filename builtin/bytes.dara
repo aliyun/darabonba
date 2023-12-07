@@ -1,0 +1,13 @@
+init(data: bytes){}
+
+function toString(): string;
+
+function toHex(): string;
+
+function toBase64(): string;
+
+function length(): integer;
+
+function toJSON(): string;
+
+static function from(data: string, type: string): bytes;

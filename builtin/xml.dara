@@ -1,0 +1,14 @@
+/**
+ * Parse body into the response, and put the resposne into a object
+ * @param body source content
+ * @param response target model
+ * @return the final object
+ */
+static function parseXml(body: string, response: class): object;
+
+/**
+ * Parse body as a xml string
+ * @param body source body
+ * @return the xml string
+ */
+static function toXML(body: object): string;

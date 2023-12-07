@@ -1,0 +1,21 @@
+static async function main(args: [string]): void { 
+    if((args.length() > 0) && args.contains('cn-hanghzou')) {
+        var index = args.index('cn-hanghzou');
+        var regionId: string = args.get(index);
+        var all = args.join(',');
+        var first = args.shift();
+        var last = args.pop();
+        var length1 = args.unshift(first);
+        var length2 = args.push(last);
+        var length3:integer = length1 + length2;
+        var longStr = 'long' + first + last;
+        var fullStr = args.join(',');
+        var newArr = ['test'];
+        var cArr: [ string ] = newArr.concat(args);
+        var acsArr = newArr.sort('acs');
+        var descArr = newArr.sort('desc');
+        var llArr: [string] = acsArr.concat(descArr);
+        llArr.append('test', 10);
+        llArr.remove('test');
+    }
+}

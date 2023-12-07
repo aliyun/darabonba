@@ -1,0 +1,17 @@
+static async function main(args: [string]): void { 
+    var url = new $URL(args[0]);
+    var path = url.path();
+    var pathname = url.pathname();
+    var protocol = url.protocol();
+    var hostname = url.hostname();
+    var hash = url.hash();
+    var search = url.search();
+    var href = url.href();
+    var auth = url.auth();
+    var url2 = $URL.parse(args[1]);
+    path = url2.path();
+    var newUrl = $URL.urlEncode(args[2]);
+    var newSearch = $URL.percentEncode(search);
+    var newPath = $URL.pathEncode(pathname);
+    var all = 'test' + path + protocol + hostname + hash + search + href + auth + newUrl + newSearch + newPath;
+}

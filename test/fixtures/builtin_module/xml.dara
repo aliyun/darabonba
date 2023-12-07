@@ -1,0 +1,15 @@
+static async function main(args: [string]): void {
+    var m = {
+        key1 = 'test1',
+        key2 = 'test2',
+        key3 = 3,
+        key4 = {
+            key5 = 123,
+            key6 = '321'
+        }
+    };
+    var xml = $XML.toXML(m);
+    xml = xml + "<key7>132</key7>";
+
+    var respMap : map[string]any = $XML.parseXml(xml, null);
+}

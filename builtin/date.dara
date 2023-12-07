@@ -1,0 +1,33 @@
+init(date: string) {}
+
+function format(format: string): string;
+
+function unix(): integer;
+
+function diff(unit: string, date: $Date): integer;
+
+function UTC(): string;
+
+function add(unit: string, timeLong: integer): $Date;
+
+function sub(unit: string, timeLong: integer): $Date;
+
+function hour(): integer;
+
+function minute(): integer;
+
+function second(): integer;
+
+function dayOfYear(): integer;
+
+function dayOfMonth(): integer;
+
+function dayOfWeek(): integer;
+
+function weekOfYear(): integer;
+
+function weekOfMonth(): integer;
+
+function month(): integer;
+
+function year(): integer;

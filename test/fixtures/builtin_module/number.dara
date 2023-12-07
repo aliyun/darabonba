@@ -1,0 +1,36 @@
+static async function main(args: [string]): void { 
+    var num = 3.2;
+    var inum: integer = num.parseInt();
+    var lnum: long = num.parseLong();
+    var fnum: float = num.parseFloat();
+    var dnum: double = num.parseDouble();
+
+    inum = inum.parseInt();
+    lnum = inum.parseLong();
+    fnum = inum.parseFloat();
+    dnum = inum.parseDouble();
+    
+    inum = lnum.parseInt();
+    lnum = lnum.parseLong();
+    fnum = lnum.parseFloat();
+    dnum = lnum.parseDouble();
+
+    inum = fnum.parseInt();
+    lnum = fnum.parseLong();
+    fnum = fnum.parseFloat();
+    dnum = fnum.parseDouble();
+
+    inum = dnum.parseInt();
+    lnum = dnum.parseLong();
+    fnum = dnum.parseFloat();
+    dnum = dnum.parseDouble();
+
+    lnum = inum.itol();
+    inum = lnum.ltoi();
+
+    var randomNum = $Number.random();
+    inum = $Number.floor(inum);
+    inum = $Number.round(inum);
+    var min = $Number.min(inum, fnum);
+    var max = $Number.max(inum, fnum);
+}

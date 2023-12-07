@@ -1,0 +1,42 @@
+init(data: string){}
+
+function split(sep: string, limit: number): [ string ];
+
+function replace(oldStr: string, newStr: string, count: integer): string;
+
+function contains(substr: string): boolean;
+
+function length(): integer;
+
+function hasPrefix(prefix: string): boolean;
+
+function hasSuffix(substr: string): boolean;
+
+function index(substr: string): integer;
+
+function toLower(): string;
+
+function toUpper(): string;
+
+function subString(start: integer, end: integer): string;
+
+function equals(actual: string): boolean;
+
+function trim(): string;
+
+/**
+ * @param encoding string, eg: UTF-8
+ * @return result bytes
+ */
+
+function toBytes(encoding: string): bytes;
+
+function empty(): boolean;
+
+function parseInt(): integer;
+
+function parseLong(): long;
+
+function parseFloat(): float;
+
+function parseDouble(): double;

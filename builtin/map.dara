@@ -1,0 +1,9 @@
+init(data: any){}
+
+function length(): integer;
+
+function keySet(): [ string ];
+
+function entries(): [ entry[ $type ] ];
+
+function toJSON(): string;
