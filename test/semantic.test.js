@@ -1475,6 +1475,7 @@ describe('semantic', function () {
                   {
                     'fields': [],
                     'expectedType': {
+                      'extendOn': undefined,
                       'moduleName': undefined,
                       'name': 'M',
                       'type': 'model'
@@ -1733,6 +1734,7 @@ describe('semantic', function () {
                       'tag': 2,
                       'index': 36,
                       'inferred': {
+                        'extendOn': undefined,
                         'moduleName': undefined,
                         'name': '$Error',
                         'type': 'model',
@@ -1954,6 +1956,7 @@ describe('semantic', function () {
       'left': {
         'id': {
           'inferred': {
+            'extendOn': undefined,
             'moduleName': undefined,
             'name': '$Request',
             'type': 'model'
@@ -2043,6 +2046,7 @@ describe('semantic', function () {
             'type': 'variable',
             'index': 37,
             'inferred': {
+              'extendOn': undefined,
               'moduleName': undefined,
               'name': '$Request',
               'type': 'model'
@@ -2955,6 +2959,7 @@ describe('semantic', function () {
                 'type': 'basic'
               },
               'inferred': {
+                'extendOn': undefined,
                 'moduleName': undefined,
                 'name': 'M',
                 'type': 'model'
@@ -3017,6 +3022,7 @@ describe('semantic', function () {
                 }
               },
               'inferred': {
+                'extendOn': undefined,
                 'moduleName': undefined,
                 'name': 'M',
                 'type': 'model'
@@ -3068,6 +3074,7 @@ describe('semantic', function () {
                 'type': 'basic'
               },
               'expectedType': {
+                'extendOn': undefined,
                 'moduleName': undefined,
                 'name': 'M',
                 'type': 'model'
@@ -3120,11 +3127,13 @@ describe('semantic', function () {
                 'tag': 2
               },
               'inferred': {
+                'extendOn': undefined,
                 'moduleName': undefined,
                 'name': 'M',
                 'type': 'model'
               },
               'expectedType': {
+                'extendOn': undefined,
                 'moduleName': undefined,
                 'name': '$Model',
                 'type': 'model'
@@ -3304,6 +3313,7 @@ describe('semantic', function () {
     expect(expectedType).to.be.eql({
       'type': 'array',
       'itemType': {
+        'extendOn': undefined,
         'moduleName': undefined,
         'type': 'model',
         'name': 'N'
@@ -3323,6 +3333,7 @@ describe('semantic', function () {
         }`, '__filename');
     expectedType = ast.moduleBody.nodes[2].functionBody.stmts.stmts[0].object.fields[0].expectedType;
     expect(expectedType).to.be.eql({
+      'extendOn': undefined,
       'moduleName': undefined,
       'type': 'model',
       'name': 'N'
@@ -3362,6 +3373,7 @@ describe('semantic', function () {
         }`, '__filename');
     expectedType = ast.moduleBody.nodes[1].functionBody.stmts.stmts[0].object.fields[0].expectedType;
     expect(expectedType).to.be.eql({
+      'extendOn': undefined,
       'moduleName': undefined,
       'type': 'model',
       'name': 'M.n'
@@ -3597,6 +3609,7 @@ describe('semantic', function () {
     const [stmt] = func1.functionBody.stmts.stmts;
     expect(stmt.propertyPathTypes).to.eql([
       {
+        'extendOn': undefined,
         'moduleName': undefined,
         'name': 'M.N',
         'type': 'model'
@@ -3623,6 +3636,7 @@ describe('semantic', function () {
     const [stmt1] = func2.functionBody.stmts.stmts;
     expect(stmt1.propertyPathTypes).to.eql([
       {
+        'extendOn': undefined,
         'moduleName': undefined,
         'name': 'N1',
         'type': 'model'
@@ -4942,6 +4956,7 @@ describe('semantic', function () {
         'index': 38,
         'type': 'variable',
         'inferred': {
+          'extendOn': undefined,
           'type': 'model',
           'name': 'M',
           'moduleName': undefined
@@ -5620,6 +5635,7 @@ describe('semantic', function () {
         'index': 35,
         'type': 'variable',
         'inferred': {
+          'extendOn': undefined,
           'moduleName': undefined,
           'type': 'model',
           'name': 'M'
@@ -6190,6 +6206,7 @@ describe('semantic', function () {
     });
 
     expect(instanceCallArgs).to.be.eql({
+      'extendOn': undefined,
       'type': 'model',
       'name': 'Options',
       'moduleName': 'OSS'
@@ -6244,6 +6261,7 @@ describe('semantic', function () {
         'index': 34,
         'type': 'variable',
         'inferred': {
+          'extendOn': undefined,
           'moduleName': undefined,
           'type': 'model',
           'name': 'M'
@@ -6288,6 +6306,7 @@ describe('semantic', function () {
             'name': 'string'
           },
           'valueType': {
+            'extendOn': undefined,
             'moduleName': undefined,
             'type': 'model',
             'name': 'N'
@@ -6301,6 +6320,7 @@ describe('semantic', function () {
           'name': 'string'
         },
         'valueType': {
+          'extendOn': undefined,
           'moduleName': undefined,
           'type': 'model',
           'name': 'N'
@@ -7010,5 +7030,110 @@ describe('semantic', function () {
     expect(function () {
       readAndParse('fixtures/builtin_module/logger.dara');
     }).to.not.throwException();
+  });
+
+  it('use builtin functions shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_function/function.dara');
+    }).to.not.throwException();
+  });
+
+  it('use builtin models shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_model/model.dara');
+    }).to.not.throwException();
+  });
+
+  it('use extend model assign shoule be ok', function(){
+    expect(function () {
+      parse(`
+      model base {};
+
+      model sub extends base {};
+
+      model sub2 extends sub {};
+
+      model sub3 extends sub2 {};
+
+      model sub4 extends sub3 {};
+
+      model TestError extends $Error {
+        message: string,
+      };
+
+      static function callOSS(): void {
+        var a: base = new sub4;
+
+        var b: base = new sub3;
+
+        var c: base = new sub2;
+
+        var d: base = new sub;
+
+        var e: sub = new sub2;
+
+        var f: sub2 = new sub3;
+
+        var g: sub3 = new sub4;
+
+        var h: $Model = new base;
+
+        var j: $Error = new TestError{
+          message = "true",
+        };
+        
+        return;
+      }`, '__filename');
+    }).to.not.throwException();
+
+
+    expect(function () {
+      parse(`
+      model m {
+        sub: {
+          name: string,
+          sub: {
+            name: string,
+          },
+          base: $Model,
+        }
+      };
+
+      model sub extends m.sub {
+        
+      };
+
+      
+      model sub2 extends m.sub.sub {};
+
+      static function callOSS(): void {
+        var b = new sub2 {
+          name = "name",
+        };
+        var a: m.sub = new sub {
+          name = "name",
+          sub = b,
+          base = b,
+        };
+        return;
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+      model base {};
+
+      model sub extends base {};
+
+      model other {};
+
+      static function callOSS(): void {
+        var b: base = new other;
+        return;
+      }`, '__filename');
+    }).to.throwException(function(e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('declared variable with mismatched type, expected: base, actual: other');
+    });
   });
 });
