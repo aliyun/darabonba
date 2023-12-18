@@ -1,0 +1,41 @@
+static function returnAny(): any;
+
+static async function main(args: [string]): void { 
+    var a: integer = $integer(args[0]) + 10;
+    var b: string = $string(a) + args[1] + $string(returnAny());
+    var c: number = $number(b) + $number(a) + $number(returnAny());
+    var d: int8 = $int8(b) + $int8(a) + $int8(returnAny());
+    var e: int16 = $int16(b) + $int16(a) + $int16(returnAny());
+    var f: int32 = $int32(b) + $int32(a) + $int32(returnAny());
+    var g: int64 = $int64(b) + $int64(a) + $int64(returnAny());
+    var h: long = $long(b) + $long(a) + $long(returnAny());
+    var i: ulong = $ulong(b) + $ulong(a) + $ulong(returnAny());
+    var j: uint8 = $uint8(b) + $uint8(a) + $uint8(returnAny());
+    var k: uint16 = $uint16(b) + $uint16(a) + $uint16(returnAny());
+    var l: uint32 = $uint32(b) + $uint32(a) + $uint32(returnAny());
+    var m: uint64 = $uint64(b) + $uint64(a) + $uint64(returnAny());
+    var n: float = $float(b) + $float(a) + $float(returnAny());
+    var o: double = $double(b) + $double(a) + $double(returnAny());
+    if($boolean(args[2])) {
+        var data = $bytes(returnAny());
+        var length: integer = data.length();
+        var test: any = $any(data);
+        var maps: map[string]string = {
+            key = 'value',
+        };
+        var obj: object = $object(maps);
+        var ws = $writable(obj);
+        var rs = $readable(maps);
+        data = rs.read(30);
+        if(!$isNull(data)) {
+            ws.write(data);
+        }
+    }
+
+    $sleep(a);
+    var defaultVal = $string($default(args[0], args[1]));
+
+    if($equal(defaultVal, b)) {
+        return;
+    }
+}

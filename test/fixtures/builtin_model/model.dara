@@ -1,0 +1,30 @@
+static async function main(args: [string]): void { 
+    var a = new $Model;
+    var b = new $Request{
+        protocol = "https",
+        port = 80,
+        method = "POST",
+        pathname = "/test",
+        query = {
+            key = "value"
+        },
+        headers = {
+            key = "value"
+        },
+        body = $File.createReadStream('/tmp/test'),
+    };
+    var c = new $Response{
+        statusCode = 200,
+        statusMessage = "Success",
+        headers = {
+            key = "value"
+        },
+        body = $File.createReadStream('/tmp/test'),
+    };
+    var d = new $Error{
+        name = "Error",
+        message = "error message",
+        code = "Error",
+        stack = "__filename:5:16",
+    };
+}

@@ -1,40 +1,60 @@
-import OSS
+import './util.dara' Util;
+import OSS;
 
-model mainFile extends OSS.File {
-  size: number,
+model extendFile extends Util.mainFile {
+  path: string,
+  sub: OSS.File,
+  subFiles: [ OSS.SubFile.file ],
+  fileMap: map[string]OSS.SubFile.file,
 }
 
-exception MainFileError extends OSS.File {
-  size: number,
+model DeriveSubFile extends Util.ExtendSubFile {
+  size: string,
 }
 
-exception ExtendFileError extends OSS.FileError {
-  size: number,
-}
 
-exception ExtendSubFileError extends OSS.SubFile.file {
-  size: number,
-}
+static function getFile(efile: OSS.File, file: OSS.File, err: OSS.SubFile.file): void;
 
 static function call(size: number): void {
-  var file = new mainFile{
+  var file = new Util.mainFile{
     name = 'name',
     size = 100,
   };
-  if(size > file.size) {
-    throw new MainFileError{
+  var maps = {
+    key = new Util.ExtendSubFileError{
       name = 'name',
       size = 100,
     }
+  };
+  var efile = new extendFile {
+    name = 'name',
+    size = 100,
+    path = '/test',
+    sub = file,
+    subFiles = [
+      new DeriveSubFile {
+        name = 'name',
+        size = '100',
+      }
+    ],
+    fileMap = maps
+  };
+  if(size > file.size) {
+    throw new Util.MainFileError{
+      name = 'name',
+      size = 100,
+    };
   } else if (size == file.size){
-    throw new ExtendFileError{
+    throw new Util.ExtendFileError{
       code = 'name',
       size = 100,
-    }
+    };
   } else {
-    throw new ExtendSubFileError{
+    var err = new Util.ExtendSubFileError{
       name = 'name',
       size = 100,
-    }
+    };
+    getFile(efile, file, err);
   }
+  
 }
