@@ -4832,6 +4832,92 @@ describe('parser', function () {
           loc: loc(8, 18, 8, 20),
           'tag': 2
         },
+        'catchBlocks': [{
+          'id': {
+            'index': 22,
+            'lexeme': 'ex',
+            loc: loc(8, 18, 8, 20),
+            'tag': 2
+          },
+          'catchStmts': {
+            stmts: [
+              {
+                'args': [
+                  {
+                    'elements': [
+                      {
+                        'type': 'element',
+                        'value': {
+                          'index': 29,
+                          loc: loc(9, 23, 9, 38),
+                          'string': 'error message: ',
+                          'tag': 12,
+                          'tail': false
+                        }
+                      },
+                      {
+                        'expr': {
+                          'id': {
+                            'index': 30,
+                            'lexeme': 'ex',
+                            loc: loc(9, 40, 9, 42),
+                            'tag': 2
+                          },
+                          'propertyPath': [
+                            {
+                              'index': 32,
+                              'lexeme': 'message',
+                              loc: loc(9, 43, 9, 50),
+                              'tag': 2
+                            }
+                          ],
+                          loc: loc(9, 40, 9, 52),
+                          'tokenRange': [30, 33],
+                          'type': 'property_access'
+                        },
+                        'type': 'expr'
+                      },
+                      {
+                        'type': 'element',
+                        'value': {
+                          'index': 33,
+                          loc: loc(9, 51, 9, 51),
+                          'string': '',
+                          'tag': 12,
+                          'tail': true
+                        }
+                      }
+                    ],
+                    'tokenRange': [29, 34],
+                    'type': 'template_string'
+                  }
+                ],
+                'left': {
+                  'id': {
+                    'index': 25,
+                    'lexeme': 'Util',
+                    'loc': loc(9, 11, 9, 15),
+                    'tag': 2
+                  },
+                  'propertyPath': [
+                    {
+                      'index': 27,
+                      'lexeme': 'print',
+                      loc: loc(9, 16, 9, 21),
+                      'tag': 2
+                    }
+                  ],
+                  'type': 'static_or_instance_call'
+                },
+                loc: loc(9, 11, 9, 53),
+                'tokenRange': [25, 35],
+                'type': 'call',
+              }
+            ],
+            'tokenRange': [24, 36],
+            'type': 'stmts'
+          }
+        }],
         'catchBlock': {
           stmts: [
             {
@@ -4968,6 +5054,92 @@ describe('parser', function () {
           'tokenRange': [11, 19],
           'type': 'stmts'
         },
+        'catchBlocks': [{
+          'id': {
+            'index': 22,
+            'lexeme': 'ex',
+            loc: loc(8, 18, 8, 20),
+            'tag': 2
+          },
+          'catchStmts': {
+            stmts: [
+              {
+                'args': [
+                  {
+                    'elements': [
+                      {
+                        'type': 'element',
+                        'value': {
+                          'index': 29,
+                          loc: loc(9, 23, 9, 38),
+                          'string': 'error message: ',
+                          'tag': 12,
+                          'tail': false
+                        }
+                      },
+                      {
+                        'expr': {
+                          'id': {
+                            'index': 30,
+                            'lexeme': 'ex',
+                            loc: loc(9, 40, 9, 42),
+                            'tag': 2
+                          },
+                          'propertyPath': [
+                            {
+                              'index': 32,
+                              'lexeme': 'message',
+                              loc: loc(9, 43, 9, 50),
+                              'tag': 2
+                            }
+                          ],
+                          loc: loc(9, 40, 9, 52),
+                          'tokenRange': [30, 33],
+                          'type': 'property_access'
+                        },
+                        'type': 'expr'
+                      },
+                      {
+                        'type': 'element',
+                        'value': {
+                          'index': 33,
+                          loc: loc(9, 51, 9, 51),
+                          'string': '',
+                          'tag': 12,
+                          'tail': true
+                        }
+                      }
+                    ],
+                    'tokenRange': [29, 34],
+                    'type': 'template_string'
+                  }
+                ],
+                loc: loc(9, 11, 9, 53),
+                'type': 'call',
+                'tokenRange': [25, 35],
+                'left': {
+                  'id': {
+                    'index': 25,
+                    'lexeme': 'Util',
+                    'loc': loc(9, 11, 9, 15),
+                    'tag': 2
+                  },
+                  'propertyPath': [
+                    {
+                      'index': 27,
+                      'lexeme': 'print',
+                      'loc': loc(9, 16, 9, 21),
+                      'tag': 2
+                    }
+                  ],
+                  'type': 'static_or_instance_call'
+                }
+              }
+            ],
+            'tokenRange': [24, 36],
+            'type': 'stmts'
+          }
+        }],
         'catchId': {
           'index': 22,
           'lexeme': 'ex',
@@ -5147,6 +5319,92 @@ describe('parser', function () {
           'tokenRange': [11, 19],
           'type': 'stmts'
         },
+        'catchBlocks': [{
+          'id': {
+            'index': 22,
+            'lexeme': 'ex',
+            loc: loc(8, 18, 8, 20),
+            'tag': 2
+          },
+          'catchStmts': {
+            stmts: [
+              {
+                'args': [
+                  {
+                    'elements': [
+                      {
+                        'type': 'element',
+                        'value': {
+                          'index': 29,
+                          loc: loc(9, 23, 9, 38),
+                          'string': 'error message: ',
+                          'tag': 12,
+                          'tail': false
+                        }
+                      },
+                      {
+                        'expr': {
+                          'id': {
+                            'index': 30,
+                            'lexeme': 'ex',
+                            loc: loc(9, 40, 9, 42),
+                            'tag': 2
+                          },
+                          'propertyPath': [
+                            {
+                              'index': 32,
+                              'lexeme': 'message',
+                              loc: loc(9, 43, 9, 50),
+                              'tag': 2
+                            }
+                          ],
+                          loc: loc(9, 40, 9, 52),
+                          'tokenRange': [30, 33],
+                          'type': 'property_access'
+                        },
+                        'type': 'expr'
+                      },
+                      {
+                        'type': 'element',
+                        'value': {
+                          'index': 33,
+                          loc: loc(9, 51, 9, 51),
+                          'string': '',
+                          'tag': 12,
+                          'tail': true
+                        }
+                      }
+                    ],
+                    'tokenRange': [29, 34],
+                    'type': 'template_string'
+                  }
+                ],
+                loc: loc(9, 11, 9, 53),
+                'type': 'call',
+                'tokenRange': [25, 35],
+                'left': {
+                  'id': {
+                    'index': 25,
+                    'lexeme': 'Util',
+                    'loc': loc(9, 11, 9, 15),
+                    'tag': 2
+                  },
+                  'propertyPath': [
+                    {
+                      'index': 27,
+                      'lexeme': 'print',
+                      'loc': loc(9, 16, 9, 21),
+                      'tag': 2
+                    }
+                  ],
+                  'type': 'static_or_instance_call'
+                }
+              }
+            ],
+            'tokenRange': [24, 36],
+            'type': 'stmts'
+          },
+        }],
         'catchId': {
           'index': 22,
           'lexeme': 'ex',
@@ -5253,6 +5511,7 @@ describe('parser', function () {
       {
         'type': 'try',
         'tokenRange': [10, 29],
+        'catchBlocks': [],
         'tryBlock': {
           'stmts': [
             {
@@ -5333,6 +5592,421 @@ describe('parser', function () {
     }).to.throwException(function (e) { // get the exception object
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`Unexpected token: }. "try" expect "catch" or "finally"`);
+    });
+  });
+
+  it('multi catch blocks should be ok', function(){
+    var ast = parse(`
+      function func(a: string): void  {
+        try {
+          Util.print("try block");
+        } catch(err: Util.Error) {
+          Util.print(err.code);
+        } catch(err: Util.Error2) {
+          Util.print(err.code);
+        } catch(err) {
+          Util.print(err.code);
+        }
+      }
+    `, '__filename');
+    const [ func ] = ast.moduleBody.nodes;
+    expect(func.type).to.be('function');
+    expect(func.functionBody.stmts.stmts[0]).to.eql({
+      'type': 'try',
+      'tryBlock': {
+        'type': 'stmts',
+        'stmts': [
+          {
+            'type': 'call',
+            'left': {
+              'type': 'static_or_instance_call',
+              'id': {
+                'tag': 2,
+                'loc': loc(4, 11, 4, 15),
+                'lexeme': 'Util',
+                'index': 13
+              },
+              'propertyPath': [
+                {
+                  'tag': 2,
+                  'loc': loc(4, 16, 4, 21),
+                  'lexeme': 'print',
+                  'index': 15
+                }
+              ]
+            },
+            'args': [
+              {
+                'type': 'string',
+                'value': {
+                  'tag': 1,
+                  'loc': loc(4, 23, 4, 32),
+                  'string': 'try block',
+                  'index': 17
+                },
+                'loc': loc(4, 23, 4, 32),
+                'tokenRange': [
+                  17,
+                  18
+                ]
+              }
+            ],
+            'loc': loc(4, 11, 4, 34),
+            'tokenRange': [
+              13,
+              19
+            ]
+          }
+        ],
+        'tokenRange': [
+          12,
+          20
+        ]
+      },
+      'catchId': {
+        'tag': 2,
+        'loc': loc(9, 17, 9, 20),
+        'lexeme': 'err',
+        'index': 61
+      },
+      'catchBlock': {
+        'type': 'stmts',
+        'stmts': [
+          {
+            'type': 'call',
+            'left': {
+              'type': 'static_or_instance_call',
+              'id': {
+                'tag': 2,
+                'loc': loc(10, 11, 10 ,15),
+                'lexeme': 'Util',
+                'index': 64
+              },
+              'propertyPath': [
+                {
+                  'tag': 2,
+                  'loc': loc(10, 16, 10, 21),
+                  'lexeme': 'print',
+                  'index': 66
+                }
+              ]
+            },
+            'args': [
+              {
+                'type': 'property_access',
+                'id': {
+                  'tag': 2,
+                  'loc': loc(10, 22, 10, 25),
+                  'lexeme': 'err',
+                  'index': 68
+                },
+                'propertyPath': [
+                  {
+                    'tag': 2,
+                    'loc': loc(10, 26, 10, 30),
+                    'lexeme': 'code',
+                    'index': 70
+                  }
+                ],
+                'loc': loc(10, 22, 10, 30),
+                'tokenRange': [
+                  68,
+                  71
+                ]
+              }
+            ],
+            'loc': loc(10, 11, 10, 31),
+            'tokenRange': [
+              64,
+              72
+            ]
+          }
+        ],
+        'tokenRange': [
+          63,
+          73
+        ]
+      },
+      'catchBlocks': [
+        {
+          'id': {
+            'tag': 2,
+            'loc': loc(5, 17, 5, 20),
+            'lexeme': 'err',
+            'index': 23,
+            'type': {
+              'type': 'subModel_or_moduleModel',
+              'path': [
+                {
+                  'tag': 2,
+                  'loc': loc(5, 22, 5, 26),
+                  'lexeme': 'Util',
+                  'index': 25
+                },
+                {
+                  'tag': 2,
+                  'loc': loc(5, 27, 5, 32),
+                  'lexeme': 'Error',
+                  'index': 27
+                }
+              ],
+              'loc': loc(5, 22, 5, 32)
+            }
+          },
+          'catchStmts': {
+            'type': 'stmts',
+            'stmts': [
+              {
+                'type': 'call',
+                'left': {
+                  'type': 'static_or_instance_call',
+                  'id': {
+                    'tag': 2,
+                    'loc': loc(6, 11, 6, 15),
+                    'lexeme': 'Util',
+                    'index': 30
+                  },
+                  'propertyPath': [
+                    {
+                      'tag': 2,
+                      'loc': loc(6, 16, 6, 21),
+                      'lexeme': 'print',
+                      'index': 32
+                    }
+                  ]
+                },
+                'args': [
+                  {
+                    'type': 'property_access',
+                    'id': {
+                      'tag': 2,
+                      'loc': loc(6, 22, 6, 25),
+                      'lexeme': 'err',
+                      'index': 34
+                    },
+                    'propertyPath': [
+                      {
+                        'tag': 2,
+                        'loc': loc(6, 26, 6, 30),
+                        'lexeme': 'code',
+                        'index': 36
+                      }
+                    ],
+                    'loc': loc(6, 22, 6, 30),
+                    'tokenRange': [
+                      34,
+                      37
+                    ]
+                  }
+                ],
+                'loc': loc(6, 11, 6, 31),
+                'tokenRange': [
+                  30,
+                  38
+                ]
+              }
+            ],
+            'tokenRange': [
+              29,
+              39
+            ]
+          }
+        },
+        {
+          'id': {
+            'tag': 2,
+            'loc': loc(7, 17, 7, 20),
+            'lexeme': 'err',
+            'index': 42,
+            'type': {
+              'type': 'subModel_or_moduleModel',
+              'path': [
+                {
+                  'tag': 2,
+                  'loc': loc(7, 22, 7, 26),
+                  'lexeme': 'Util',
+                  'index': 44
+                },
+                {
+                  'tag': 2,
+                  'loc': loc(7, 27, 7, 33),
+                  'lexeme': 'Error2',
+                  'index': 46
+                }
+              ],
+              'loc': {
+                'start': {
+                  'line': 7,
+                  'column': 22
+                },
+                'end': {
+                  'line': 7,
+                  'column': 33
+                }
+              }
+            }
+          },
+          'catchStmts': {
+            'type': 'stmts',
+            'stmts': [
+              {
+                'type': 'call',
+                'left': {
+                  'type': 'static_or_instance_call',
+                  'id': {
+                    'tag': 2,
+                    'loc': loc(8, 11, 8, 15),
+                    'lexeme': 'Util',
+                    'index': 49
+                  },
+                  'propertyPath': [
+                    {
+                      'tag': 2,
+                      'loc': loc(8, 16, 8, 21),
+                      'lexeme': 'print',
+                      'index': 51
+                    }
+                  ]
+                },
+                'args': [
+                  {
+                    'type': 'property_access',
+                    'id': {
+                      'tag': 2,
+                      'loc': loc(8, 22, 8, 25),
+                      'lexeme': 'err',
+                      'index': 53
+                    },
+                    'propertyPath': [
+                      {
+                        'tag': 2,
+                        'loc': loc(8, 26, 8, 30),
+                        'lexeme': 'code',
+                        'index': 55
+                      }
+                    ],
+                    'loc':loc(8, 22, 8, 30),
+                    'tokenRange': [
+                      53,
+                      56
+                    ]
+                  }
+                ],
+                'loc': loc(8, 11, 8, 31),
+                'tokenRange': [
+                  49,
+                  57
+                ]
+              }
+            ],
+            'tokenRange': [
+              48,
+              58
+            ]
+          }
+        },
+        {
+          'id': {
+            'tag': 2,
+            'loc': loc(9, 17, 9, 20),
+            'lexeme': 'err',
+            'index': 61
+          },
+          'catchStmts': {
+            'type': 'stmts',
+            'stmts': [
+              {
+                'type': 'call',
+                'left': {
+                  'type': 'static_or_instance_call',
+                  'id': {
+                    'tag': 2,
+                    'loc': loc(10, 11, 10, 15),
+                    'lexeme': 'Util',
+                    'index': 64
+                  },
+                  'propertyPath': [
+                    {
+                      'tag': 2,
+                      'loc': loc(10, 16, 10, 21),
+                      'lexeme': 'print',
+                      'index': 66
+                    }
+                  ]
+                },
+                'args': [
+                  {
+                    'type': 'property_access',
+                    'id': {
+                      'tag': 2,
+                      'loc': loc(10, 22, 10, 25),
+                      'lexeme': 'err',
+                      'index': 68
+                    },
+                    'propertyPath': [
+                      {
+                        'tag': 2,
+                        'loc': loc(10, 26, 10, 30),
+                        'lexeme': 'code',
+                        'index': 70
+                      }
+                    ],
+                    'loc': {
+                      'start': {
+                        'line': 10,
+                        'column': 22
+                      },
+                      'end': {
+                        'line': 10,
+                        'column': 30
+                      }
+                    },
+                    'tokenRange': [
+                      68,
+                      71
+                    ]
+                  }
+                ],
+                'loc': loc(10, 11, 10, 31),
+                'tokenRange': [
+                  64,
+                  72
+                ]
+              }
+            ],
+            'tokenRange': [
+              63,
+              73
+            ]
+          }
+        }
+      ],
+      'finallyBlock': null,
+      'tokenRange': [
+        11,
+        73
+      ]
+    });
+  });
+
+  it('default type catch block should only be last', function(){
+    expect(() => {parse(`
+      function func(a: string): void  {
+        try {
+          Util.print("try block");
+        } catch(err: Util.Error) {
+          Util.print(err.code);
+        } catch(err) {
+          Util.print(err.code);
+        } catch(err: Util.Error2) {
+          Util.print(err.code);
+        } 
+      }
+    `, '__filename');
+    }).to.throwException(function(e) {
+      console.log(e);
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('Unexpected token: Word: `catch`. expect valid expression');
     });
   });
 
@@ -6706,6 +7380,22 @@ describe('parser', function () {
                         58
                       ]
                     },
+                    'catchBlocks': [{
+                      'id': {
+                        'tag': 2,
+                        'loc': loc(25, 16, 25, 19),
+                        'lexeme': 'err',
+                        'index': 61
+                      },
+                      'catchStmts': {
+                        'type': 'stmts',
+                        'stmts': [],
+                        'tokenRange': [
+                          63,
+                          65
+                        ]
+                      },
+                    }],
                     'catchId': {
                       'tag': 2,
                       'loc': loc(25, 16, 25, 19),

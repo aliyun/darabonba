@@ -7136,4 +7136,10 @@ describe('semantic', function () {
       expect(e.message).to.be('declared variable with mismatched type, expected: base, actual: other');
     });
   });
+
+  it('use multi catch blocks shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/multi_catch/main.dara');
+    }).to.not.throwException();
+  });
 });

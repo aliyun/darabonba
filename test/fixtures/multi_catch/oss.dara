@@ -1,0 +1,17 @@
+
+model File = {
+    name: string,
+    path: string,
+};
+
+exception FileError = {
+    code: string,
+    data: map[string]File
+}
+
+model SubFile = {
+    file: {
+        name: string,
+    }
+}
+

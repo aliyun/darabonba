@@ -1,0 +1,13 @@
+import OSS
+
+exception MainFileError extends OSS.File {
+  size: number,
+}
+
+exception ExtendFileError extends OSS.FileError {
+  key2: string,
+}
+
+exception ExtendSubFileError extends OSS.SubFile.file {
+  data: map[string]string,
+}
