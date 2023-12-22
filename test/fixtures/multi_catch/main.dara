@@ -1,0 +1,48 @@
+import './util.dara' Util;
+import OSS;
+
+static function call(size: number): void {
+  try{
+    if(size > 100) {
+      throw new Util.MainFileError{
+        name = 'name',
+        size = 100,
+        path = '100',
+      };
+    } else if (size == 100){
+      throw new Util.ExtendFileError{
+        code = 'name',
+        key2 = 'value2',
+        data = {
+          key1 = new OSS.File{
+            name = 'name',
+            path = '100',
+          }
+        }
+      };
+    } else {
+      throw new Util.ExtendSubFileError{
+        name = 'name',
+        data =  {
+          name = '100'
+        },
+      };
+    }
+  } catch(err: Util.MainFileError) {
+    $Logger.info(err.name);
+  }catch(err: Util.ExtendFileError) {
+    $Logger.info(err.code);
+    $Logger.info(err.key2);
+    var data = err.data;
+    var key1234: OSS.File = data.key1;
+    $Logger.info(key1234.name);
+    $Logger.info(key1234.path);
+  }catch(err: Util.ExtendSubFileError) {
+    $Logger.info(err.name);
+    $Logger.info(err.data.name);
+  }catch(err: $Error) {
+    $Logger.info(err.message);
+  }catch(err) {
+    $Logger.info(err.message);
+  }
+}
