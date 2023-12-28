@@ -1,0 +1,83 @@
+import OSS;
+import './util.dara' Util;
+
+
+@input('call');
+model CallRequest extends OSS.File {
+  size: number,
+}
+
+@output('call');
+model CallResponse {
+  size: number,
+}
+
+init();
+
+@error([Util.MainFileError, Util.ExtendFileError, Util.ExtendSubFileError])
+@returnMode({
+  aliasName = "execTaskAsync",
+  async = true,
+  callback = callback,
+  interval= 3,
+  times = 10,
+  input = data.size,
+})
+static function call(data: CallRequest): CallResponse {
+  @go('fmt.printv("%v", data)');
+  if(data.size > 100) {
+    throw new Util.MainFileError{
+      name = 'name',
+      size = 100,
+    };
+  } else if (data.size == 100){
+    throw new Util.ExtendFileError{
+      code = 'name',
+      size = 100,
+    };
+  } else if (data.size == 50){
+    throw new Util.ExtendSubFileError{
+      name = 'name',
+      size = 100,
+    };
+  }
+  return new CallResponse {
+    size = data.size,
+  };
+}
+
+
+
+@paginated({
+  aliasName = "getUsersPaginated",
+  policy = "token",
+  maxItemsDefault = 20,
+  totalCount = 100,
+  inputToken = req.nextToken,
+  outputToken = resp.nextToken,
+  maxItems = req.maxResults,
+  maxItemsDefault = 20,
+  pageTruncated = resp.truncated,
+  totalCount = 100,
+  items = resp.replicaPairs,
+})
+async function callback(size: number) throws: void{
+  var req = {
+    nextToken = '123',
+    maxResults = 100,
+  };
+
+  var resp = { 
+    nextToken = '321',
+    truncated = false,
+    replicaPairs = 50
+  };
+  return;
+}
+
+@deprecated({
+  sub = callback,
+  deprecatedTime = "2022-03-03",
+  warning = "this is deprecated",
+})
+async function test(size: number) : void;

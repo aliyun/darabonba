@@ -296,9 +296,9 @@ describe('lexer', function () {
     ]);
   });
 
-  it('should ok with virtual method', function () {
+  it('should ok with note', function () {
     expect(lex('@prop()', '__filename')).to.be.eql([
-      { tag: 3, lexeme: '@prop',
+      { tag: 43, lexeme: '@prop',
         'loc': loc(1, 1, 1, 6)
       },
       { tag: '(',
@@ -306,6 +306,44 @@ describe('lexer', function () {
       { tag: ')',
         'loc': loc(1, 7, 1, 7) },
       { tag: undefined, loc: loc(1, 8, 1, 8) }
+    ]);
+
+    expect(lex('@prop("test")', '__filename')).to.be.eql([
+      { tag: 43, lexeme: '@prop',
+        'loc': loc(1, 1, 1, 6)
+      },
+      { tag: '(',
+        'loc': loc(1, 6, 1, 6) },
+      { tag: 1,
+        string: 'test',
+        'loc': loc(1, 8, 1, 12) },
+      { tag: ')',
+        'loc': loc(1, 13, 1, 13) },
+      { tag: undefined, loc: loc(1, 14, 1, 14) }
+    ]);
+
+    console.log('%j', lex('@prop({ key = "value" })', '__filename'));
+    expect(lex('@prop({ key = "value" })', '__filename')).to.be.eql([
+      { tag: 43, lexeme: '@prop',
+        'loc': loc(1, 1, 1, 6)
+      },
+      { tag: '(',
+        'loc': loc(1, 6, 1, 6) },
+      { tag: '{',
+        'loc': loc(1, 7, 1, 7) },
+      { tag: 2,
+        lexeme: 'key',
+        'loc': loc(1, 9, 1, 12)},
+      { tag: '=',
+        'loc': loc(1, 13, 1, 13)},
+      { tag: 1,
+        string: 'value',
+        'loc': loc(1, 16, 1, 21)},
+      { tag: '}',
+        'loc': loc(1, 23, 1, 23) },
+      { tag: ')',
+        'loc': loc(1, 24, 1, 24) },
+      { tag: undefined, loc: loc(1, 25, 1, 25) }
     ]);
   });
 

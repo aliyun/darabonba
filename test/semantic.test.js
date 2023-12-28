@@ -6144,30 +6144,6 @@ describe('semantic', function () {
     expect(function () {
       parse(`
       init() {}
-      
-      api hello(): object {
-        __request.method = 'GET';
-        __request.pathname = '/';
-        __request.headers = {
-          host = 'www.test.com',
-        };
-        var retry = false;
-      } returns {
-        if(retry){
-          return __request.headers;
-        }
-        return {};
-      } runtime {
-        retry = retry
-      }`, '__filename');
-    }).to.throwException(function (ex) {
-      expect(ex).be.a(SyntaxError);
-      expect(ex.message).to.be('variable "retry" undefined');
-    });
-
-    expect(function () {
-      parse(`
-      init() {}
 
       api hello(retry: boolean): object {
         __request.method = 'GET';
@@ -6185,6 +6161,146 @@ describe('semantic', function () {
         retry = retry
       }`, '__filename');
     }).to.not.throwException();
+  });
+
+  it('api runtime option can use request & response varibles', function(){
+    expect(function () {
+      parse(`
+      init() {}
+
+      api hello(): object {
+        __request.method = 'GET';
+        __request.pathname = '/';
+        __request.headers = {
+          host = 'www.test.com',
+        };
+        var retry = false;
+      } returns {
+        if(retry){
+          return __request.headers;
+        }
+        return {};
+      } runtime {
+        retry = retry
+      }`, '__filename');
+    }).to.not.throwException();
+
+
+    expect(function () {
+      parse(`
+      init() {}
+
+      exception Err{
+        message: string,
+        period: number,
+      }
+
+      api test(): number {
+        __request.protocol = "https";
+        __request.method = 'DELETE';
+        __request.pathname = "/";
+        __request.headers = {
+          host = "test.aliyun.com",
+          accept = 'application/json',
+        };
+        var req = {
+          nextToken = "100",
+          maxResults = 200,
+        };
+      } returns {
+        var resp = {
+          nextToken = "100",
+          truncated = false,
+          replicaPairs = "sdfs",
+        };
+        
+        if(__response.statusCode == 402) {
+          var err = new Err{
+            message = 'err',
+            period = 3,
+          };
+        }
+        return __response.statusCode;
+      } runtime {
+        timeouted = 'retry',
+        "$Error" = {
+          retry = {
+            retryable = false
+          },
+          backoff = {
+            policy = 'no',
+            period = 1
+          },
+        },
+        "Err" = {
+          retry = {
+            retryable = true
+          },
+          backoff = {
+            policy = 'yes',
+            period = err.period
+          },
+        },
+        paginated = {
+          // token 翻页模式
+          policy = "token",
+          inputToken = req.nextToken,
+          outputToken = resp.nextToken,
+          maxItems = req.maxResults,
+          maxItemsDefault = 20,
+          pageTruncated = resp.truncated,
+          totalCount = 100,
+          items = resp.replicaPairs,
+        }
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+      init() {}
+
+      api test(): number {
+        __request.protocol = "https";
+        __request.method = 'DELETE';
+        __request.pathname = "/";
+        __request.headers = {
+          host = "test.aliyun.com",
+          accept = 'application/json',
+        };
+      } returns {
+        var resp = {
+          nextToken = "100",
+          truncated = false,
+          replicaPairs = "sdfs",
+        };
+        return __response.statusCode;
+      } runtime {
+        timeouted = 'retry',
+        "$Error" = {
+          retry = {
+            retryable = false
+          },
+          backoff = {
+            policy = 'no',
+            period = 1
+          },
+        },
+        paginated = {
+          // token 翻页模式
+          policy = "token",
+          outputToken = resp.nextToken,
+          maxItemsDefault = 20,
+          pageTruncated = resp.truncated,
+          totalCount = 100,
+          items = resp.replicaPairs,
+          maxItems = req.maxResults,
+        }
+      }`, '__filename');
+    }).to.throwException(function(ex) {
+      expect(ex).be.a(SyntaxError);
+      expect(ex.message).to.be('variable "req" undefined');
+    });
+
   });
 
   it('parameter expected type is ok', function () {
