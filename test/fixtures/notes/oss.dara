@@ -1,0 +1,15 @@
+
+model File = {
+    name: string,
+};
+
+exception FileError = {
+    code: string,
+}
+
+model SubFile = {
+    file: {
+        name: string,
+    }
+}
+

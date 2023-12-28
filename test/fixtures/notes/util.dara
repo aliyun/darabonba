@@ -1,0 +1,21 @@
+import OSS
+
+model mainFile extends OSS.File {
+  size: number,
+}
+
+exception MainFileError extends OSS.File {
+  size: number,
+}
+
+exception ExtendFileError extends OSS.FileError {
+  size: number,
+}
+
+exception ExtendSubFileError extends OSS.SubFile.file {
+  size: number,
+}
+
+model ExtendSubFile extends OSS.SubFile.file {
+    size: number,
+}

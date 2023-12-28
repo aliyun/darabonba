@@ -42,6 +42,7 @@ describe('parser', function () {
     expect(parse('', '__filename')).to.be.eql({
       'annotation': undefined,
       'comments': {},
+      'notes': {},
       'imports': [],
       'extends': undefined,
       'moduleBody': {
@@ -59,6 +60,7 @@ describe('parser', function () {
       'imports': [],
       'extends': undefined,
       'comments': {},
+      'notes': {},
       'annotation': {
         'index': 1,
         'tag': 19,
@@ -2399,6 +2401,7 @@ describe('parser', function () {
         'type': 'moduleBody'
       },
       'comments': {},
+      'notes': {},
       'annotation': {
         'index': 1,
         loc: loc(2, 5, 4, 8),
@@ -10014,6 +10017,259 @@ describe('parser', function () {
           'lexeme': 'sub',
           'index': 15
         }
+      ]
+    });
+  });
+
+  it('note should ok', function () {
+    const ast = parse(`
+    exception AException {}
+
+    @output("a")
+    model Resp{}
+    init()
+
+    @error(["AException"])
+    @paginated({
+      aliasName = "getUsersPaginated",
+      policy = "token",
+      maxItemsDefault = 20,
+      totalCount = 100,
+    })
+    async function test(a: string ) throws: Resp{
+      @go('fmt.printv("%v", a)');
+      return new Resp{};
+    }
+    `, '__filename');
+    expect(ast.notes.get(5)).to.eql({
+      'type': 'note',
+      'note': {
+        'tag': 43,
+        'loc': loc(4, 5, 4, 12),
+        'lexeme': '@output',
+        'index': 5
+      },
+      'arg': {
+        'type': 'string',
+        'value': {
+          'tag': 1,
+          'loc': loc(4, 14, 4, 15),
+          'string': 'a',
+          'index': 7
+        },
+        'loc': loc(4, 14, 4, 15),
+        'tokenRange': [
+          7,
+          8
+        ]
+      },
+      'loc': loc(4, 5, 5, 10),
+      'tokenRange': [
+        5,
+        9
+      ]
+    });
+
+    expect(ast.notes.get(22)).to.eql({
+      'type': 'note',
+      'note': {
+        'tag': 43,
+        'loc': loc(9, 5, 9, 15),
+        'lexeme': '@paginated',
+        'index': 22
+      },
+      'arg': {
+        'type': 'object',
+        'fields': [
+          {
+            'type': 'objectField',
+            'fieldName': {
+              'tag': 2,
+              'loc': loc(10, 7, 10, 16),
+              'lexeme': 'aliasName',
+              'index': 25
+            },
+            'expr': {
+              'type': 'string',
+              'value': {
+                'tag': 1,
+                'loc': loc(10, 20, 10, 37),
+                'string': 'getUsersPaginated',
+                'index': 27
+              },
+              'loc': loc(10, 20, 10, 37),
+              'tokenRange': [
+                27,
+                28
+              ]
+            },
+            'tokenRange': [
+              25,
+              28
+            ]
+          },
+          {
+            'type': 'objectField',
+            'fieldName': {
+              'tag': 2,
+              'loc': loc(11, 7, 11, 13),
+              'lexeme': 'policy',
+              'index': 29
+            },
+            'expr': {
+              'type': 'string',
+              'value': {
+                'tag': 1,
+                'loc': loc(11, 17, 11, 22),
+                'string': 'token',
+                'index': 31
+              },
+              'loc': loc(11, 17, 11, 22),
+              'tokenRange': [
+                31,
+                32
+              ]
+            },
+            'tokenRange': [
+              29,
+              32
+            ]
+          },
+          {
+            'type': 'objectField',
+            'fieldName': {
+              'tag': 2,
+              'loc': loc(12, 7, 12, 22),
+              'lexeme': 'maxItemsDefault',
+              'index': 33
+            },
+            'expr': {
+              'type': 'number',
+              'value': {
+                'tag': 9,
+                'loc': loc(12, 25, 12, 27),
+                'value': 20,
+                'type': 'integer',
+                'index': 35
+              },
+              'loc': loc(12, 25, 12, 27),
+              'tokenRange': [
+                35,
+                36
+              ]
+            },
+            'tokenRange': [
+              33,
+              36
+            ]
+          },
+          {
+            'type': 'objectField',
+            'fieldName': {
+              'tag': 2,
+              'loc': loc(13, 7, 13, 17),
+              'lexeme': 'totalCount',
+              'index': 37
+            },
+            'expr': {
+              'type': 'number',
+              'value': {
+                'tag': 9,
+                'loc': loc(13, 20, 13, 23),
+                'value': 100,
+                'type': 'integer',
+                'index': 39
+              },
+              'loc': loc(13, 20, 13, 23),
+              'tokenRange': [
+                39,
+                40
+              ]
+            },
+            'tokenRange': [
+              37,
+              40
+            ]
+          }
+        ],
+        'loc': loc(9, 16, 14, 6),
+        'tokenRange': [
+          24,
+          42
+        ]
+      },
+      'loc': loc(9, 5, 15, 10),
+      'tokenRange': [
+        22,
+        43
+      ]
+    });
+
+    
+    expect(ast.notes.get(16)).to.eql({
+      'type': 'note',
+      'note': {
+        'tag': 43,
+        'loc': loc(8, 5, 8, 11),
+        'lexeme': '@error',
+        'index': 16
+      },
+      'arg': {
+        'type': 'array',
+        'items': [
+          {
+            'type': 'string',
+            'value': {
+              'tag': 1,
+              'loc': loc(8, 14, 8, 24),
+              'string': 'AException',
+              'index': 19
+            },
+            'loc': loc(8, 14, 8, 24),
+            'tokenRange': [
+              19,
+              20
+            ]
+          }
+        ],
+        'tokenRange': [
+          18,
+          21
+        ]
+      },
+      'loc': loc(8, 5, 15, 10),
+      'tokenRange': [
+        16,
+        43
+      ]
+    });
+
+    expect(ast.notes.get(55)).to.eql({
+      'type': 'note',
+      'note': {
+        'tag': 43,
+        'loc': loc(16, 7, 16, 10),
+        'lexeme': '@go',
+        'index': 55
+      },
+      'arg': {
+        'type': 'string',
+        'value': {
+          'tag': 1,
+          'loc': loc(16, 12, 16, 31),
+          'string': 'fmt.printv("%v", a)',
+          'index': 57
+        },
+        'loc': loc(16, 12, 16, 31),
+        'tokenRange': [
+          57,
+          58
+        ]
+      },
+      'loc': loc(16, 7, 17, 13),
+      'tokenRange': [
+        55,
+        59
       ]
     });
   });

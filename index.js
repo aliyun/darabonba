@@ -7,6 +7,7 @@ const util = require('./lib/util');
 const Tag = require('./lib/tag');
 const builtin = require('./lib/builtin');
 const comment = require('./lib/comment');
+const note = require('./lib/note');
 const pkg = require('./package.json');
 
 function parse(source, filePath) {
@@ -21,5 +22,6 @@ module.exports = {
   util,
   builtin,
   comment,
+  note,
   getChecker
 };
