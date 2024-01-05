@@ -6739,7 +6739,7 @@ describe('semantic', function () {
   it('use inner module should ok', function () {
     let ast = readAndParse('fixtures/multi_module/sdk.dara');
     
-    const userAst = ast.innerDep.get(path.join(__dirname, './fixtures/multi_module/model/user.dara'));
+    const userAst = ast.innerDep.get('User');
     const [model] = userAst.moduleBody.nodes;
     expect(model.type).to.be('model');
     expect(model.modelName).to.eql({
@@ -6760,7 +6760,7 @@ describe('semantic', function () {
       'index': 9
     });
 
-    const utilAst = ast.innerDep.get(path.join(__dirname, './fixtures/multi_module/lib/util.dara'));
+    const utilAst = ast.innerDep.get('Util');
     const [ func ] = utilAst.moduleBody.nodes;
     expect(func.type).to.be('function');
     expect(func.functionName).to.eql({
@@ -6779,7 +6779,7 @@ describe('semantic', function () {
       'index': 4
     });
 
-    const apiAst = ast.innerDep.get(path.join(__dirname, './fixtures/multi_module/api.dara'));
+    const apiAst = ast.innerDep.get('API');
     const [ init, api ] = apiAst.moduleBody.nodes;
     expect(init.type).to.be('init');
     expect(api.type).to.be('api');
