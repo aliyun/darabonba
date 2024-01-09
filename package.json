@@ -1,6 +1,6 @@
 {
   "name": "@darabonba/parser",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "main": "index.js",
   "directories": {
     "lib": "lib",
@@ -29,6 +29,7 @@
   "files": [
     "bin",
     "lib",
+    "builtin",
     "index.js"
   ],
   "repository": "git@github.com:peze/darabonba.git"
