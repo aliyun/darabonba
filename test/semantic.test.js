@@ -640,6 +640,7 @@ describe('semantic', function () {
     expect(modelA).to.eql({
       'annotation': undefined,
       'extendOn': undefined,
+      'isException': false,
       'modelBody': {
         'nodes': [
           {
@@ -700,6 +701,7 @@ describe('semantic', function () {
     expect(modelAB).to.eql({
       'annotation': undefined,
       'extendOn': undefined,
+      'isException': false,
       'modelBody': {
         'nodes': [
           {
@@ -777,6 +779,7 @@ describe('semantic', function () {
       modelName: { tag: 2, lexeme: 'GroupDetailResponse.abilities' },
       'annotation': undefined,
       'extendOn': undefined,
+      'isException': false,
       modelBody: {
         type: 'modelBody',
         'tokenRange': [8, 21],
@@ -848,6 +851,7 @@ describe('semantic', function () {
     expect(modelA).to.eql({
       'annotation': undefined,
       'extendOn': undefined,
+      'isException': false,
       'modelBody': {
         'nodes': [
           {
@@ -908,6 +912,7 @@ describe('semantic', function () {
     expect(modelB).to.eql({
       'annotation': undefined,
       'extendOn': undefined,
+      'isException': false,
       'modelBody': {
         'nodes': [
           {
@@ -989,6 +994,7 @@ describe('semantic', function () {
     expect(GroupDetailResponse).to.be.eql({
       'annotation': undefined,
       'extendOn': undefined,
+      'isException': false,
       'modelBody': {
         'nodes': [
           {
@@ -2929,8 +2935,9 @@ describe('semantic', function () {
 
         }`, '__filename');
     }).to.throwError(function(e) {
+      console.log(e);
       expect(e).to.be.an(SyntaxError);
-      expect(e.message).to.be('the property "statusCode" is undefined in model "Error.Error"');
+      expect(e.message).to.be('the property "statusCode" is undefined in model "Error"');
     });
   });
 
@@ -2950,6 +2957,7 @@ describe('semantic', function () {
               'aliasId': {
                 'index': 29,
                 'isModel': true,
+                'isException': false,
                 'lexeme': 'M',
                 'loc': loc(5, 21, 5, 22),
                 'tag': 2
@@ -2961,6 +2969,7 @@ describe('semantic', function () {
               'inferred': {
                 'extendOn': undefined,
                 'moduleName': undefined,
+                'isException': false,
                 'name': 'M',
                 'type': 'model'
               },
@@ -3006,6 +3015,7 @@ describe('semantic', function () {
               'aliasId': {
                 'index': 29,
                 'isModel': true,
+                'isException': false,
                 'lexeme': 'M',
                 'loc': loc(5, 19, 5, 20),
                 'tag': 2
@@ -3024,6 +3034,7 @@ describe('semantic', function () {
               'inferred': {
                 'extendOn': undefined,
                 'moduleName': undefined,
+                'isException': false,
                 'name': 'M',
                 'type': 'model'
               },
@@ -3121,6 +3132,7 @@ describe('semantic', function () {
             {
               'aliasId': {
                 'index': 29,
+                'isException': false,
                 'isModel': true,
                 'lexeme': 'M',
                 'loc': loc(5, 21, 5, 22),
@@ -3129,6 +3141,7 @@ describe('semantic', function () {
               'inferred': {
                 'extendOn': undefined,
                 'moduleName': undefined,
+                'isException': false,
                 'name': 'M',
                 'type': 'model'
               },
@@ -4957,6 +4970,7 @@ describe('semantic', function () {
         'type': 'variable',
         'inferred': {
           'extendOn': undefined,
+          'isException': false,
           'type': 'model',
           'name': 'M',
           'moduleName': undefined
@@ -5636,6 +5650,7 @@ describe('semantic', function () {
         'type': 'variable',
         'inferred': {
           'extendOn': undefined,
+          'isException': false,
           'moduleName': undefined,
           'type': 'model',
           'name': 'M'
@@ -7237,6 +7252,36 @@ describe('semantic', function () {
 
     expect(function () {
       parse(`
+      model m {
+        sub: {
+          name: string,
+          sub: {
+            name: string,
+          },
+          base: $Model,
+        }
+      };
+
+      model sub extends m.sub {
+        
+      };
+
+      
+      model sub2 extends m.sub.sub {};
+
+      static function callOSS(): void {
+        var b = new sub2 {
+          age = 24,
+        };
+        return;
+      }`, '__filename');
+    }).to.throwException(function(e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('the property "age" is undefined in model "sub2"');
+    });
+
+    expect(function () {
+      parse(`
       model base {};
 
       model sub extends base {};
@@ -7250,6 +7295,39 @@ describe('semantic', function () {
     }).to.throwException(function(e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be('declared variable with mismatched type, expected: base, actual: other');
+    });
+  });
+
+  it('exceptions all extend from $Error shoule be ok', function(){ 
+    expect(function () {
+      parse(`
+      exception TestError {};
+
+      static function callOSS(): void {
+        var j: $Error = new TestError{
+          message = "true",
+          code = "Error"
+        };
+        
+        return;
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
+      parse(`
+      exception TestError {};
+
+      static function callOSS(): void {
+        var j: $Error = new TestError{
+          message = "true",
+          statusCode = 200
+        };
+        
+        return;
+      }`, '__filename');
+    }).to.throwException(function(e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be('the property "statusCode" is undefined in model "TestError"');
     });
   });
 

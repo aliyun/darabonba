@@ -13,12 +13,18 @@ model DeriveSubFile extends Util.ExtendSubFile {
 }
 
 
-static function getFile(efile: OSS.File, file: OSS.File, err: OSS.SubFile.file): void;
+static function getFile(efile: OSS.File, file: OSS.File, err: OSS.SubFile.file, err2: $Error): void;
 
 static function call(size: number): void {
   var file = new Util.mainFile{
     name = 'name',
     size = 100,
+  };
+  var baseErr: $Error = new Util.ExtendSubFileError{
+    name = 'name',
+    size = 100,
+    code = 'Error',
+    message = 'error message',
   };
   var maps = {
     key = new Util.ExtendSubFileError{
@@ -54,7 +60,7 @@ static function call(size: number): void {
       name = 'name',
       size = 100,
     };
-    getFile(efile, file, err);
+    getFile(efile, file, err, err);
   }
   
 }
