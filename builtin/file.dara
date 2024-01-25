@@ -12,8 +12,8 @@ function read(size: number): bytes;
 
 function write(data: bytes): void;
 
-static async function createReadStream(path: string): readable;
+static function createReadStream(path: string): readable;
 
-static async function createWriteStream(path: string): writable;
+static function createWriteStream(path: string): writable;
 
 static async function exists(path: string): boolean;

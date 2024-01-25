@@ -1,8 +1,8 @@
 init(data: string){}
 
-function split(sep: string, limit: number): [ string ];
+function split(sep: string): [ string ];
 
-function replace(oldStr: string, newStr: string, count: integer): string;
+function replace(regexStr: string, newStr: string): string;
 
 function contains(substr: string): boolean;
 
