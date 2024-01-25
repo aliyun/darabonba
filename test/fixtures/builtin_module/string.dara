@@ -1,17 +1,17 @@
 static async function main(args: [string]): void { 
     var fullStr = args.join(',');
-    args = fullStr.split(',', 10);
+    args = fullStr.split(',');
     
     if((fullStr.length() > 0) && fullStr.contains('hangzhou')) {
-        var newStr1 = fullStr.replace('hangzhou', 'beijing', 1);
+        var newStr1 = fullStr.replace('/hangzhou/g', 'beijing');
     }
 
     if(fullStr.hasPrefix('cn')) {
-        var newStr2 = fullStr.replace('cn', 'zh', 1);
+        var newStr2 = fullStr.replace('/cn/gi', 'zh');
     }
 
     if(fullStr.hasPrefix('beijing')) {
-        var newStr3 = fullStr.replace('beijing', 'chengdu', -1);
+        var newStr3 = fullStr.replace('/beijing/', 'chengdu');
     }
 
     var start = fullStr.index('beijing');

@@ -2503,7 +2503,7 @@ describe('semantic', function () {
   it('compare expr should ok', function () {
     expect(function () {
       parse(`static function callOSS(): boolean {
-        return (true == false) || ("string" >= "string") || (3 < 3) || ((3 <= 2) && (2 >= 3));
+        return (true == false) || ("string" == "string") || (3 < 3) || ((3 <= 2) && (2 >= 3));
       }`, '__filename');
     }).to.not.throwException();
 
