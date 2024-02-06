@@ -10,6 +10,10 @@ function protocol(): string;
 
 function hostname(): string;
 
+function host(): string;
+
+function port(): string;
+
 function hash(): string;
 
 function search(): string;

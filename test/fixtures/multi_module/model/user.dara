@@ -12,5 +12,4 @@ static async function test(): iterator[string]{
  for(var test : it) {
     yield test;
  }
-
 }

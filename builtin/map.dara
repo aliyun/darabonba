@@ -7,3 +7,5 @@ function keySet(): [ string ];
 function entries(): [ entry[ $type ] ];
 
 function toJSON(): string;
+
+function merge(data: map[string]any): map[string]any;
