@@ -8,5 +8,13 @@ static async function main(args: [string]): void {
         data = $Stream.readAsBytes(rs);
         var obj = $Stream.readAsJSON(rs);
         var jsonStr = $Stream.readAsString(rs);
+
+        var it = $Stream.readAsSSE(rs);
+        for(var data : it ) {
+            $Logger.log(data.id);
+            $Logger.log(data.event);
+            $Logger.log($JSON.stringify(data.data));
+            var num: integer = data.retry + 3;
+        }
     }
 }

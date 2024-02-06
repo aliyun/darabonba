@@ -21,4 +21,12 @@ static async function main(args: [string]): void {
     }
 
     var json = mapTest.toJSON();
+    var mapTest2 = {
+      key1 = 'value4',
+      key4 = 'value5',
+    };
+    var mapTest3 = mapTest.merge(mapTest2);
+    if(mapTest3['key1'] == 'value4') {
+      return;
+    }
 }

@@ -2,15 +2,15 @@ init(path: string) {}
 
 function path(): string;
 
-function length(): integer;
+async function length(): integer;
 
-function createTime(): $Date;
+async function createTime(): $Date;
 
-function modifyTime(): $Date;
+async function modifyTime(): $Date;
 
-function read(size: number): bytes;
+async function read(size: number): bytes;
 
-function write(data: bytes): void;
+async function write(data: bytes): void;
 
 static function createReadStream(path: string): readable;
 

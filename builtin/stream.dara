@@ -26,3 +26,5 @@ static async function readAsJSON(stream: readable): any ;
  * @return the string result
  */
 static async function readAsString(stream: readable): string;
+
+static async function readAsSSE(stream: readable): asyncIterator[$SSEEvent];
