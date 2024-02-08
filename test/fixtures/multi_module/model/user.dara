@@ -7,7 +7,7 @@ model Info {
 }
 
 
-static async function test(): iterator[string]{
+static function test(): iterator[string]{
  var it:iterator[string] = Util.test1();
  for(var test : it) {
     yield test;

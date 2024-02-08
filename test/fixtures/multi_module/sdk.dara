@@ -10,7 +10,7 @@ init(){
     };
 }
 
-async function test3(): iterator[string]{
+async function test3(): asyncIterator[string]{
  var it:iterator[string] = Util.test1();
  for(var test : it) {
     yield test;
