@@ -1367,14 +1367,42 @@ describe('semantic', function () {
   it('yield should ok', function () {
     expect(function () {
       parse(`
-  async function test1(): iterator[string];
-  async function test2(): iterator[string]{
+  async function test2(): iterator[number]{
+    yield 32;
+  }
+`, '__filename');
+    }).to.throwException(function (e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`async function return type must be asyncIterator`);
+    });
+
+    expect(function () {
+      parse(`
+      init();
+
+      api get(): asyncIterator[number] {
+        __request.method = 'GET';
+        __request.pathname = '/';
+        __request.headers.key = \`abc\`;
+        if (true) {
+          __request.headers.authorization = \`acs \`;
+        }
+      } returns {
+        yield __response.statusCode;
+      }
+`, '__filename');
+    }).to.ok();
+
+    expect(function () {
+      parse(`
+  async function test1(): asyncIterator[string];
+  async function test2(): asyncIterator[string]{
     var it:iterator[string] = test1();
     for(var test : it) {
         yield test;
     }
   }
-  async function test3(): iterator[string]{
+  async function test3(): asyncIterator[string]{
     yield 'test';
   }
 `, '__filename');
@@ -1382,13 +1410,44 @@ describe('semantic', function () {
 
     expect(function () {
       parse(`
-  async function test2(): iterator[string]{
+  async function test2(): asyncIterator[string]{
     yield 32;
   }
 `, '__filename');
     }).to.throwException(function (e) {
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the return type is not expected, expect: string, actual: integer`);
+    });
+
+    expect(function () {
+      parse(`
+  async function test2(): iterator[number]{
+    yield 32;
+  }
+`, '__filename');
+    }).to.throwException(function (e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`async function return type must be asyncIterator`);
+    });
+
+    expect(function () {
+      parse(`
+      init();
+
+      api get(): iterator[number] {
+        __request.method = 'GET';
+        __request.pathname = '/';
+        __request.headers.key = \`abc\`;
+        if (true) {
+          __request.headers.authorization = \`acs \`;
+        }
+      } returns {
+        yield __response.statusCode;
+      }
+`, '__filename');
+    }).to.throwException(function (e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`api return type must be asyncIterator`);
     });
   });
 
@@ -6783,15 +6842,15 @@ describe('semantic', function () {
       'loc': {
         'start': {
           'line': 1,
-          'column': 23
+          'column': 17
         },
         'end': {
           'line': 1,
-          'column': 28
+          'column': 22
         }
       },
       'lexeme': 'test1',
-      'index': 4
+      'index': 3
     });
 
     const apiAst = ast.innerDep.get('API');

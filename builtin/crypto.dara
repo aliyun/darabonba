@@ -1,3 +1,5 @@
+// this package is staging package, don't publish
+
 /**
  * HmacSHA1 Signature
  * @param stringToSign string
