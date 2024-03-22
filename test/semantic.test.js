@@ -7251,6 +7251,10 @@ describe('semantic', function () {
         message: string,
       };
 
+      model TestRespError extends $ResponseError {
+        data: string,
+      };
+
       static function callOSS(): void {
         var a: base = new sub4;
 
@@ -7270,6 +7274,13 @@ describe('semantic', function () {
 
         var j: $Error = new TestError{
           message = "true",
+        };
+
+        var k: $ResponseError = new TestRespError {
+          code = "TestResp",
+          statusCode = 401,
+          retryAfter = 10 * 1000,
+          data = "{}"
         };
         
         return;

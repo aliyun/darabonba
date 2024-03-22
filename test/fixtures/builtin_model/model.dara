@@ -27,4 +27,12 @@ static async function main(args: [string]): void {
         code = "Error",
         stack = "__filename:5:16",
     };
+    var e = new $ResponseError{
+        name = "Error",
+        message = "error message",
+        code = "Error",
+        stack = "__filename:5:16",
+        statusCode = 401,
+        retryAfter = 30 * 1000,
+    };
 }
