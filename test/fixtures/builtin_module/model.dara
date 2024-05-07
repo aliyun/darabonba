@@ -1,0 +1,26 @@
+model M {
+    name: string,
+    age: number,
+}
+
+static async function main(args: [string]): void { 
+    var m = new M{
+        name = 'test',
+        age = 123
+    };
+    m.validate();
+    var mmap = m.toMap();
+    var name = $string(mmap['name']);
+    if(name == 'test') {
+        $Logger.info(name);
+    }
+
+
+    var m2: M = m.copyWithouStream();
+    var mmap2 = m2.toMap();
+    var name2 = $string(mmap2['name']);
+
+    if(name2 == 'test') {
+        $Logger.info('copyWithouStream' + name2);
+    }
+}

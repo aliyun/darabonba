@@ -1,0 +1,19 @@
+init(data: map[string]any){}
+
+/**
+ * Validate model
+ * @return void
+ */
+function validate() throws: void;
+
+/**
+ * Model transforms to map[string]any
+ * @return map[string]any
+ */
+function toMap(): map[string]any;
+
+/**
+ * deep copy the Model without stream type
+ * @return $type
+ */
+function copyWithouStream(): $type;

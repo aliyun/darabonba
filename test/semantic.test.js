@@ -7222,6 +7222,12 @@ describe('semantic', function () {
     }).to.not.throwException();
   });
 
+  it('use model builtin module shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/builtin_module/model.dara');
+    }).to.not.throwException();
+  });
+
   it('use builtin functions shoule be ok', function(){
     expect(function () {
       readAndParse('fixtures/builtin_function/function.dara');
