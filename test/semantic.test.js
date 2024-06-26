@@ -2401,6 +2401,16 @@ describe('semantic', function () {
     }).to.not.throwException();
 
     expect(function () {
+      parse(`static function callOSS(): string {
+        var m = ['a', 'b', 'c'];
+
+        var arr: [ string ] = m.sort('acs');
+
+        return arr[0];
+      }`, '__filename');
+    }).to.not.throwException();
+
+    expect(function () {
       parse(`static function callOSS(): map[string]string {
         var m = {
           key = 123,
@@ -2498,8 +2508,8 @@ describe('semantic', function () {
           var m2 = { 
             key = new M2{ en = entries[0] } 
           };
-          entries = m2.entries();
-          return entries[0];
+          var entries2 = m2.entries();
+          return entries2[0];
         }`, '__filename');
     }).to.not.throwException();
 
@@ -6417,6 +6427,72 @@ describe('semantic', function () {
     expect(function () {
       readAndParse('fixtures/map_model_assign/main.dara');
     }).to.not.throwException();
+  });
+
+  it('assign when map  value type which in array is model should ok', function () {
+    let ast = parse(`
+      model N {
+        config: string,
+      }
+
+      model M {
+        configs: [map[string]N]
+      }
+
+     
+
+      static function main(m: M): void {
+        var config = m.configs;
+      }`, '__filename');
+    const value = ast.moduleBody.nodes[1].modelBody.nodes[0].fieldValue;
+    expect(value).to.eql({
+      'type': 'fieldType',
+      'fieldType': 'array',
+      'fieldItemType': {
+        'loc': {
+          'start': {
+            'line': 7,
+            'column': 19
+          },
+          'end': {
+            'line': 7,
+            'column': 31
+          }
+        },
+        'type': 'map',
+        'keyType': {
+          'tag': 8,
+          'loc': {
+            'start': {
+              'line': 7,
+              'column': 23
+            },
+            'end': {
+              'line': 7,
+              'column': 29
+            }
+          },
+          'lexeme': 'string',
+          'index': 17
+        },
+        'valueType': {
+          'tag': 2,
+          'loc': {
+            'start': {
+              'line': 7,
+              'column': 30
+            },
+            'end': {
+              'line': 7,
+              'column': 31
+            }
+          },
+          'lexeme': 'N',
+          'index': 19,
+          'idType': 'model'
+        }
+      }
+    });
   });
 
   it('map value type is model should ok', function () {
