@@ -5,7 +5,8 @@ model M{
 }
 
 model N{
-  n?: map[string]M
+  n?: map[string]M,
+  ns?: [map[string]M]
 }
 
 model A{
@@ -25,7 +26,8 @@ init(){
     key = m2
   };
   var n = new N{
-    n = map2
+    n = map2,
+    ns = [map2],
   };
   var a = new A{
     a = [
