@@ -4614,6 +4614,16 @@ describe('semantic', function () {
     expect(ast.conflictModels.has('OSS:Config')).to.be(false);
   });
 
+  it('used exceptions should ok', function () {
+    let ast = readAndParse('fixtures/module_exception_used/main.dara');
+    console.log(ast.usedExternException);
+    expect(ast.usedExternException.get('OSS').has('Err1')).to.be(true);
+    expect(ast.usedExternException.get('OSS').has('Config')).to.be(false);
+
+    expect(ast.usedExternException.get('Source').has('Err1')).to.be(true);
+    expect(ast.usedExternException.get('Source').has('Config')).to.be(false);
+  });
+
   it('multi-dimentional array assign check should be ok', function () {
     expect(function () {
       parse(`
