@@ -1,0 +1,7 @@
+model Config {
+    SourceId: string
+};
+
+exception Err1 {};
+
+init(config: Config);

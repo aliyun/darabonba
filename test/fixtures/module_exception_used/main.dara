@@ -1,0 +1,18 @@
+import OSS
+import Source
+
+exception Err1{};
+
+init(config1: Source.Config, config2: OSS.Config) {
+  var a = new OSS.Err1{
+    code = 'Err'
+  };
+
+  var b = new Source.Err1{
+    code = 'Err'
+  };
+
+  var c = new Err1{
+    code = 'Err'
+  };
+}

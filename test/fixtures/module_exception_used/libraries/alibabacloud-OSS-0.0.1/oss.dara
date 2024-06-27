@@ -1,0 +1,9 @@
+model Config {
+    accessKeyId: string
+};
+
+exception Err1 {};
+
+init(config: Config);
+
+function getAccessKeyId(): string;
