@@ -6257,6 +6257,36 @@ describe('semantic', function () {
     }).to.not.throwException();
   });
 
+  it('runtime inferred type should be map when return type is void', function () {
+    const ast = parse(`
+    init() {}
+
+    api hello(): void {
+      __request.method = 'GET';
+      __request.pathname = '/';
+      __request.headers = {
+        host = 'www.test.com',
+      };
+      var retry = false;
+    } returns {
+      return;
+    } runtime {
+
+    }`, '__filename');
+    const runtimeBody = ast.moduleBody.nodes[1].runtimeBody;
+    expect(runtimeBody.inferred).to.eql({
+      'type': 'map',
+      'keyType': {
+        'type': 'basic',
+        'name': 'string'
+      },
+      'valueType': {
+        'type':'basic',
+        'name':'any'
+      }
+    });
+  });
+
   it('api runtime option can use request & response varibles', function(){
     expect(function () {
       parse(`
