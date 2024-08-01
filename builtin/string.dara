@@ -2,7 +2,7 @@ init(data: string){}
 
 function split(sep: string): [ string ];
 
-function replace(regexStr: string, newStr: string): string;
+function replace(regexStr: string, newStr: string)throws : string;
 
 function contains(substr: string): boolean;
 
