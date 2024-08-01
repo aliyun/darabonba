@@ -1,30 +1,30 @@
 init(){}
 
-function read(size: number): bytes;
+function read(size: number)  throws: bytes;
 
-function write(data: bytes): void;
+function write(data: bytes)  throws: void;
 
-function pipe(rs: writable): void;
+function pipe(rs: writable)  throws: void;
 
 /**
  * Read data from a readable stream, and compose it to a bytes
  * @param stream the readable stream
  * @return the bytes result
  */
-static async function readAsBytes(stream: readable): bytes;
+static async function readAsBytes(stream: readable)  throws: bytes;
 
 /**
  * Read data from a readable stream, and parse it by JSON format
  * @param stream the readable stream
  * @return the parsed result
  */
-static async function readAsJSON(stream: readable): any ;
+static async function readAsJSON(stream: readable) throws: any ;
 
 /**
  * Read data from a readable stream, and compose it to a string
  * @param stream the readable stream
  * @return the string result
  */
-static async function readAsString(stream: readable): string;
+static async function readAsString(stream: readable)  throws: string;
 
-static async function readAsSSE(stream: readable): asyncIterator[$SSEEvent];
+static async function readAsSSE(stream: readable)  throws: asyncIterator[$SSEEvent];

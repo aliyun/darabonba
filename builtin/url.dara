@@ -22,7 +22,7 @@ function href(): string;
 
 function auth(): string;
 
-static function parse(url: string): $URL;
+static function parse(url: string) throws: $URL;
 
 static function urlEncode(url: string): string;
 
