@@ -12,10 +12,28 @@ model DeriveSubFile extends Util.ExtendSubFile {
   size: string,
 }
 
+model SubOssSubFile extends OSS.SubFile{
+   size: string,
+}
+
+model SubUtilMainSubFile extends Util.mainSubFile{
+  type: string,
+}
 
 static function getFile(efile: OSS.File, file: OSS.File, err: OSS.SubFile.file, err2: $Error): void;
 
 static function call(size: number): void {
+  var ossFile = new SubOssSubFile{
+    name = 'name',
+    size = '100',
+  };
+
+  var subUtilMainSubFile = new SubUtilMainSubFile {
+    name = 'name',
+    size = 100,
+    type = 'html',
+  };
+
   var file = new Util.mainFile{
     name = 'name',
     size = 100,

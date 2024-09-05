@@ -31,6 +31,4 @@ static async function main(args: [string]): void {
     var randomNum = $Number.random();
     inum = $Number.floor(inum);
     inum = $Number.round(inum);
-    var min = $Number.min(inum, fnum);
-    var max = $Number.max(inum, fnum);
 }
