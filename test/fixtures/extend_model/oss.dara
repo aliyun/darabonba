@@ -7,7 +7,7 @@ exception FileError = {
     code: string,
 }
 
-model SubFile = {
+model SubFile extends File = {
     file: {
         name: string,
     }

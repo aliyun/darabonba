@@ -5285,6 +5285,7 @@ describe('semantic', function () {
     [expr] = ast.moduleBody.nodes[1].functionBody.stmts.stmts[1].expr.object.fields;
     expect(expr).to.eql({
       'type': 'objectField',
+      'extendFrom': [],
       'fieldName': {
         'tag': 2,
         'loc': {
