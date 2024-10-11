@@ -6,7 +6,7 @@ function unix(): integer;
 
 function diff(unit: string, date: $Date): integer;
 
-function UTC(): string;
+function UTC(): $Date;
 
 function add(unit: string, timeLong: integer): $Date;
 
