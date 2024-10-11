@@ -642,6 +642,7 @@ describe('semantic', function () {
       'extendOn': undefined,
       'isException': false,
       'modelBody': {
+        'extendFileds': [],
         'nodes': [
           {
             'attrs': [],
@@ -652,6 +653,7 @@ describe('semantic', function () {
               'tag': 2
             },
             'fieldValue': {
+              'extendFileds': [],
               'nodes': [
                 {
                   'attrs': [],
@@ -703,6 +705,7 @@ describe('semantic', function () {
       'extendOn': undefined,
       'isException': false,
       'modelBody': {
+        'extendFileds': [],
         'nodes': [
           {
             'attrs': [],
@@ -730,6 +733,63 @@ describe('semantic', function () {
       },
       'type': 'model'
     });
+  });
+
+  it('submodel extend fields should ok', function () {
+    var ast = parse(`
+      model a = {
+        name: string
+      }
+        
+      model b extends a {
+        age: number
+      }
+
+      model c extends b {
+        age: string,
+        nickname: string
+      }
+      `, '__filename');
+    expect(ast.parserVersion).to.be.ok();
+    const modelB = ast.models.b;
+    expect(modelB.modelBody.extendFileds).to.eql([
+      {
+        'attrs': [],
+        'fieldName': {
+          'index': 5,
+          'lexeme': 'name',
+          'loc': loc(3, 9, 3, 13),
+          'tag': 2
+        },
+        'fieldValue': {
+          'fieldType': 'string',
+          'type': 'fieldType'
+        },
+        'required': true,
+        'tokenRange': [5, 8],
+        'type': 'modelField'
+      }
+    ]);
+
+    const modelC= ast.models.c;
+    expect(modelC.modelBody.extendFileds).to.eql([
+      {
+        'attrs': [],
+        'fieldName': {
+          'index': 5,
+          'lexeme': 'name',
+          'loc': loc(3, 9, 3, 13),
+          'tag': 2
+        },
+        'fieldValue': {
+          'fieldType': 'string',
+          'type': 'fieldType'
+        },
+        'required': true,
+        'tokenRange': [5, 8],
+        'type': 'modelField'
+      }
+    ]);
   });
 
   it('submodel with depth level should ok', function () {
@@ -783,6 +843,7 @@ describe('semantic', function () {
       modelBody: {
         type: 'modelBody',
         'tokenRange': [8, 21],
+        'extendFileds': [],
         nodes: [
           {
             'attrs': [],
@@ -853,6 +914,7 @@ describe('semantic', function () {
       'extendOn': undefined,
       'isException': false,
       'modelBody': {
+        'extendFileds': [],
         'nodes': [
           {
             'attrs': [],
@@ -914,6 +976,7 @@ describe('semantic', function () {
       'extendOn': undefined,
       'isException': false,
       'modelBody': {
+        'extendFileds': [],
         'nodes': [
           {
             'attrs': [],
@@ -996,6 +1059,7 @@ describe('semantic', function () {
       'extendOn': undefined,
       'isException': false,
       'modelBody': {
+        'extendFileds': [],
         'nodes': [
           {
             'attrs': [],
@@ -1849,6 +1913,7 @@ describe('semantic', function () {
                 'type': 'basic'
               },
               'needCast': false,
+              'loc': loc(8, 18, 8, 46),
               'tokenRange': [35, 40],
               'type': 'template_string'
             }
@@ -2015,6 +2080,7 @@ describe('semantic', function () {
           'name': 'string',
           'type': 'basic'
         },
+        'loc': loc(7, 34, 7, 37),
         'tokenRange': [30, 31],
         'type': 'template_string'
       },
@@ -2101,6 +2167,7 @@ describe('semantic', function () {
             'name': 'string',
             'type': 'basic'
           },
+          'loc': loc(9, 46, 9, 50),
           'tokenRange': [43, 44],
           'type': 'template_string'
         },

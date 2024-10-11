@@ -1966,6 +1966,7 @@ describe('parser', function () {
           }
         }
       ],
+      loc: loc(6, 17, 6, 24),
       'tokenRange': [21, 22],
       'type': 'template_string'
     });
@@ -2007,6 +2008,7 @@ describe('parser', function () {
           }
         }
       ],
+      loc: loc(6, 17, 6, 32),
       'tokenRange': [21, 24],
       'type': 'template_string'
     });
@@ -2072,6 +2074,7 @@ describe('parser', function () {
           }
         }
       ],
+      loc: loc(6, 17, 6, 37),
       'tokenRange': [21, 26],
       'type': 'template_string'
     });
@@ -4417,6 +4420,7 @@ describe('parser', function () {
                   }
                 }
               ],
+              'loc': loc(7, 46, 7, 68),
               'tokenRange': [41, 44],
               'type': 'template_string'
             },
@@ -4586,6 +4590,7 @@ describe('parser', function () {
                     }
                   ],
                   'tokenRange': [63, 66],
+                  'loc': loc(9, 46, 9, 68),
                   'type': 'template_string'
                 },
                 'left': {
@@ -4662,6 +4667,7 @@ describe('parser', function () {
                   }
                 }
               ],
+              loc: loc(7, 46, 7, 68),
               'tokenRange': [41, 44],
               'type': 'template_string'
             },
@@ -4891,6 +4897,7 @@ describe('parser', function () {
                         }
                       }
                     ],
+                    loc: loc(9, 23, 9, 51),
                     'tokenRange': [29, 34],
                     'type': 'template_string'
                   }
@@ -4970,6 +4977,7 @@ describe('parser', function () {
                       }
                     }
                   ],
+                  loc: loc(9, 23, 9, 51),
                   'tokenRange': [29, 34],
                   'type': 'template_string'
                 }
@@ -5113,6 +5121,7 @@ describe('parser', function () {
                         }
                       }
                     ],
+                    loc: loc(9, 23, 9, 51),
                     'tokenRange': [29, 34],
                     'type': 'template_string'
                   }
@@ -5198,6 +5207,7 @@ describe('parser', function () {
                       }
                     }
                   ],
+                  loc: loc(9, 23, 9, 51),
                   'tokenRange': [29, 34],
                   'type': 'template_string'
                 }
@@ -5378,6 +5388,7 @@ describe('parser', function () {
                         }
                       }
                     ],
+                    loc: loc(9, 23, 9, 51),
                     'tokenRange': [29, 34],
                     'type': 'template_string'
                   }
@@ -5463,6 +5474,7 @@ describe('parser', function () {
                       }
                     }
                   ],
+                  loc: loc(9, 23, 9, 51),
                   'tokenRange': [29, 34],
                   'type': 'template_string'
                 }
