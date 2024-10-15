@@ -1,5 +1,8 @@
 {
     "name": "OSS",
     "main": "./oss.dara",
+    "exports": {
+        "Util": "./util.dara"
+    },
     "libraries": {}
 }

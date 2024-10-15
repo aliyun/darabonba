@@ -3609,6 +3609,40 @@ describe('parser', function () {
     ]);
   });
 
+  it('import submodule should ok', function () {
+    var ast = parse(`import oss.util;
+
+`, '__filename');
+    expect(ast.imports).to.eql([
+      {
+        'index': 4,
+        'lexeme': 'util',
+        'loc': loc(1, 12, 1, 16),
+        'tag': 2,
+        'tokenRange': [1, 5],
+        'mainModule': 'oss',
+        'module': 'util'
+      }
+    ]);
+  });
+
+  it('import submodule use as should ok', function () {
+    var ast = parse(`import oss.util as ossUtil;
+
+`, '__filename');
+    expect(ast.imports).to.eql([
+      {
+        'index': 6,
+        'lexeme': 'ossUtil',
+        'loc': loc(1, 20, 1, 27),
+        'tag': 2,
+        'tokenRange': [1, 7],
+        'mainModule': 'oss',
+        'module': 'util'
+      }
+    ]);
+  });
+
   it('init should ok', function () {
     var ast = parse(`
   init();
