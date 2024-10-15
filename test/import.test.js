@@ -52,6 +52,15 @@ describe('import', function () {
     });
   });
 
+  it('import unexport module should not ok', function () {
+    expect(function () {
+      readAndParse('fixtures/import_submodule_no_export/main.tea');
+    }).to.throwException(function (e) {
+      expect(e).to.be.a(SyntaxError);
+      expect(e.message).to.be(`the submodule id "Test" has not been exported in "OSS"`);
+    });
+  });
+
   it('module instance should ok', function () {
     expect(function () {
       parse(`
