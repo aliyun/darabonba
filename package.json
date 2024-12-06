@@ -16,7 +16,7 @@
   "license": "MIT",
   "devDependencies": {
     "codecov": "3.1.0",
-    "eslint": "^8",
+    "eslint": "^9",
     "expect.js": "^0.3.1",
     "mocha": "^10",
     "nyc": "^17"
