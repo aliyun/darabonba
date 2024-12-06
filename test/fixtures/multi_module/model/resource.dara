@@ -1,0 +1,4 @@
+model Resource {
+    name: string,
+    age: integer,
+}

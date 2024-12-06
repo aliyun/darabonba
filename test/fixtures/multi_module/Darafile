@@ -5,5 +5,8 @@
 	"main": "./sdk.dara",
 	"libraries": {
 		"DARAUtil": "darabonba:Util:*"
+	},
+	"exports": {
+		"Resource": "./model/resource.dara"
 	}
 }

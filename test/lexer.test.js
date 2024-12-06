@@ -322,7 +322,6 @@ describe('lexer', function () {
       { tag: undefined, loc: loc(1, 14, 1, 14) }
     ]);
 
-    console.log('%j', lex('@prop({ key = "value" })', '__filename'));
     expect(lex('@prop({ key = "value" })', '__filename')).to.be.eql([
       { tag: 43, lexeme: '@prop',
         'loc': loc(1, 1, 1, 6)
