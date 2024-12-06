@@ -6996,6 +6996,27 @@ describe('semantic', function () {
 
   it('use inner module should ok', function () {
     let ast = readAndParse('fixtures/multi_module/sdk.dara');
+
+    const ResourceAst = ast.innerDep.get('Resource');
+    const [resourceModel] = ResourceAst.moduleBody.nodes;
+    expect(resourceModel.type).to.be('model');
+    expect(resourceModel.modelName).to.eql({
+      'tag': 2,
+      'loc': 
+      {
+        'start': {
+          'line': 1,
+          'column': 7
+        },
+        'end': 
+        {
+          'line': 1,
+          'column': 15
+        }
+      },
+      'lexeme':'Resource',
+      'index': 2
+    });
     
     const userAst = ast.innerDep.get('User');
     const [model] = userAst.moduleBody.nodes;
