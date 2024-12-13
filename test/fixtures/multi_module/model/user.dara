@@ -4,6 +4,7 @@ import "../lib/util" Util;
 model Info {
     name: string,
     age: integer,
+    options: $RetryOptions,
 }
 
 

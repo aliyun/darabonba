@@ -17,3 +17,9 @@ static function getBoundary(): string;
  * @return the readable from file form
  */
 static function toFileForm(form: object, boundary: string): readable;
+
+/**
+ * Format a map to form string, like a=a%20b%20c
+ * @return the form string
+ */
+static function parseQueryString(val: string): object;
