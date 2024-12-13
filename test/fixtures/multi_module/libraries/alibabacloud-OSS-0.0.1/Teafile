@@ -1,0 +1,7 @@
+{
+    "name": "OSS",
+    "main": "./oss.tea",
+    "libraries": {
+        "Util": "darabonba:Util:*"
+    }
+}

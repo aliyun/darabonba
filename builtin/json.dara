@@ -9,3 +9,11 @@ static function parseJSON(val: string): any;
  * @return the JSON format string
  */
 static function stringify(val: any): string;
+
+/**
+ * Give a json object and a path, read value with the path
+ * @param json The json object
+ * @param path The path string
+ * @return value of json object with the path
+ */
+static function readPath(json: any, path: string): any;

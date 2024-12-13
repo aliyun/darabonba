@@ -5,8 +5,10 @@ import "./api" API;
 type @user = User.Info
 
 init(){
+    var options = new $RetryOptions{};
     @user = new User.Info{
-        name = 'test'
+        name = 'test',
+        options = options,
     };
 }
 
