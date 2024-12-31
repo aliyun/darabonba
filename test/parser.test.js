@@ -2108,6 +2108,36 @@ describe('parser', function () {
       loc: loc(6, 16, 6, 23)
     });
 
+    expect(expr('{\'key-1\' = 1}')).to.eql({
+      'fields': [
+        {
+          'expr': {
+            'type': 'number',
+            'value': {
+              'index': 24,
+              'tag': 9,
+              'value': 1,
+              'type': 'integer',
+              loc: loc(6, 27, 6, 28)
+            },
+            'tokenRange': [24, 25],
+            loc: loc(6, 27, 6, 28)
+          },
+          'fieldName': {
+            'index': 22,
+            'string': 'key-1',
+            'tag': 1,
+            loc: loc(6, 18, 6, 23)
+          },
+          'tokenRange': [22, 25],
+          'type': 'objectField'
+        }
+      ],
+      'type': 'object',
+      'tokenRange': [21, 26],
+      loc: loc(6, 16, 6, 29)
+    });
+
     expect(expr('{a = 1,}')).to.eql({
       'fields': [
         {
