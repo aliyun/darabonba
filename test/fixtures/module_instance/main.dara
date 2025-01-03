@@ -1,5 +1,7 @@
 import OSS
 
 static function call(): OSS {
-  return new OSS();
+  var oss = new OSS();
+  oss.putObject();
+  return oss;
 }

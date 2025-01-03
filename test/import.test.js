@@ -355,29 +355,41 @@ function callOSS(): string {
 
   it('module instance should ok', function () {
     const ast = readAndParse('fixtures/module_instance/main.dara');
+    console.log('%j', ast);
     const [f1] = ast.moduleBody.nodes;
     const [s1] = f1.functionBody.stmts.stmts;
     expect(s1).to.be.eql({
+      'expectedType': undefined,
+      'type': 'declare',
+      'id': {
+        'tag': 2,
+        'loc': loc(4, 7, 4 ,10),
+        'lexeme': 'oss',
+        'index': 12
+      },
       'expr': {
+        'type': 'construct',
         'aliasId': {
+          'tag': 2,
+          'loc': loc(4, 17, 4 ,20),
           'lexeme': 'OSS',
-          'index': 13,
-          'loc': loc(4, 14, 4, 17),
-          'tag': 2
+          'index': 15
         },
         'args': [],
+        'tokenRange': [
+          14,
+          18
+        ],
         'inferred': {
+          'type': 'module_instance',
           'name': 'OSS',
-          'parentModuleIds': [],
-          'type': 'module_instance'
-        },
-        'tokenRange': [12, 16],
-        'type': 'construct'
+          'parentModuleIds': []
+        }
       },
-      'loc': loc(4, 3, 5, 1),
-      'needCast': false,
-      'tokenRange': [11, 16],
-      'type': 'return'
+      'tokenRange': [
+        11,
+        18
+      ]
     });
   });
 });
