@@ -7617,4 +7617,30 @@ describe('semantic', function () {
       readAndParse('fixtures/multi_catch/main.dara');
     }).to.not.throwException();
   });
+
+  it('module instance_call left type shoule be ok', function(){
+    let ast = readAndParse('fixtures/module_instance/main.dara');
+    const [f1] = ast.moduleBody.nodes;
+    const [, s2] = f1.functionBody.stmts.stmts;
+    expect(s2.left.id).to.be.eql({
+      'tag': 2,
+      'loc': {
+        'start': {
+          'line': 5,
+          'column': 3
+        },
+        'end': {
+          'line': 5,
+          'column': 6
+        }
+      },
+      'lexeme': 'oss',
+      'index': 19,
+      'type': 'variable',
+      'moduleType': {
+        'type': 'module',
+        'name': 'OSS'
+      }
+    });
+  });
 });
