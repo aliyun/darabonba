@@ -18,7 +18,7 @@
     "codecov": "3.1.0",
     "eslint": "^8",
     "expect.js": "^0.3.1",
-    "mocha": "^10",
+    "mocha": "^11",
     "nyc": "^17"
   },
   "dependencies": {
