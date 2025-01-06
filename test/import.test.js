@@ -354,8 +354,7 @@ function callOSS(): string {
   });
 
   it('module instance should ok', function () {
-    const ast = readAndParse('fixtures/module_instance/main.dara');
-    console.log('%j', ast);
+    let ast = readAndParse('fixtures/module_instance/main.dara');
     const [f1] = ast.moduleBody.nodes;
     const [s1] = f1.functionBody.stmts.stmts;
     expect(s1).to.be.eql({

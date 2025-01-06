@@ -7642,5 +7642,44 @@ describe('semantic', function () {
         'name': 'OSS'
       }
     });
+
+
+
+    ast = parse(`
+model M {};
+init() {
+  var a = 'abc';
+  a.split(',');
+  var m = new M;
+  m.validate();
+  return;
+}`, '__filename');
+          
+    const [, init] = ast.moduleBody.nodes;
+
+    const [, str, , model] = init.initBody.stmts;
+    expect(str.left.id).to.be.eql({
+      'tag': 2,
+      'loc': loc(5, 3, 5, 4),
+      'lexeme': 'a',
+      'index': 15,
+      'type': 'variable',
+      'moduleType': {
+        'type': 'basic',
+        'name': 'string'
+      }
+    });
+
+    expect(model.left.id).to.be.eql({
+      'tag': 2,
+      'loc': loc(7, 3, 7, 4),
+      'lexeme': 'm',
+      'index': 28,
+      'type': 'variable',
+      'moduleType': {
+        'type': 'model',
+        'name': 'M'
+      }
+    });
   });
 });
