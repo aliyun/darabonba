@@ -7682,4 +7682,10 @@ init() {
       }
     });
   });
+
+  it('use tmp variable method call shoule be ok', function(){
+    expect(function () {
+      readAndParse('fixtures/tmp_var_call/main.dara');
+    }).to.not.throwException();
+  });
 });

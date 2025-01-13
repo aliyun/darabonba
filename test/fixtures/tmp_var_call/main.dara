@@ -1,0 +1,9 @@
+init(){
+  var arr = 'str.abc'.split('.');
+  var str = ['1','2','3'].join('.');
+  var num = 1.parseLong();
+  var en = {
+    a = "b"
+  }.keySet();
+}
+
