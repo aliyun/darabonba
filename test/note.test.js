@@ -108,6 +108,7 @@ describe('note util', function () {
         },
         'arg': {
           'type': 'array',
+          'loc': loc(17, 8, 17, 75),
           'items': [
             {
               'type': 'property_access',

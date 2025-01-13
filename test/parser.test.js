@@ -2320,7 +2320,7 @@ describe('parser', function () {
       expr('{a = 1, b = 2.}');
     }).to.throwException(function (e) { // get the exception object
       expect(e).to.be.a(SyntaxError);
-      expect(e.message).to.be(`Unexpected token: .. expect ","`);
+      expect(e.message).to.be(`Unexpected token: }. Expect ID, but }`);
     });
 
     expect(() => {
@@ -9892,6 +9892,42 @@ describe('parser', function () {
     });
   });
 
+  it('tmp variable method call should be ok', function () {
+    var ast = parse(`
+      init(){
+        var str = 'tmpVar'.empty();
+      }
+      `, '__filename');
+    console.log('%j', ast);
+    const expr = ast.moduleBody.nodes[0].initBody.stmts[0].expr;
+    expect(expr).to.be.eql({
+      'type': 'call',
+      'left': {
+        'type': 'static_or_instance_call',
+        'id': {
+          'type': 'string',
+          'value': {
+            'tag': 1,
+            'loc': loc(3, 20, 3, 26),
+            'string': 'tmpVar',
+            'index': 8
+          },
+          'loc': loc(3, 20, 3, 26),
+        },
+        'propertyPath': [
+          {
+            'tag': 2,
+            'loc': loc(3, 28, 3, 33),
+            'lexeme': 'empty',
+            'index': 10
+          }
+        ]
+      },
+      'args': [],
+      'loc': loc(3, 20, 3, 35),
+    });
+  });
+
   it('exception filed attrs should be ok', function () {
     function exceptionFieldAttrs(value) {
       var ast = parse(`
@@ -10262,6 +10298,7 @@ describe('parser', function () {
       },
       'arg': {
         'type': 'array',
+        'loc': loc(8, 12, 8, 26),
         'items': [
           {
             'type': 'string',
