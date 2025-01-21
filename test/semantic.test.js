@@ -3079,7 +3079,6 @@ describe('semantic', function () {
 
         }`, '__filename');
     }).to.throwError(function(e) {
-      console.log(e);
       expect(e).to.be.an(SyntaxError);
       expect(e.message).to.be('the property "statusCode" is undefined in model "Error"');
     });
@@ -4691,7 +4690,6 @@ describe('semantic', function () {
 
   it('used exceptions should ok', function () {
     let ast = readAndParse('fixtures/module_exception_used/main.dara');
-    console.log(ast.usedExternException);
     expect(ast.usedExternException.get('OSS').has('Err1')).to.be(true);
     expect(ast.usedExternException.get('OSS').has('Config')).to.be(false);
 
@@ -7692,8 +7690,48 @@ init() {
   });
 
   it('use tmp variable method call shoule be ok', function(){
-    expect(function () {
-      readAndParse('fixtures/tmp_var_call/main.dara');
-    }).to.not.throwException();
+    const ast = readAndParse('fixtures/tmp_var_call/main.dara');
+    let tStrAst = ast.moduleBody.nodes[0].initBody.stmts[3];
+    expect(tStrAst.expr.left.id.elements[1].expr.left).to.be.eql({
+      'type': 'static_call',
+      'id': {
+        'tag': 2,
+        'loc': loc(7, 21, 7, 24),
+        'lexeme': 'OSS',
+        'index': 41,
+        'type': 'module'
+      },
+      'propertyPath': [
+        {
+          'tag': 2,
+          'loc': loc(7, 25, 7, 36),
+          'lexeme': 'accessKeyId',
+          'index': 43
+        }
+      ]
+    });
+
+    expect(tStrAst.expr.left.id.elements[3].expr.left).to.be.eql({
+      'type': 'instance_call',
+      'id': {
+        'tag': 2,
+        'loc': loc(7, 42, 7, 45),
+        'lexeme': 'oss',
+        'index': 47,
+        'type': 'variable',
+        'moduleType': {
+          'type': 'module',
+          'name': 'OSS'
+        }
+      },
+      'propertyPath': [
+        {
+          'tag': 2,
+          'loc': loc(7, 46, 7, 60),
+          'lexeme': 'getAccessKeyId',
+          'index': 49
+        }
+      ]
+    });
   });
-});
+}); 

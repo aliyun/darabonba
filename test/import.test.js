@@ -254,7 +254,6 @@ function callOSS(): string {
     expect(function () {
       readAndParse('fixtures/import_module_model/undefined_model.dara');
     }).to.throwException(function (e) {
-      console.log(e);
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be(`the model "ConfigX" is undefined in module "OSS"`);
     });

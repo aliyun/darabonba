@@ -6053,7 +6053,6 @@ describe('parser', function () {
       }
     `, '__filename');
     }).to.throwException(function(e) {
-      console.log(e);
       expect(e).to.be.a(SyntaxError);
       expect(e.message).to.be('Unexpected token: Word: `catch`. expect valid expression');
     });
@@ -9898,7 +9897,6 @@ describe('parser', function () {
         var str = 'tmpVar'.empty();
       }
       `, '__filename');
-    console.log('%j', ast);
     const expr = ast.moduleBody.nodes[0].initBody.stmts[0].expr;
     expect(expr).to.be.eql({
       'type': 'call',

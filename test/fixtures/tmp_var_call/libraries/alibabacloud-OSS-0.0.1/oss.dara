@@ -1,0 +1,9 @@
+model Config {
+    accessKeyId: string
+};
+
+init(config: Config);
+
+function getAccessKeyId(): string;
+
+static function accessKeyId(): string;
