@@ -592,11 +592,16 @@ describe('semantic', function () {
         async function callId(): object {
           return call();
         }
+
+        async function sp(): void {
+          $sleep(30);
+          return;
+        }
         init();`, '__filename');
-    var func = ast.moduleBody.nodes.find((item) => {
+    var func = ast.moduleBody.nodes.filter((item) => {
       return item.type === 'function';
     });
-    var returnExpr = func.functionBody.stmts.stmts[0];
+    var returnExpr = func[0].functionBody.stmts.stmts[0];
     expect(returnExpr).to.eql({
       type: 'return',
       'loc': loc(10, 11, 11, 9),
@@ -626,6 +631,9 @@ describe('semantic', function () {
         'loc': loc(10, 18, 10, 24)
       }
     });
+
+    var sleepStmt = func[1].functionBody.stmts.stmts[0];
+    expect(sleepStmt.hasThrow).to.eql(false);
   });
 
   it('submodel should ok', function () {
