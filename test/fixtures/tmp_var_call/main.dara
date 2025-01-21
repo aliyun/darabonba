@@ -1,5 +1,10 @@
+import OSS;
+
 init(){
+  var config = new OSS.Config{};
+  var oss = new OSS(config);
   var arr = 'str.abc'.split('.');
+  var arr2 = `str.${OSS.accessKeyId()}.${oss.getAccessKeyId()}.abc`.split('.');
   var str = ['1','2','3'].join('.');
   var num = 1.parseLong();
   var en = {
