@@ -2513,10 +2513,7 @@ describe('semantic', function () {
       static function callOSS(): [ string ] {
         return [];
       }`, '__filename');
-    }).to.throwException((ex) => {
-      expect(ex).to.be.a(SyntaxError);
-      expect(ex.message).to.be('the return type is not expected, expect: [string], actual: [any]');
-    });
+    }).to.not.throwException();
 
     expect(function () {
       parse(`
@@ -4754,6 +4751,25 @@ describe('semantic', function () {
         `, '__filename');
     }).to.not.throwError();
 
+
+    expect(function () {
+      parse(`
+        model N {
+          name: string
+        };
+
+        model M {
+          key: [ N ]
+        };
+
+        static function main(): void {
+          var m = new M{
+            key = []
+          };
+        }
+        `, '__filename');
+    }).to.not.throwError();
+
     expect(function () {
       parse(`
         model M {
@@ -4763,6 +4779,10 @@ describe('semantic', function () {
         static function main(): void {
           var m = new M{
             key = [[ 'string' ]]
+          };
+
+          var m2 = new M{
+            key = [[]]
           };
         }
         `, '__filename');
