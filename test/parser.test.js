@@ -8936,6 +8936,130 @@ describe('parser', function () {
     }).to.not.throwException();
   });
 
+  it('string field and ids field should ok', function () {
+    var ast = parse(`
+      static function main(str: [string]): void {
+        var m = {
+          "number-test" = "123",
+          number-2 = "123",
+          number-2-test = "123",
+          number-test = "123",
+        };
+      }`, '__filename');
+    const mapFields = ast.moduleBody.nodes[0].functionBody.stmts.stmts[0].expr.fields;
+    console.log('%j', mapFields);
+    expect(mapFields).to.be.eql([
+      {
+        'type': 'objectField',
+        'fieldName': {
+          'tag': 1,
+          'loc': loc(4, 12, 4, 23),
+          'string': 'number-test',
+          'index': 18
+        },
+        'expr': {
+          'type': 'string',
+          'value': {
+            'tag': 1,
+            'loc': loc(4, 28, 4, 31),
+            'string': '123',
+            'index': 20
+          },
+          'loc': loc(4, 28, 4, 31),
+          'tokenRange': [
+            20,
+            21
+          ]
+        },
+        'tokenRange': [
+          18,
+          21
+        ]
+      },
+      {
+        'type': 'objectField',
+        'fieldName': {
+          'tag': 8,
+          'loc': loc(5, 11, 5, 17),
+          'lexeme': 'number-2',
+          'index': 22
+        },
+        'expr': {
+          'type': 'string',
+          'value': {
+            'tag': 1,
+            'loc': loc(5, 23, 5, 26),
+            'string': '123',
+            'index': 25
+          },
+          'loc': loc(5, 23, 5, 26),
+          'tokenRange': [
+            25,
+            26
+          ]
+        },
+        'tokenRange': [
+          22,
+          26
+        ]
+      },
+      {
+        'type': 'objectField',
+        'fieldName': {
+          'tag': 8,
+          'loc': loc(6, 11, 6, 17),
+          'lexeme': 'number-2-test',
+          'index': 27
+        },
+        'expr': {
+          'type': 'string',
+          'value': {
+            'tag': 1,
+            'loc': loc(6, 28, 6, 31),
+            'string': '123',
+            'index': 32
+          },
+          'loc': loc(6, 28, 6, 31),
+          'tokenRange': [
+            32,
+            33
+          ]
+        },
+        'tokenRange': [
+          27,
+          33
+        ]
+      },
+      {
+        'type': 'objectField',
+        'fieldName': {
+          'tag': 2,
+          'loc': loc(7, 11, 7, 22),
+          'lexeme': 'number-test',
+          'index': 34
+        },
+        'expr': {
+          'type': 'string',
+          'value': {
+            'tag': 1,
+            'loc': loc(7, 26, 7, 29),
+            'string': '123',
+            'index': 36
+          },
+          'loc': loc(7, 26, 7, 29),
+          'tokenRange': [
+            36,
+            37
+          ]
+        },
+        'tokenRange': [
+          34,
+          37
+        ]
+      }
+    ]);
+  });
+
   it('typedef should ok', function () {
     var ast = parse(`
       typedef HttpRequest;
@@ -10354,4 +10478,6 @@ describe('parser', function () {
       ]
     });
   });
+
+  
 });
