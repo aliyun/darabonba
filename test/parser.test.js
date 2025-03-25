@@ -8947,7 +8947,6 @@ describe('parser', function () {
         };
       }`, '__filename');
     const mapFields = ast.moduleBody.nodes[0].functionBody.stmts.stmts[0].expr.fields;
-    console.log('%j', mapFields);
     expect(mapFields).to.be.eql([
       {
         'type': 'objectField',
@@ -9090,11 +9089,16 @@ describe('parser', function () {
   it('a varible auto increment should ok', function () {
     var ast = parse(`
     init(){
+      var m = {
+        b = 1
+      };
       ++a;
       a++;
+      m['b']++;
+      ++m['b'];
     }
     `, '__filename');
-    const [frontAst, backendAst] = ast.moduleBody.nodes[0].initBody.stmts;
+    const [, frontAst, backendAst, bmAst, fmAst] = ast.moduleBody.nodes[0].initBody.stmts;
     expect(frontAst).to.be.eql({
       'type': 'increment',
       'position': 'front',
@@ -9102,16 +9106,16 @@ describe('parser', function () {
         'type': 'variable',
         'id': {
           'tag': 2,
-          'loc': loc(3, 9, 3, 10),
+          'loc': loc(6, 9, 6, 10),
           'lexeme': 'a',
-          'index': 6
+          'index': 15
         },
-        'loc': loc(3, 9, 3, 10)
+        'loc': loc(6, 9, 6, 10)
       },
-      'loc': loc(3, 9, 3, 10),
+      'loc': loc(6, 9, 6, 10),
       'tokenRange': [
-        5,
-        7
+        14,
+        16
       ]
     });
 
@@ -9122,16 +9126,84 @@ describe('parser', function () {
         'type': 'variable',
         'id': {
           'tag': 2,
-          'loc': loc(4, 7, 4, 8),
+          'loc': loc(7, 7, 7, 8),
           'lexeme': 'a',
-          'index': 8
+          'index': 17
         },
-        'loc': loc(4, 7, 4, 8)
+        'loc': loc(7, 7, 7, 8)
       },
-      'loc': loc(4, 7, 4, 10),
+      'loc': loc(7, 7, 7, 10),
       'tokenRange': [
-        8,
-        10
+        17,
+        19
+      ]
+    });
+
+    expect(bmAst).to.be.eql({
+      "type": "increment",
+      "position": "backend",
+      "expr": {
+        "type": "map_access",
+        "id": {
+          "tag": 2,
+          "loc": loc(8, 7, 8, 8),
+          "lexeme": "m",
+          "index": 20
+        },
+        "accessKey": {
+          "type": "string",
+          "value": {
+            "tag": 1,
+            "loc": loc(8, 10, 8, 11),
+            "string": "b",
+            "index": 22
+          },
+          "loc": loc(8, 10, 8, 11),
+          "tokenRange": [
+            22,
+            23
+          ]
+        },
+        "loc": loc(8, 7, 8, 15),
+      },
+      "loc": loc(8, 7, 8, 15),
+      "tokenRange": [
+        20,
+        24
+      ]
+    });
+
+    expect(fmAst).to.be.eql({
+      "type": "increment",
+      "position": "front",
+      "expr": {
+        "type": "map_access",
+        "id": {
+          "tag": 2,
+          "loc": loc(9, 9, 9, 10),
+          "lexeme": "m",
+          "index": 27
+        },
+        "accessKey": {
+          "type": "string",
+          "value": {
+            "tag": 1,
+            "loc": loc(9, 12, 9, 13),
+            "string": "b",
+            "index": 29
+          },
+          "loc": loc(9, 12, 9, 13),
+          "tokenRange": [
+            29,
+            30
+          ]
+        },
+        "loc": loc(9, 9, 9, 15)
+      },
+      "loc": loc(9, 9, 9, 15),
+      "tokenRange": [
+        26,
+        31
       ]
     });
   });

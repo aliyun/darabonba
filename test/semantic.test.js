@@ -782,20 +782,42 @@ describe('semantic', function () {
     const modelC= ast.models.c;
     expect(modelC.modelBody.extendFileds).to.eql([
       {
-        'attrs': [],
+        'type': 'modelField',
         'fieldName': {
-          'index': 5,
-          'lexeme': 'name',
-          'loc': loc(3, 9, 3, 13),
-          'tag': 2
-        },
-        'fieldValue': {
-          'fieldType': 'string',
-          'type': 'fieldType'
+          'tag': 2,
+          'loc': loc(7, 9, 7, 12),
+          'lexeme': 'age',
+          'index': 14
         },
         'required': true,
-        'tokenRange': [5, 8],
-        'type': 'modelField'
+        'fieldValue': {
+          'type': 'fieldType',
+          'fieldType': 'number'
+        },
+        'attrs': [],
+        'tokenRange': [
+          14,
+          17
+        ]
+      },
+      {
+        'type': 'modelField',
+        'fieldName': {
+          'tag': 2,
+          'loc': loc(3, 9, 3, 13),
+          'lexeme': 'name',
+          'index': 5
+        },
+        'required': true,
+        'fieldValue': {
+          'type': 'fieldType',
+          'fieldType': 'string'
+        },
+        'attrs': [],
+        'tokenRange': [
+          5,
+          8
+        ]
       }
     ]);
   });
