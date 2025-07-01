@@ -4710,6 +4710,12 @@ describe('semantic', function () {
     expect(ast.conflictModels.has('OSS:Config')).to.be(false);
   });
 
+  it('conflict models should ok', function () {
+    let ast = readAndParse('fixtures/module_model_conflict/module_model_unuse.dara');
+    expect(ast.sameNameModels.has('OSS:Config')).to.be(true);
+    expect(ast.sameNameModels.has('Source:Config')).to.be(false);
+  });
+
   it('used exceptions should ok', function () {
     let ast = readAndParse('fixtures/module_exception_used/main.dara');
     expect(ast.usedExternException.get('OSS').has('Err1')).to.be(true);
