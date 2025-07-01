@@ -1,6 +1,6 @@
 {
   "name": "@darabonba/parser",
-  "version": "2.1.8",
+  "version": "2.1.9",
   "main": "index.js",
   "directories": {
     "lib": "lib",
