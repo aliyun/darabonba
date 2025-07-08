@@ -1,5 +1,7 @@
 import OSS;
 
+type @str = string;
+
 init(){
   var config = new OSS.Config{};
   var oss = new OSS(config);
@@ -10,5 +12,6 @@ init(){
   var en = {
     a = "b"
   }.keySet();
+  var vtmp = @str.split('.');
 }
 
