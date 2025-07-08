@@ -7719,22 +7719,22 @@ init() {
 
   it('use tmp variable method call shoule be ok', function(){
     const ast = readAndParse('fixtures/tmp_var_call/main.dara');
-    let tStrAst = ast.moduleBody.nodes[0].initBody.stmts[3];
+    let tStrAst = ast.moduleBody.nodes[1].initBody.stmts[3];
     expect(tStrAst.expr.left.id.elements[1].expr.left).to.be.eql({
       'type': 'static_call',
       'id': {
         'tag': 2,
-        'loc': loc(7, 21, 7, 24),
+        'loc': loc(9, 21, 9, 24),
         'lexeme': 'OSS',
-        'index': 41,
+        'index': 46,
         'type': 'module'
       },
       'propertyPath': [
         {
           'tag': 2,
-          'loc': loc(7, 25, 7, 36),
+          'loc': loc(9, 25, 9, 36),
           'lexeme': 'accessKeyId',
-          'index': 43
+          'index': 48
         }
       ]
     });
@@ -7743,9 +7743,9 @@ init() {
       'type': 'instance_call',
       'id': {
         'tag': 2,
-        'loc': loc(7, 42, 7, 45),
+        'loc': loc(9, 42, 9, 45),
         'lexeme': 'oss',
-        'index': 47,
+        'index': 52,
         'type': 'variable',
         'moduleType': {
           'type': 'module',
@@ -7755,9 +7755,9 @@ init() {
       'propertyPath': [
         {
           'tag': 2,
-          'loc': loc(7, 46, 7, 60),
+          'loc': loc(9, 46, 9, 60),
           'lexeme': 'getAccessKeyId',
-          'index': 49
+          'index': 54
         }
       ]
     });
