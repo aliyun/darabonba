@@ -72,6 +72,9 @@ async function callback(size: number) throws: void{
     truncated = false,
     replicaPairs = 50
   };
+
+  var oss = new OSS();
+  oss.getFile('test');
   return;
 }
 
