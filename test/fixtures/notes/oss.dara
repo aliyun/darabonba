@@ -13,3 +13,12 @@ model SubFile = {
     }
 }
 
+
+init(){}
+
+@aliasName("getFileOther")
+async function getFile(name: string): File {
+    return {
+        name = name,
+    };
+}

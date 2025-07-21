@@ -32,8 +32,39 @@ describe('note util', function () {
     nodes = ast.moduleBody.nodes;
   });
 
-  it('get model front note should be ok', function () {
+  it('get model front notes should be ok', function () {
     expect(noteUtil.getNotes(notes, 0, nodes[0].tokenRange[0])).to.eql([
+      {
+        'type': 'note',
+        'note': {
+          'index': 8,
+          'lexeme': '@input',
+          'loc': loc(5, 1, 5, 7),
+          'tag': 43
+        },
+        'arg': {
+          'type': 'string',
+          'value': {
+            'tag': 1,
+            'loc': loc(5, 9, 5, 13),
+            'string': 'call',
+            'index': 10
+          },
+          'loc': loc(5, 9, 5, 13),
+          'tokenRange': [
+            10,
+            11
+          ]
+        },
+        'loc': loc(5, 1, 6, 6),
+        'tokenRange': [
+          8,
+          12
+        ]
+      }
+    ]);
+
+    expect(nodes[0].notes).to.eql([
       {
         'type': 'note',
         'note': {
@@ -380,9 +411,293 @@ describe('note util', function () {
         ]
       }
     ]);
+
+    expect(nodes[3].notes).to.eql([
+      {
+        'type': 'note',
+        'note': {
+          'tag': 43,
+          'loc': loc(17, 1, 17, 7),
+          'lexeme': '@error',
+          'index': 42
+        },
+        'arg': {
+          'type': 'array',
+          'loc': loc(17, 8, 17, 75),
+          'items': [
+            {
+              'type': 'property_access',
+              'id': {
+                'tag': 2,
+                'loc': loc(17, 9, 17, 13),
+                'lexeme': 'Util',
+                'index': 45
+              },
+              'propertyPath': [
+                {
+                  'tag': 2,
+                  'loc': loc(17, 14, 17, 27),
+                  'lexeme': 'MainFileError',
+                  'index': 47
+                }
+              ],
+              'loc':loc(17, 9, 17, 27),
+              'tokenRange': [
+                45,
+                48
+              ]
+            },
+            {
+              'type': 'property_access',
+              'id': {
+                'tag': 2,
+                'loc': loc(17, 29, 17, 33),
+                'lexeme': 'Util',
+                'index': 49
+              },
+              'propertyPath': [
+                {
+                  'tag': 2,
+                  'loc': loc(17, 34, 17, 49),
+                  'lexeme': 'ExtendFileError',
+                  'index': 51
+                }
+              ],
+              'loc': loc(17, 29, 17, 49),
+              'tokenRange': [
+                49,
+                52
+              ]
+            },
+            {
+              'type': 'property_access',
+              'id': {
+                'tag': 2,
+                'loc': loc(17, 51, 17, 55),
+                'lexeme': 'Util',
+                'index': 53
+              },
+              'propertyPath': [
+                {
+                  'tag': 2,
+                  'loc': loc(17, 56, 17, 74),
+                  'lexeme': 'ExtendSubFileError',
+                  'index': 55
+                }
+              ],
+              'loc': loc(17, 51, 17, 74),
+              'tokenRange': [
+                53,
+                56
+              ]
+            }
+          ],
+          'tokenRange': [
+            44,
+            57
+          ]
+        },
+        'loc': loc(17, 1, 26, 7),
+        'tokenRange': [
+          42,
+          89
+        ]
+      },
+      {
+        'type': 'note',
+        'note': {
+          'tag': 43,
+          'loc': loc(18, 1, 18, 12),
+          'lexeme': '@returnMode',
+          'index': 58
+        },
+        'arg': {
+          'type': 'object',
+          'fields': [
+            {
+              'type': 'objectField',
+              'fieldName': {
+                'tag': 2,
+                'loc': loc(19, 3, 19, 12),
+                'lexeme': 'aliasName',
+                'index': 61
+              },
+              'expr': {
+                'type': 'string',
+                'value': {
+                  'tag': 1,
+                  'loc': loc(19, 16, 19, 29),
+                  'string': 'execTaskAsync',
+                  'index': 63
+                },
+                'loc': loc(19, 16, 19, 29),
+                'tokenRange': [
+                  63,
+                  64
+                ]
+              },
+              'tokenRange': [
+                61,
+                64
+              ]
+            },
+            {
+              'type': 'objectField',
+              'fieldName': {
+                'tag': 2,
+                'loc': loc(20, 3, 20, 8),
+                'lexeme': 'async',
+                'index': 65
+              },
+              'expr': {
+                'type': 'boolean',
+                'value': true,
+                'loc': loc(20, 11, 20, 15),
+                'tokenRange': [
+                  67,
+                  68
+                ]
+              },
+              'tokenRange': [
+                65,
+                68
+              ]
+            },
+            {
+              'type': 'objectField',
+              'fieldName': {
+                'tag': 2,
+                'loc': loc(21, 3, 21, 11),
+                'lexeme': 'callback',
+                'index': 69
+              },
+              'expr': {
+                'type': 'variable',
+                'id': {
+                  'tag': 2,
+                  'loc': loc(21, 14, 21, 22),
+                  'lexeme': 'callback',
+                  'index': 71
+                },
+                'loc': loc(21, 14, 21, 22),
+                'tokenRange': [
+                  71,
+                  72
+                ]
+              },
+              'tokenRange': [
+                69,
+                72
+              ]
+            },
+            {
+              'type': 'objectField',
+              'fieldName': {
+                'tag': 2,
+                'loc': loc(22, 3, 22, 11),
+                'lexeme': 'interval',
+                'index': 73
+              },
+              'expr': {
+                'type': 'number',
+                'value': {
+                  'tag': 9,
+                  'loc': loc(22, 13, 22, 14),
+                  'value': 3,
+                  'type': 'integer',
+                  'index': 75
+                },
+                'loc': loc(22, 13, 22, 14),
+                'tokenRange': [
+                  75,
+                  76
+                ]
+              },
+              'tokenRange': [
+                73,
+                76
+              ]
+            },
+            {
+              'type': 'objectField',
+              'fieldName': {
+                'tag': 2,
+                'loc': loc(23, 3, 23, 8),
+                'lexeme': 'times',
+                'index': 77
+              },
+              'expr': {
+                'type': 'number',
+                'value': {
+                  'tag': 9,
+                  'loc': loc(23, 11, 23, 13),
+                  'value': 10,
+                  'type': 'integer',
+                  'index': 79
+                },
+                'loc': loc(23, 11, 23, 13),
+                'tokenRange': [
+                  79,
+                  80
+                ]
+              },
+              'tokenRange': [
+                77,
+                80
+              ]
+            },
+            {
+              'type': 'objectField',
+              'fieldName': {
+                'tag': 2,
+                'loc': loc(24, 3, 24, 8),
+                'lexeme': 'input',
+                'index': 81
+              },
+              'expr': {
+                'type': 'property_access',
+                'id': {
+                  'tag': 2,
+                  'loc': loc(24, 11, 24, 15),
+                  'lexeme': 'data',
+                  'index': 83
+                },
+                'propertyPath': [
+                  {
+                    'tag': 2,
+                    'loc': loc(24, 16, 24, 20),
+                    'lexeme': 'size',
+                    'index': 85
+                  }
+                ],
+                'loc': loc(24, 11, 24, 20),
+                'tokenRange': [
+                  83,
+                  86
+                ]
+              },
+              'tokenRange': [
+                81,
+                86
+              ]
+            }
+          ],
+          'loc': loc(18, 13, 25, 2),
+          'tokenRange': [
+            60,
+            88
+          ]
+        },
+        'loc': loc(18, 1, 26, 7),
+        'tokenRange': [
+          58,
+          89
+        ]
+      }
+    ]);
   });
 
-  it('get notes in funtion body should be', function () {
+  it('get notes in funtion body should be ok', function () {
     expect(noteUtil.getNotes(notes, nodes[3].tokenRange[0], nodes[3].tokenRange[1])).to.eql([
       {
         'type': 'note',
@@ -410,6 +725,37 @@ describe('note util', function () {
         'tokenRange': [
           100,
           104
+        ]
+      }
+    ]);
+
+    expect(nodes[4].functionBody.stmts.stmts[3].notes).to.eql([
+      {
+        'type': 'note',
+        'note': {
+          'tag': 43,
+          'loc': loc(19, 1, 19, 11),
+          'lexeme': '@aliasName',
+          'index': 38
+        },
+        'arg': {
+          'type': 'string',
+          'value': {
+            'tag': 1,
+            'loc': loc(19, 13, 19, 25),
+            'string': 'getFileOther',
+            'index': 40
+          },
+          'loc': loc(19, 13, 19, 25),
+          'tokenRange': [
+            40,
+            41
+          ]
+        },
+        'loc': loc(19, 1, 20, 6),
+        'tokenRange': [
+          38,
+          42
         ]
       }
     ]);

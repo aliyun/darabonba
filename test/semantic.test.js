@@ -609,6 +609,7 @@ describe('semantic', function () {
       'tokenRange': [36, 40],
       expr: {
         type: 'call',
+        notes: [],
         'tokenRange': [37, 40],
         isStatic: false,
         isAsync: true,
@@ -1612,6 +1613,7 @@ describe('semantic', function () {
       'isStatic': false,
       'isAsync': false,
       'hasThrow': false,
+      'notes': [],
       'params': {
         'params': [],
         'type': 'params',
@@ -1666,6 +1668,7 @@ describe('semantic', function () {
                   'name': 'void',
                   'type': 'basic'
                 },
+                'notes': [],
                 'tokenRange': [25, 30],
                 'type': 'call',
                 'loc': loc(8, 16, 8, 24)
@@ -1705,6 +1708,7 @@ describe('semantic', function () {
       'isStatic': false,
       'isAsync': false,
       'hasThrow': false,
+      'notes': [],
       'params': {
         'params': [],
         'type': 'params',
@@ -1846,6 +1850,7 @@ describe('semantic', function () {
             },
             'type': 'method_call'
           },
+          'notes': [],
           'tokenRange': [22, 26],
           'type': 'call'
         }
@@ -1955,6 +1960,7 @@ describe('semantic', function () {
           'isAsync': false,
           'isStatic': true,
           'hasThrow': false,
+          'notes': [],
           'left': {
             'id': {
               'index': 33,
@@ -2028,6 +2034,7 @@ describe('semantic', function () {
           'isStatic': true,
           'isAsync': false,
           'hasThrow': false,
+          'notes': [],
           'tokenRange': [45, 49],
           'type': 'call',
           'inferred': {
@@ -2852,6 +2859,7 @@ describe('semantic', function () {
       'isAsync': false,
       'isStatic': true,
       'hasThrow': false,
+      'notes': [],
       'params': {
         'params': [],
         'type': 'params'
@@ -2888,6 +2896,7 @@ describe('semantic', function () {
     expect(typedef).to.eql({
       'annotation': undefined,
       'type': 'type',
+      'notes': [],
       'tokenRange': [1, 5],
       'value': {
         'index': 4,
@@ -3162,6 +3171,7 @@ describe('semantic', function () {
             'type': 'method_call'
           },
           'loc': loc(5, 11, 5, 23),
+          'notes': [],
           'tokenRange': [26, 31],
           'type': 'call'
         }
@@ -3228,6 +3238,7 @@ describe('semantic', function () {
           },
           'loc': loc(5, 9, 5, 21),
           'tokenRange': [26, 31],
+          'notes': [],
           'type': 'call'
         }
       ]);
@@ -3278,6 +3289,7 @@ describe('semantic', function () {
           },
           'loc': loc(5, 11, 5, 22),
           'tokenRange': [26, 30],
+          'notes': [],
           'type': 'call'
         }
       ]);
@@ -3341,6 +3353,7 @@ describe('semantic', function () {
           },
           'loc': loc(5, 11, 5, 23),
           'tokenRange': [26, 31],
+          'notes': [],
           'type': 'call'
         }
       ]);
