@@ -7492,6 +7492,19 @@ describe('semantic', function () {
     }).to.not.throwException();
   });
 
+  it('use $RuntimeOptions ipv4Only shoule be ok', function(){
+    expect(function () {
+      parse(`
+      static function getIpv4Only(runtime: $RuntimeOptions): boolean {
+        var opts = new $RuntimeOptions{
+          ipv4Only = true,
+        };
+        var v = $default(runtime.ipv4Only, opts.ipv4Only);
+        return runtime.ipv4Only;
+      }`, '__filename');
+    }).to.not.throwException();
+  });
+
   it('use extend model assign shoule be ok', function(){
     expect(function () {
       parse(`
