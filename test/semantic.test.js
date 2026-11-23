@@ -36,6 +36,23 @@ function loc(startLine, startColumn, endLine, endColumn) {
 
 describe('semantic', function () {
 
+  it('OSS 私网地址应支持 Runtime 构造和字段访问', function () {
+    const ast = parse(`
+      static function endpoint(runtime: $RuntimeOptions): string {
+        var options = new $RuntimeOptions{ossPrivateUrl = 'http://private.example'};
+        runtime.ossPrivateUrl = options.ossPrivateUrl;
+        return runtime.ossPrivateUrl;
+      }`, '__filename');
+    expect(ast).to.be.ok();
+  });
+
+  it('OSS 私网地址不能使用非字符串值', function () {
+    expect(() => parse(`
+      static function endpoint(): void {
+        var options = new $RuntimeOptions{ossPrivateUrl = 123};
+      }`, '__filename')).to.throwException();
+  });
+
   it('virtualVariable without type should not ok', function () {
     expect(() => {
       parse(`
